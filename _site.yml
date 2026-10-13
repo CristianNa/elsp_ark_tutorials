@@ -38,3 +38,4 @@ output:
     number_sections: false
     code_folding: show
     fig_caption: true
+    code_download: true

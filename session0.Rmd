@@ -267,15 +267,27 @@ stopifnot(
   all(count_values == round(count_values))
 )
 
+# Identify count-table ASVs without matching taxonomy records.
 missing_taxonomy <- asv_tab %>%
   select(asv_id) %>%
   anti_join(asv_tax, by = "asv_id")
 
-if (nrow(missing_taxonomy) > 0) {
-  stop("Some ASVs have no row in the taxonomy table.")
+n_matched <- sum(asv_tab$asv_id %in% asv_tax$asv_id)
+
+# Stop if there is no identifier overlap at all.
+if (n_matched == 0) {
+  stop(
+    "No ASV identifiers match between counts and taxonomy. ",
+    "Check the input files and identifier formats."
+  )
 }
 
-rm(count_values)
+tibble(
+  count_table_asvs = nrow(asv_tab),
+  matched_asvs = n_matched,
+  unmatched_asvs = nrow(missing_taxonomy)
+) %>%
+  knitr::kable()
 ```
 
 ## 3. Define taxonomic labels and sample types
