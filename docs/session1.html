@@ -34,6 +34,7 @@
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -48,6 +49,11 @@
 
 
 
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
 
 
 
@@ -355,6 +361,8 @@ div.tocify {
 <ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
 </ul>
 </div>
 
@@ -373,6 +381,7 @@ href="index.html">Home</a> | <a href="session2.html">Next: Session
 2</a></p>
 </div>
 
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlNlc3Npb24gMTogRGl2ZXJzaXR5IGFuZCByZWdyZXNzaW9uIg0KLS0tDQoNCiMjIFR1dG9yaWFsIHN0YXR1cw0KDQpUaGlzIHR1dG9yaWFsIGlzIHVuZGVyIGRldmVsb3BtZW50Lg0KDQpbUHJldmlvdXM6IFNlc3Npb24gMF0oc2Vzc2lvbjAuaHRtbCkgfA0KW0hvbWVdKGluZGV4Lmh0bWwpIHwNCltOZXh0OiBTZXNzaW9uIDJdKHNlc3Npb24yLmh0bWwp</div>
 
 
 </div>
@@ -410,6 +419,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
+  window.initializeSourceEmbed("session1.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>

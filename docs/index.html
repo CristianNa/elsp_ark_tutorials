@@ -34,6 +34,7 @@
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -48,6 +49,11 @@
 
 
 
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
 
 
 
@@ -355,6 +361,8 @@ div.tocify {
 <ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
 </ul>
 </div>
 
@@ -395,6 +403,7 @@ data, and preparation steps.</p>
 the inputs needed for its own analysis.</p>
 </div>
 
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkVMU1AgVHV0b3JpYWxzIg0KLS0tDQoNCiMjIEFib3V0IHRoZXNlIHR1dG9yaWFscw0KDQpUaGlzIHNlcmllcyBpbnRyb2R1Y2VzIG1ldGhvZHMgZm9yIGFuYWx5c2luZyBlRE5BIG1ldGFiYXJjb2RpbmcgZGF0YSB1c2luZyBSLg0KDQpUaGUgdHV0b3JpYWxzIGNvbWJpbmUgZXhwbGFuYXRpb25zLCBleGVjdXRhYmxlIGNvZGUsIGFuZCBpbnRlcnByZXRhdGlvbg0Kb2YgYW5hbHl0aWNhbCBvdXRwdXRzLg0KDQojIyBUdXRvcmlhbCBzZXF1ZW5jZQ0KDQpXb3JrIHRocm91Z2ggdGhlIHNlc3Npb25zIGluIHRoZSBmb2xsb3dpbmcgb3JkZXI6DQoNCjEuIFtTZXNzaW9uIDA6IEdldHRpbmcgc3RhcnRlZF0oc2Vzc2lvbjAuaHRtbCkNCjIuIFtTZXNzaW9uIDE6IERpdmVyc2l0eSBhbmQgcmVncmVzc2lvbl0oc2Vzc2lvbjEuaHRtbCkNCjMuIFtTZXNzaW9uIDI6IFJEQSBhbmQgaW5kaWNhdG9yIHNwZWNpZXMgYW5hbHlzaXNdKHNlc3Npb24yLmh0bWwpDQo0LiBbU2Vzc2lvbiAzOiBKb2ludCBzcGVjaWVzIGRpc3RyaWJ1dGlvbiBtb2RlbHNdKHNlc3Npb24zLmh0bWwpDQoNClRoZSB0dXRvcmlhbCBwYWdlcyBhcmUgY3VycmVudGx5IHVuZGVyIGRldmVsb3BtZW50Lg0KDQojIyBIb3cgdG8gdXNlIHRoZSB0dXRvcmlhbHMNCg0KUmVhZCB0aGUgZXhwbGFuYXRpb25zIGFsb25nc2lkZSB0aGUgY29kZSBhbmQgcnVuIHRoZSBleGFtcGxlcyBsb2NhbGx5Lg0KDQpFYWNoIGNvbXBsZXRlZCB0dXRvcmlhbCB3aWxsIGRlc2NyaWJlIGl0cyByZXF1aXJlZCBwYWNrYWdlcywgaW5wdXQgZGF0YSwNCmFuZCBwcmVwYXJhdGlvbiBzdGVwcy4NCg0KQWx0aG91Z2ggdGhlIHNlc3Npb25zIGJ1aWxkIG9uIGVhcmxpZXIgY29uY2VwdHMsIGVhY2ggcGFnZSB3aWxsIGxvYWQNCnRoZSBpbnB1dHMgbmVlZGVkIGZvciBpdHMgb3duIGFuYWx5c2lzLg==</div>
 
 
 </div>
@@ -432,6 +441,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
+  window.initializeSourceEmbed("index.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
