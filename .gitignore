@@ -1,0 +1,17 @@
+# Local R and RStudio state
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Operating system files
+.DS_Store
+Thumbs.db
+/scripts/
+
+# Temporary rendering output in the repository root
+/_site/
+/site_libs/
+/*_files/
+/*_cache/
+/*.html

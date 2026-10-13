@@ -1,0 +1,31 @@
+---
+title: "ELSP Tutorials"
+---
+
+## About these tutorials
+
+This series introduces methods for analysing eDNA metabarcoding data using R.
+
+The tutorials combine explanations, executable code, and interpretation
+of analytical outputs.
+
+## Tutorial sequence
+
+Work through the sessions in the following order:
+
+1. [Session 0: Getting started](session0.html)
+2. [Session 1: Diversity and regression](session1.html)
+3. [Session 2: RDA and indicator species analysis](session2.html)
+4. [Session 3: Joint species distribution models](session3.html)
+
+The tutorial pages are currently under development.
+
+## How to use the tutorials
+
+Read the explanations alongside the code and run the examples locally.
+
+Each completed tutorial will describe its required packages, input data,
+and preparation steps.
+
+Although the sessions build on earlier concepts, each page will load
+the inputs needed for its own analysis.

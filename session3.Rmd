@@ -1,0 +1,9 @@
+---
+title: "Session 3: Joint species distribution models"
+---
+
+## Tutorial status
+
+This tutorial is under development.
+
+[Previous: Session 2](session2.html) | [Home](index.html)

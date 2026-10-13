@@ -1,0 +1,40 @@
+name: "elsp_ark--tutorials"
+output_dir: "docs"
+new_session: true
+
+exclude:
+  - "README.md"
+  - "README.html"
+  - "scripts"
+  - "data"
+  - "renv"
+  - "renv.lock"
+
+navbar:
+  title: "ELSP-ARK Tutorials"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Tutorials"
+      menu:
+        - text: "Session 0: Getting started"
+          href: session0.html
+        - text: "Session 1: Diversity and regression"
+          href: session1.html
+        - text: "Session 2: RDA and indicator species analysis"
+          href: session2.html
+        - text: "Session 3: Joint species distribution models"
+          href: session3.html
+
+output:
+  html_document:
+    theme: flatly
+    highlight: tango
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    number_sections: false
+    code_folding: show
+    fig_caption: true
