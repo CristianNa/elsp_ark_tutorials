@@ -1,9 +1,1117 @@
 ---
-title: "Session 0: Getting started"
+title: "Session 0: From sequencing reads to community data"
 ---
 
-## Tutorial status
+```{r chunk-options, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = TRUE,
+  error = FALSE,
+  cache = FALSE,
+  fig.width = 8,
+  fig.height = 5,
+  fig.align = "center"
+)
+```
 
-This tutorial is under development.
+## What this session produces
+
+This session starts with an ASV read-count table, taxonomic assignments,
+a laboratory-to-field lookup, and sample metadata.
+
+We will:
+
+1. Connect sequencing records to their taxonomic and sampling information.
+2. Inspect the process controls.
+3. Apply confidence, control-count, and relative-frequency filters.
+4. Construct community matrices and align their metadata.
+5. Explore sequencing depth and sample accumulation.
+
+The final outputs are a filtered read-count matrix, presence–absence and
+relative-frequency matrices, and matching sample metadata.
+
+<!-- Author note: Introduce the study, marker, sampling design, and the
+relationship between a field site, a soil sample, a laboratory sample,
+and an ASV. Explain what the four habitat categories represent. -->
+
+## 1. Prepare the working environment
+
+Open the tutorial repository as an RStudio Project. Save this document
+as `session0.Rmd` in the repository's top-level directory.
+
+Install the required packages once, if they are not already available:
+
+```{r install-packages, eval=FALSE}
+install.packages(
+  c("here", "tidyverse", "janitor", "vegan", "iNEXT")
+)
+```
+
+Load the packages for this session.
+
+```{r packages}
+library(here)
+library(tidyverse)
+library(janitor)
+library(vegan)
+library(iNEXT)
+
+# Declare this document's location relative to the project root.
+here::i_am("session0.Rmd")
+
+if (packageVersion("dplyr") < "1.1.1") {
+  stop("Update dplyr to use the join checks in this tutorial.")
+}
+```
+
+### Analysis settings
+
+Keeping the main settings together makes it easier to explore how
+different filtering decisions affect the results.
+
+The values below reproduce the thresholds in the original workflow.
+They are choices for this dataset rather than universal defaults.
+
+```{r analysis-settings}
+tax_ranks <- c(
+  "species", "genus", "family", "order",
+  "class", "phylum", "kingdom"
+)
+
+habitat_levels <- c(
+  "heath", "regen", "com_wood", "mat_wood"
+)
+
+confidence_cutoff <- 0.7
+relative_cutoff <- 0.001
+min_reads <- 3000
+
+positive_control_taxon <- "Mesembrina_mystacea"
+
+# Use TRUE only for the original, uncorrected sample labels.
+apply_label_correction <- TRUE
+
+data_dir <- here::here("data", "session0")
+```
+
+<!-- Author note: Explain the classifier's confidence score and why these
+thresholds were selected. Do not describe the score as a probability of
+correct identification unless that interpretation is documented. -->
+
+## 2. Read the four input tables
+
+The tables describe different parts of the workflow. They are connected
+through identifiers:
+
+- `asv_id` connects read counts to taxonomy.
+- `lab_id` connects sequencing columns to laboratory records and metadata.
+- `sample_id` identifies the biological samples used in the analyses.
+
+Check that the files are available before importing them.
+
+```{r locate-inputs}
+input_files <- c(
+  counts = file.path(data_dir, "ASV_table.tsv"),
+  taxonomy = file.path(data_dir, "ASV_tax_session0.csv"),
+  lab_lookup = file.path(data_dir, "lab_field_id.csv"),
+  metadata = file.path(data_dir, "CC_metadata_session0.csv")
+)
+
+missing_files <- input_files[!file.exists(input_files)]
+
+if (length(missing_files) > 0) {
+  stop(
+    "Missing input files:\n",
+    paste(missing_files, collapse = "\n")
+  )
+}
+```
+
+### ASV counts
+
+The count table is initially wide: each laboratory sample occupies a
+separate column.
+
+```{r read-counts}
+asv_tab <- read_tsv(
+  input_files[["counts"]],
+  col_types = cols(.default = col_character())
+) %>%
+  clean_names() %>%
+  mutate(
+    asv_id = str_trim(asv_id),
+
+    # Parse sample counts while preserving ASV identifiers as text.
+    across(-asv_id, readr::parse_double)
+  )
+```
+
+### Taxonomic assignments
+
+This file contains the prepared rank hierarchy and assignment confidence
+for each ASV. The taxonomic harmonisation that produced it is an upstream
+preparation step.
+
+```{r read-taxonomy}
+asv_tax <- read_csv(
+  input_files[["taxonomy"]],
+  col_types = cols(
+    .default = col_character(),
+    confidence = col_double()
+  )
+) %>%
+  clean_names() %>%
+  mutate(asv_id = str_trim(asv_id))
+```
+
+### Laboratory-to-field lookup
+
+The lookup connects laboratory identifiers to field records. We retain
+only the columns required here.
+
+```{r read-laboratory-lookup}
+lab_field_id <- read_csv(
+  input_files[["lab_lookup"]],
+  col_types = cols(.default = col_character())
+) %>%
+  clean_names() %>%
+  rename(field_id_lab = field_id) %>%
+  transmute(
+    lab_id = str_to_upper(str_trim(lab_id)),
+    field_id_lab = na_if(str_trim(field_id_lab), "")
+  )
+```
+
+### Sample metadata
+
+Keep the complete metadata table, including samples with no sequencing
+results. This allows us to distinguish missing sequencing records from
+samples removed by filtering.
+
+```{r read-metadata}
+metadata_cc <- read_csv(
+  input_files[["metadata"]],
+  col_types = cols(
+    sample_id = col_character(),
+    lab_id = col_character(),
+    field_id = col_character()
+  ),
+  show_col_types = FALSE
+) %>%
+  clean_names() %>%
+  mutate(
+    sample_id = str_trim(sample_id),
+    lab_id = na_if(str_to_upper(str_trim(lab_id)), ""),
+    treatment = factor(
+      str_trim(treatment),
+      levels = habitat_levels
+    )
+  )
+```
+
+<!-- Author note: Describe the metadata variables and their units.
+Clarify whether multiple soil samples belong to the same field site. -->
+
+### Check identifiers and counts
+
+The joins below assume one taxonomy record per ASV and one metadata
+record per biological sample. This version also assumes one laboratory
+sample per biological sample.
+
+If technical replicates are present, their aggregation needs an explicit
+rule before using this workflow.
+
+```{r validate-inputs}
+stopifnot(
+  all(tax_ranks %in% names(asv_tax)),
+  "confidence" %in% names(asv_tax),
+
+  !anyNA(asv_tab$asv_id),
+  anyDuplicated(asv_tab$asv_id) == 0,
+
+  !anyNA(asv_tax$asv_id),
+  anyDuplicated(asv_tax$asv_id) == 0,
+
+  !anyNA(lab_field_id$lab_id),
+  anyDuplicated(lab_field_id$lab_id) == 0,
+
+  !anyNA(metadata_cc$sample_id),
+  anyDuplicated(metadata_cc$sample_id) == 0,
+
+  !anyNA(metadata_cc$treatment),
+
+  all(
+    is.na(asv_tax$confidence) |
+      between(asv_tax$confidence, 0, 1)
+  )
+)
+
+# Missing laboratory IDs are allowed for unsequenced samples.
+metadata_lab <- metadata_cc %>%
+  filter(!is.na(lab_id))
+
+stopifnot(
+  anyDuplicated(metadata_lab$lab_id) == 0
+)
+
+count_values <- asv_tab %>%
+  select(-asv_id) %>%
+  as.matrix()
+
+stopifnot(
+  ncol(count_values) > 0,
+  is.numeric(count_values),
+  all(is.finite(count_values)),
+  all(count_values >= 0),
+  all(count_values == round(count_values))
+)
+
+missing_taxonomy <- asv_tab %>%
+  select(asv_id) %>%
+  anti_join(asv_tax, by = "asv_id")
+
+if (nrow(missing_taxonomy) > 0) {
+  stop("Some ASVs have no row in the taxonomy table.")
+}
+
+rm(count_values)
+```
+
+## 3. Define taxonomic labels and sample types
+
+### Choose the most resolved available taxonomic label
+
+An ASV may have a species assignment, a genus assignment, or only a
+higher-rank assignment. We use the first available name, starting with
+species and working towards kingdom.
+
+Several ASVs can therefore share one taxonomic label. The resulting
+community matrix will describe these labels rather than individual ASVs.
+
+```{r taxonomic-labels}
+asv_tax <- asv_tax %>%
+  mutate(
+    # Treat empty rank entries as missing before choosing a label.
+    across(
+      all_of(tax_ranks),
+      ~ na_if(str_trim(.x), "")
+    ),
+
+    consensus_name = coalesce(
+      species, genus, family, order,
+      class, phylum, kingdom
+    )
+  )
+```
+
+<!-- Author note: Explain the implications of mixing taxonomic ranks.
+A genus-level label should not be described as a species identification. -->
+
+### Correct the documented laboratory-label shift
+
+The original workflow contains two linked corrections:
+
+- `PC03` becomes `AP845`.
+- `NC03` becomes `PC03`.
+
+These corrections apply to the count-table labels. Keep
+`apply_label_correction = FALSE` if the supplied table has already been
+corrected.
+
+```{r sample-key}
+sample_key <- tibble(
+  lab_id_original = setdiff(names(asv_tab), "asv_id")
+) %>%
+  mutate(lab_id = str_to_upper(lab_id_original))
+
+if (apply_label_correction) {
+  sample_key <- sample_key %>%
+    mutate(
+      lab_id = case_when(
+        lab_id == "PC03" ~ "AP845",
+        lab_id == "NC03" ~ "PC03",
+        TRUE ~ lab_id
+      )
+    )
+}
+
+# Stop if corrected columns would collapse onto the same laboratory ID.
+if (anyDuplicated(sample_key$lab_id) > 0) {
+  stop("The label correction creates duplicated laboratory IDs.")
+}
+```
+
+Classify the laboratory samples before filtering their read counts.
+This preserves an inventory of controls even when they have no reads
+assigned to the target group.
+
+```{r classify-samples}
+sample_key <- sample_key %>%
+  # Attach field labels to distinguish extraction controls.
+  left_join(
+    lab_field_id,
+    by = "lab_id",
+    relationship = "many-to-one"
+  ) %>%
+  mutate(
+    sample_type = case_when(
+      str_detect(lab_id, "^PC") ~ "PCR positive",
+      str_detect(lab_id, "^NC") ~ "PCR negative",
+      str_detect(
+        coalesce(field_id_lab, ""),
+        regex("extraction|blank", ignore_case = TRUE)
+      ) ~ "Extraction blank",
+      TRUE ~ "Field sample"
+    )
+  )
+
+unidentified_samples <- sample_key %>%
+  filter(
+    sample_type == "Field sample",
+    is.na(field_id_lab)
+  )
+
+if (nrow(unidentified_samples) > 0) {
+  stop(
+    "Some apparent field samples lack a field label. ",
+    "Complete the lookup before classifying them."
+  )
+}
+
+if (!any(sample_key$sample_type != "Field sample")) {
+  stop("No process controls were recognised in the count table.")
+}
+
+sample_key %>%
+  count(sample_type, name = "n_laboratory_samples") %>%
+  knitr::kable()
+```
+
+<!-- Author note: Explain the purpose of the positive, negative, and
+extraction controls. If IDs are anonymised, preserve or replace the
+information used to recognise these controls. -->
+
+## 4. Reshape the counts and attach taxonomy
+
+A long table gives each ASV–laboratory-sample combination its own row.
+This structure makes it easier to join information and apply filters.
+
+Zero counts are omitted from this long detection table. We will restore
+zeros when constructing the community matrix.
+
+```{r long-detection-table}
+asv_long <- asv_tab %>%
+  # Turn the laboratory-sample columns into identifier–count pairs.
+  pivot_longer(
+    cols = -asv_id,
+    names_to = "lab_id_original",
+    values_to = "reads"
+  ) %>%
+  filter(reads > 0) %>%
+
+  # Attach corrected laboratory IDs and sample classifications.
+  left_join(
+    sample_key,
+    by = "lab_id_original",
+    relationship = "many-to-one"
+  ) %>%
+
+  # Attach one prepared taxonomy record to each ASV.
+  left_join(
+    asv_tax,
+    by = "asv_id",
+    relationship = "many-to-one"
+  )
+```
+
+<!-- Author note: Explain why long data are useful for joins and filtering,
+while matrix data are useful for community analyses. -->
+
+## 5. Inspect the process controls
+
+We first restrict the control records to Metazoa and combine ASVs that
+share the same taxonomic assignment.
+
+Control counts are assessed before the confidence filter, matching the
+original workflow.
+
+```{r aggregate-controls}
+controls <- asv_long %>%
+  filter(
+    sample_type != "Field sample",
+    kingdom == "Metazoa"
+  ) %>%
+  group_by(
+    lab_id, sample_type, consensus_name,
+    across(all_of(tax_ranks))
+  ) %>%
+  summarise(
+    reads = sum(reads),
+    .groups = "drop"
+  )
+```
+
+### Visualise control detections
+
+The heatmap compares taxonomic read counts across process controls.
+For the displayed labels, missing control–label combinations are filled
+with zero, including controls with no metazoan detections.
+
+```{r control-heatmap, fig.height=7}
+if (nrow(controls) > 0) {
+
+  control_inventory <- sample_key %>%
+    filter(sample_type != "Field sample") %>%
+    select(lab_id, sample_type)
+
+  control_counts <- controls %>%
+    group_by(lab_id, sample_type, consensus_name) %>%
+    summarise(reads = sum(reads), .groups = "drop")
+
+  control_plot_data <- tidyr::expand_grid(
+    control_inventory,
+    consensus_name = sort(unique(controls$consensus_name))
+  ) %>%
+    left_join(
+      control_counts,
+      by = c("lab_id", "sample_type", "consensus_name"),
+      relationship = "one-to-one"
+    ) %>%
+    mutate(reads = replace_na(reads, 0))
+
+  ggplot(
+    control_plot_data,
+    aes(
+      x = lab_id,
+      y = fct_rev(factor(consensus_name)),
+      fill = reads
+    )
+  ) +
+    geom_tile(colour = "black") +
+    scale_fill_gradientn(
+      name = "Read counts",
+      colours = c("white", "red", "black"),
+      values = c(0, 0.1, 1),
+      limits = c(0, NA)
+    ) +
+    facet_grid(
+      . ~ sample_type,
+      scales = "free_x",
+      space = "free_x"
+    ) +
+    labs(
+      x = "Process controls",
+      y = "Taxonomic assignment"
+    ) +
+    theme_bw() +
+    theme(
+      panel.grid = element_blank(),
+      axis.text.x = element_text(angle = 45, hjust = 1),
+      axis.text.y = element_text(face = "italic")
+    )
+
+} else {
+
+  cat("No metazoan reads were detected in the recognised controls.")
+
+}
+```
+
+<!-- Author note: Interpret the actual heatmap after rendering.
+Identify the deliberately introduced positive-control taxon and discuss
+other control detections without assuming every detection has the same
+source. -->
+
+### Define subtraction thresholds
+
+For each full taxonomic rank profile, we take the largest count observed
+in any process control. This count will be subtracted from the
+corresponding field-sample count.
+
+The deliberately introduced positive-control taxon is excluded from
+these thresholds.
+
+This is the filtering rule used in this dataset. It does not establish
+that all contamination has been removed, and it does not account for
+differences in sequencing depth between controls.
+
+```{r control-thresholds}
+control_thresholds <- controls %>%
+  filter(consensus_name != positive_control_taxon) %>%
+  group_by(across(all_of(tax_ranks))) %>%
+  summarise(
+    threshold = max(reads),
+    .groups = "drop"
+  )
+```
+
+Excluding the positive-control taxon from the thresholds does not remove
+its detections from field samples. That distinction is retained from the
+original workflow.
+
+## 6. Filter the field-sample detections
+
+### Select the target group and confident assignments
+
+Keep field samples assigned to Metazoa with a reported confidence score
+at or above the chosen cutoff. Records with missing confidence scores
+are not retained.
+
+The `semi_join()` restricts the analysis to laboratory IDs represented
+in the study metadata, without adding metadata columns at this stage.
+
+```{r select-field-detections}
+field_detections <- asv_long %>%
+  filter(
+    sample_type == "Field sample",
+    kingdom == "Metazoa",
+    confidence >= confidence_cutoff
+  ) %>%
+  semi_join(
+    metadata_lab,
+    by = "lab_id",
+    na_matches = "never"
+  )
+```
+
+### Combine ASVs with the same assignment
+
+Counts are aggregated within each laboratory sample before applying the
+taxonomic control threshold.
+
+```{r aggregate-field-counts}
+field_counts <- field_detections %>%
+  group_by(
+    lab_id, consensus_name,
+    across(all_of(tax_ranks))
+  ) %>%
+  summarise(
+    reads = sum(reads),
+    .groups = "drop"
+  )
+```
+
+### Subtract the control threshold
+
+The join uses the full rank profile. Matching missing lower ranks is
+intentional: an unresolved genus-level assignment can still match the
+same genus-level profile in the controls.
+
+Assignments absent from the control table receive a threshold of zero.
+
+```{r subtract-control-counts}
+field_corrected <- field_counts %>%
+  left_join(
+    control_thresholds,
+    by = tax_ranks,
+    na_matches = "na",
+    relationship = "many-to-one"
+  ) %>%
+  mutate(
+    threshold = replace_na(threshold, 0),
+
+    # Clamp corrected counts at zero before removing non-detections.
+    reads = pmax(reads - threshold, 0)
+  ) %>%
+  filter(reads > 0)
+```
+
+### Remove low-frequency detections
+
+Calculate each assignment's fraction of the remaining target-group
+reads within its laboratory sample. Retain fractions strictly above
+0.001, equivalent to 0.1%.
+
+The denominator is the post-subtraction metazoan total, not the total
+number of raw sequencing reads.
+
+```{r relative-frequency-filter}
+asv_clean <- field_corrected %>%
+  group_by(lab_id) %>%
+  mutate(relfreq = reads / sum(reads)) %>%
+  ungroup() %>%
+  filter(relfreq > relative_cutoff) %>%
+
+  # Recalculate totals after the low-frequency detections are removed.
+  group_by(lab_id) %>%
+  mutate(
+    total_reads = sum(reads),
+    relfreq = reads / total_reads
+  ) %>%
+  ungroup()
+```
+
+<!-- Author note: Explain the intended role and limitations of each filter.
+Distinguish a filtering decision from evidence that a taxon is absent
+from the sampled environment. -->
+
+## 7. Attach metadata and audit sample retention
+
+Attach the study metadata using the laboratory identifier.
+
+```{r attach-metadata}
+asv_cc <- asv_clean %>%
+  left_join(
+    metadata_lab,
+    by = "lab_id",
+    relationship = "many-to-one"
+  )
+
+if (nrow(asv_cc) == 0) {
+  stop("No field detections remain after filtering.")
+}
+```
+
+### Separate missing sequencing records from filtering losses
+
+Start the audit from the complete metadata table. This keeps samples
+that are absent from the count table in the accounting.
+
+An entry in the count table does not necessarily imply that reads
+survived the filters.
+
+```{r first-retention-audit}
+sample_audit <- metadata_cc %>%
+  mutate(
+    in_count_table = lab_id %in% sample_key$lab_id,
+    has_filtered_detections = sample_id %in% asv_cc$sample_id,
+
+    status_before_depth = case_when(
+      !in_count_table ~ "Absent from count table",
+      !has_filtered_detections ~ "No detections after filtering",
+      TRUE ~ "Retained before depth filter"
+    )
+  )
+
+sample_audit %>%
+  count(treatment, status_before_depth, name = "n_samples") %>%
+  knitr::kable()
+```
+
+Store the individual excluded records for local inspection. The object
+is created without displaying identifying metadata in the tutorial.
+
+```{r excluded-records}
+excluded_first_stage <- sample_audit %>%
+  filter(!has_filtered_detections) %>%
+  select(
+    sample_id, lab_id, treatment,
+    in_count_table, status_before_depth
+  )
+```
+
+<!-- Author note: Explain the observed pattern of sample loss across
+habitats. Avoid interpreting samples with no retained detections as
+confirmed biological absences. -->
+
+## 8. Construct the community matrix
+
+Community analyses generally use a matrix with samples in rows and taxa
+in columns.
+
+Before constructing it, check that a taxonomic label does not refer to
+conflicting rank profiles. Otherwise, widening by label would combine
+those profiles silently.
+
+```{r check-taxonomic-labels}
+taxon_lookup <- asv_cc %>%
+  select(consensus_name, all_of(tax_ranks)) %>%
+  distinct()
+
+if (anyDuplicated(taxon_lookup$consensus_name) > 0) {
+  stop(
+    "Some taxonomic labels have conflicting rank profiles. ",
+    "Resolve these labels before constructing the matrix."
+  )
+}
+```
+
+Now widen the filtered detection table. A zero represents no retained
+detection for that sample–label combination.
+
+```{r community-matrix}
+comm <- asv_cc %>%
+  select(sample_id, consensus_name, reads) %>%
+  pivot_wider(
+    names_from = consensus_name,
+    values_from = reads,
+    values_fill = 0,
+    values_fn = sum
+  ) %>%
+  column_to_rownames("sample_id") %>%
+  as.matrix()
+
+tibble(
+  n_samples = nrow(comm),
+  n_taxonomic_labels = ncol(comm)
+) %>%
+  knitr::kable()
+```
+
+### Summarise filtered read depth
+
+Read depth here is the number of reads remaining after the preceding
+filters.
+
+```{r filtered-read-depth}
+read_depth <- asv_cc %>%
+  distinct(sample_id, treatment, total_reads)
+
+stopifnot(
+  anyDuplicated(read_depth$sample_id) == 0
+)
+
+read_depth %>%
+  summarise(
+    mean_reads = mean(total_reads),
+    min_reads = min(total_reads),
+    max_reads = max(total_reads)
+  ) %>%
+  knitr::kable()
+```
+
+## 9. Explore read-based rarefaction
+
+These curves describe the expected number of retained taxonomic labels
+when taking smaller read subsamples from each filtered sample.
+
+They are conditional on the preceding filtering and taxonomic
+aggregation. They should not be interpreted as organism-based
+rarefaction or as estimates of all species present.
+
+Removing low-frequency detections can also change the curve shapes.
+Warnings about missing singleton counts should therefore be examined
+rather than automatically suppressed.
+
+```{r calculate-rarefaction}
+rarecurve_df <- vegan::rarecurve(
+  comm,
+  step = 100,
+  label = FALSE,
+  tidy = TRUE
+) %>%
+  as_tibble() %>%
+  mutate(sample_id = as.character(Site)) %>%
+
+  # Attach habitat information to each sample's curve.
+  left_join(
+    metadata_cc %>% select(sample_id, treatment),
+    by = "sample_id",
+    relationship = "many-to-one"
+  )
+```
+
+The vertical line marks the proposed minimum filtered read depth.
+
+```{r plot-rarefaction}
+p_rare <- ggplot(
+  rarecurve_df,
+  aes(x = Sample, y = Species, group = sample_id)
+) +
+  geom_line(alpha = 0.4) +
+  geom_vline(
+    xintercept = min_reads,
+    linetype = "dashed",
+    colour = "red"
+  ) +
+  facet_wrap(~ treatment) +
+  theme_minimal(base_size = 12) +
+  labs(
+    x = "Filtered sequencing depth (reads)",
+    y = "Expected retained taxonomic labels"
+  )
+
+p_rare
+```
+
+For a closer view of the first 5,000 reads, run:
+
+```{r zoom-rarefaction, eval=FALSE}
+p_rare + coord_cartesian(xlim = c(0, 5000))
+```
+
+<!-- Author note: Interpret the actual curves. Explain the evidence and
+practical considerations behind the minimum-depth choice. A flattening
+curve alone does not establish complete ecological sampling. -->
+
+## 10. Apply the minimum read-depth rule
+
+Retain samples with at least 3,000 filtered reads under the current
+settings. Their counts remain unchanged: this step excludes shallow
+samples without rarefying the retained samples to a common depth.
+
+```{r depth-retention-summary}
+read_depth %>%
+  mutate(retained = total_reads >= min_reads) %>%
+  count(treatment, retained, name = "n_samples") %>%
+  knitr::kable()
+```
+
+```{r retain-community-samples}
+asv_final <- asv_cc %>%
+  filter(total_reads >= min_reads)
+
+comm_keep <- comm[
+  rownames(comm) %in% asv_final$sample_id,
+  ,
+  drop = FALSE
+]
+
+if (nrow(comm_keep) == 0) {
+  stop("No samples meet the minimum filtered read depth.")
+}
+
+# Remove taxonomic labels with no detections in the retained samples.
+comm_keep <- comm_keep[
+  ,
+  colSums(comm_keep) > 0,
+  drop = FALSE
+]
+```
+
+### Match the metadata order to the matrix
+
+Having the same sample identifiers is not sufficient: their order must
+also match.
+
+```{r align-metadata}
+metadata_keep <- metadata_cc %>%
+  slice(match(rownames(comm_keep), sample_id))
+
+stopifnot(
+  identical(rownames(comm_keep), metadata_keep$sample_id)
+)
+
+taxon_lookup <- taxon_lookup %>%
+  filter(consensus_name %in% colnames(comm_keep))
+```
+
+### Complete the sample audit
+
+The final audit distinguishes four outcomes.
+
+```{r final-retention-audit}
+sample_audit <- sample_audit %>%
+  left_join(
+    read_depth %>% select(sample_id, total_reads),
+    by = "sample_id",
+    relationship = "one-to-one"
+  ) %>%
+  mutate(
+    retained = sample_id %in% rownames(comm_keep),
+
+    status = case_when(
+      !in_count_table ~ "Absent from count table",
+      !has_filtered_detections ~ "No detections after filtering",
+      total_reads < min_reads ~ "Below minimum read depth",
+      TRUE ~ "Retained"
+    )
+  )
+
+sample_audit %>%
+  count(treatment, status, name = "n_samples") %>%
+  knitr::kable()
+```
+
+<!-- Author note: Discuss the final sample numbers and whether filtering
+has changed the balance of sampling among habitats or field sites. -->
+
+## 11. Create alternative community representations
+
+The read-count matrix retains the corrected sequencing counts.
+
+A presence–absence matrix records whether a taxonomic label has a
+retained detection. A relative-frequency matrix divides each row by its
+total retained read count.
+
+Read frequencies are not direct estimates of organism abundance.
+
+```{r alternative-community-matrices}
+comm_pa <- vegan::decostand(
+  comm_keep,
+  method = "pa"
+)
+
+comm_relfreq <- vegan::decostand(
+  comm_keep,
+  method = "total"
+)
+
+stopifnot(
+  all(comm_pa %in% c(0, 1)),
+  all(abs(rowSums(comm_relfreq) - 1) < 1e-8)
+)
+```
+
+<!-- Author note: Explain which ecological questions each representation
+can address, and which information is discarded by converting to
+presence–absence. -->
+
+## 12. Explore sample accumulation within habitats
+
+Read-based rarefaction varies the number of reads within one sample.
+Here we change the sampling unit: we accumulate soil samples within each
+habitat.
+
+For each habitat, iNEXT receives:
+
+1. The total number of retained soil samples.
+2. The number of those samples in which each taxonomic label was detected.
+
+The detection frequencies come from the presence–absence matrix.
+
+```{r prepare-incidence-frequencies}
+samples_by_habitat <- split(
+  metadata_keep$sample_id,
+  metadata_keep$treatment,
+  drop = TRUE
+)
+
+inext_input <- purrr::map(
+  samples_by_habitat,
+  function(sample_ids) {
+
+    mat <- comm_pa[sample_ids, , drop = FALSE]
+
+    # Count detections across samples for each taxonomic label.
+    freq <- colSums(mat)
+    freq <- freq[freq > 0]
+
+    # iNEXT requires the sampling-unit count as the first entry.
+    c(nrow(mat), freq)
+  }
+)
+
+tibble(
+  habitat = names(inext_input),
+  n_samples = purrr::map_dbl(inext_input, ~ .x[1]),
+  observed_labels = purrr::map_int(
+    inext_input,
+    ~ length(.x) - 1L
+  )
+) %>%
+  knitr::kable()
+```
+
+### Estimate richness accumulation
+
+Setting `q = 0` selects taxon richness. The fixed seed makes the bootstrap
+results reproducible for a given dataset and software environment.
+
+```{r estimate-accumulation}
+set.seed(123)
+
+inext_results <- iNEXT::iNEXT(
+  inext_input,
+  q = 0,
+  datatype = "incidence_freq",
+  nboot = 100
+)
+```
+
+```{r plot-accumulation}
+iNEXT::ggiNEXT(inext_results, type = 1) +
+  theme_minimal(base_size = 12) +
+  labs(
+    x = "Number of soil samples",
+    y = "Taxonomic-label richness",
+    colour = "Habitat",
+    fill = "Habitat"
+  )
+```
+
+### Observed and estimated richness
+
+The asymptotic estimates concern the retained taxonomic labels under the
+sampling and detection process represented by these data.
+
+```{r richness-estimates}
+inext_results$AsyEst %>%
+  filter(Diversity == "Species richness") %>%
+  select(
+    Assemblage, Observed, Estimator, LCL, UCL
+  ) %>%
+  knitr::kable(digits = 1)
+```
+
+Soil samples are accumulated individually. Where samples are clustered
+within field sites, these standard confidence intervals do not account
+for that clustering.
+
+<!-- Author note: Explain interpolation versus extrapolation and interpret
+the uncertainty. Distinguish habitat-level richness from richness within
+an individual soil sample. -->
+
+## 13. Save the prepared data for the next session
+
+Save a dedicated Session 0 bundle rather than overwriting the original
+multi-dataset RDS files.
+
+The bundle contains the community matrices, aligned metadata, retained
+taxonomy, sample audit, and filtering settings.
+
+```{r save-session0-data}
+session0_data <- list(
+  comm = comm_keep,
+  comm_pa = comm_pa,
+  comm_relfreq = comm_relfreq,
+  metadata = metadata_keep,
+  taxonomy = taxon_lookup,
+  sample_audit = sample_audit,
+
+  settings = list(
+    confidence_cutoff = confidence_cutoff,
+    relative_cutoff = relative_cutoff,
+    min_reads = min_reads,
+    positive_control_taxon = positive_control_taxon,
+    apply_label_correction = apply_label_correction,
+    habitat_levels = habitat_levels
+  ),
+
+  session_info = utils::sessionInfo()
+)
+
+derived_dir <- here::here("data", "derived")
+
+dir.create(
+  derived_dir,
+  recursive = TRUE,
+  showWarnings = FALSE
+)
+
+saveRDS(
+  session0_data,
+  file.path(derived_dir, "session0_metazoa.rds")
+)
+```
+
+This RDS contains real derived data and sample metadata. Keep it with
+the private data unless a version has been approved for public release.
+
+## Questions to explore
+
+- How do sample losses differ among habitats?
+- What changes when the confidence cutoff is increased?
+- How does the relative-frequency filter affect retained taxonomic labels?
+- How sensitive are the results to the minimum read-depth rule?
+- Why do read-based and sample-based accumulation curves answer different
+  questions?
+- What changes when multiple ASVs are combined under one taxonomic label?
+
+## Software information
+
+```{r software-information}
+sessionInfo()
+```
+
+## Documentation
+
+- [Project paths with here](https://here.r-lib.org/reference/i_am.html)
+- [Joins with dplyr](https://dplyr.tidyverse.org/reference/mutate-joins.html)
+- [Rarefaction with vegan](https://vegandevs.github.io/vegan/reference/rarefy.html)
+- [Incidence data and diversity estimation with iNEXT](https://github.com/JohnsonHsieh/iNEXT)
+
+---
 
 [Home](index.html) | [Next: Session 1](session1.html)

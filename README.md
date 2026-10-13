@@ -3,7 +3,7 @@
 Four linked tutorials introducing ecological data analysis in R.
 
 **Tutorial website:**  
-https://CristianNa.github.io/elsp_ark_tutorials/
+https://cristianna.github.io/elsp_ark_tutorials/
 
 ## Sessions
 
