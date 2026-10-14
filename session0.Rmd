@@ -324,8 +324,8 @@ asv_long <- asv_tab %>%
   )
 
 preview_table(
-  asv_long %>% select(1:10),
-  "ASV read counts: first six rows and columns")
+  asv_long %>% select(1:10) %>% arrange(lab_id_original),
+  "ASV read counts: first six rows and columns") 
 ```
 
 

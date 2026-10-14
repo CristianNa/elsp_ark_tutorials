@@ -12,6 +12,10 @@ exclude:
 
 navbar:
   title: "ELSP-ARK Tutorials"
+  right:
+    - text: "GitHub repository"
+      icon: fa-github
+      href: https://github.com/CristianNa/elsp_ark_tutorials
   left:
     - text: "Home"
       href: index.html
@@ -25,10 +29,7 @@ navbar:
           href: session2.html
         - text: "Session 3: Joint species distribution models"
           href: session3.html
-    - right:
-    - text: "GitHub repository"
-      icon: fa-github
-      href: https://github.com/CristianNa/elsp_ark_tutorials
+
 
 output:
   html_document:
