@@ -182,6 +182,12 @@ lab_field_id <- read_csv(
     field_id_lab = na_if(str_trim(field_id_lab), ""),
     .keep = "none"
   )
+
+preview_table(
+  lab_field_id %>%
+    select(lab_id, field_id_lab),
+  "Lab to field lookup: first six records"
+)
 ```
 
 ### Sample metadata
