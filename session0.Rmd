@@ -271,7 +271,7 @@ Now that we have the right IDs, we can use the same table, to separate a few thi
 
 Currently we have two types of samples. Actual samples, and controls. Controls include extraction controls, positive controls, and negative controls. 
 
-* **Extraction controls**: are tubes where no sample is added, but where the same process and ragents are added as if DNA was being extracted. They are used to monitor contamination during the DNA extraction.
+* **Extraction controls**: are tubes where no sample is added, but the same process and reagents are applied as if a sample was in it and DNA was being extracted. They are used to monitor contamination during the DNA extraction.
 * **Positive controls**: are used at the library preparation stage, and have all the reagents plus a known source of DNA. Here we have used the DNA of a fly. It monitors whether lab stages are working correctly. 
 * **Negative controls**: are also used during library preparation. Like DNA extractions, they receive all the reagents, but no DNA. It monitors contamination during library preparation. 
 
@@ -628,7 +628,7 @@ We have drawn a vertical dashed line at 3,000 reads, based on an earlier explora
 
 We can zoom in further. 
 
-```{r zoom-rarefaction, eval=FALSE}
+```{r zoom-rarefaction}
 p_rare + coord_cartesian(xlim = c(0, 5000))
 ```
 Some of the lines to the left of 3,000 are not yet flat. The issue with these samples is that we have "missed" taxa in them, and thus they may skew our metrics of richness. 
