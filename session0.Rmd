@@ -267,10 +267,13 @@ sample_key <- tibble(
 
 ```
 
-Now that we have the right IDs, we can use the same table, to separate a few things. Currently we have two types of samples. True samples, and controls. Controls include extraction controls, positive controls, and negative controls. 
-* Extraction controls are tubes where no sample is added, but where the same process and ragents are added as if DNA was being extracted. They are used to monitor contamination during the DNA extraction.
-* Positive controls are used at the library preparation stage, and have all the reagents plus a known source of DNA. Here we have used the DNA of a fly. It monitors whether lab stages are working correctly. 
-* Negative controls are also used during library preparation. Like DNA extractions, they receive all the reagents, but no DNA. It monitors contamination during library preparation. 
+Now that we have the right IDs, we can use the same table, to separate a few things that we will use below. 
+
+Currently we have two types of samples. Actual samples, and controls. Controls include extraction controls, positive controls, and negative controls. 
+
+* **Extraction controls**: are tubes where no sample is added, but where the same process and ragents are added as if DNA was being extracted. They are used to monitor contamination during the DNA extraction.
+* **Positive controls**: are used at the library preparation stage, and have all the reagents plus a known source of DNA. Here we have used the DNA of a fly. It monitors whether lab stages are working correctly. 
+* **Negative controls**: are also used during library preparation. Like DNA extractions, they receive all the reagents, but no DNA. It monitors contamination during library preparation. 
 
 ```{r classify-samples}
 sample_key <- sample_key %>%
