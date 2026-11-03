@@ -11,7 +11,7 @@
 
 
 
-<title>ELSP Tutorials</title>
+<title>ELSP-ARK Tutorials</title>
 
 <script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -376,42 +376,67 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">ELSP Tutorials</h1>
+<h1 class="title toc-ignore">ELSP-ARK Tutorials</h1>
 
 </div>
 
 
 <div id="about-these-tutorials" class="section level2">
 <h2>About these tutorials</h2>
-<p>This series introduces methods for analysing eDNA metabarcoding data
-using R.</p>
-<p>The tutorials combine explanations, executable code, and
-interpretation of analytical outputs.</p>
+<p>This series of tutorials were prepared by <a
+href="https://www.inverness.uhi.ac.uk/research/institute-for-biodiversity-and-freshwater-conservation/">IBFC</a>
+as part of the Advancing Restoration Knowledge grants of the <a
+href="https://www.endangeredlandscapes.org/">Endangered Landscapes and
+Seascapes Programme</a>.</p>
+<p>Their purpose is to provide restoration practitioners with an
+accessible analytical toolset to extract relevant information out of
+environmental DNA data.</p>
+<p>While it is possible to follow through with little to no experience
+in R, adapting these to your own data will require basic know-how. There
+are many resources online to learn how to use R:</p>
+<ul>
+<li><a href="https://intro2r.com/">An Introduction to R</a> is a great
+place to start.</li>
+<li><a href="https://datacarpentry.github.io/R-ecology-lesson/">Data
+Carpentry</a> is another.</li>
+<li><a href="https://rfortherestofus.com/courses/getting-started/">R for
+the rest of us</a> provide a free course (though registration is
+needed)</li>
+<li><a href="https://swirlstats.com/">swirl</a> is an R package that
+teaches you R, by using R.</li>
+</ul>
 </div>
 <div id="tutorial-sequence" class="section level2">
 <h2>Tutorial sequence</h2>
-<p>Work through the sessions in the following order:</p>
+<p>We have prepared four sessions:</p>
 <ol style="list-style-type: decimal">
-<li><a href="session0.html">Session 0: Getting started</a></li>
-<li><a href="session1.html">Session 1: Diversity and regression</a></li>
+<li><a href="session0.html">Session 0: Where do you start?</a> will walk
+you through the data preparation typically needed after bioinformatic
+analysis.</li>
+<li><a href="session1.html">Session 1: Diversity indices and linear
+regression</a> will show you how to estimate various diversity indices,
+and analyse them through a linear regression.</li>
 <li><a href="session2.html">Session 2: RDA and indicator species
-analysis</a></li>
+analysis</a> walks through an example of multivariate analysis with
+distance-based Redundancy Analysis and Indicator Species Analysis.</li>
 <li><a href="session3.html">Session 3: Joint species distribution
-models</a></li>
+models</a> provides another example of multivariate analysis with joint
+species distribution models, specifically, HMSC.</li>
 </ol>
-<p>The tutorial pages are currently under development.</p>
 </div>
 <div id="how-to-use-the-tutorials" class="section level2">
 <h2>How to use the tutorials</h2>
-<p>Read the explanations alongside the code and run the examples
-locally.</p>
-<p>Each completed tutorial will describe its required packages, input
-data, and preparation steps.</p>
-<p>Although the sessions build on earlier concepts, each page will load
-the inputs needed for its own analysis.</p>
+<p>Each tutorials has explanatory text, blocks of code, data examples
+and plots. Download the data <em>(here)[insert link]</em>, read through
+the text, and copy the code over to your own script, check that there
+are no errors, and that the outputs match.</p>
+<p>If you dare, adapt and apply the code to your own data.</p>
+<p>You can also download the raw RMarkDown file, which contain both
+explanations and code, by clicking the grey square <em>Code</em> at the
+top right of each page, next to the title.</p>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkVMU1AgVHV0b3JpYWxzIg0KLS0tDQoNCiMjIEFib3V0IHRoZXNlIHR1dG9yaWFscw0KDQpUaGlzIHNlcmllcyBpbnRyb2R1Y2VzIG1ldGhvZHMgZm9yIGFuYWx5c2luZyBlRE5BIG1ldGFiYXJjb2RpbmcgZGF0YSB1c2luZyBSLg0KDQpUaGUgdHV0b3JpYWxzIGNvbWJpbmUgZXhwbGFuYXRpb25zLCBleGVjdXRhYmxlIGNvZGUsIGFuZCBpbnRlcnByZXRhdGlvbg0Kb2YgYW5hbHl0aWNhbCBvdXRwdXRzLg0KDQojIyBUdXRvcmlhbCBzZXF1ZW5jZQ0KDQpXb3JrIHRocm91Z2ggdGhlIHNlc3Npb25zIGluIHRoZSBmb2xsb3dpbmcgb3JkZXI6DQoNCjEuIFtTZXNzaW9uIDA6IEdldHRpbmcgc3RhcnRlZF0oc2Vzc2lvbjAuaHRtbCkNCjIuIFtTZXNzaW9uIDE6IERpdmVyc2l0eSBhbmQgcmVncmVzc2lvbl0oc2Vzc2lvbjEuaHRtbCkNCjMuIFtTZXNzaW9uIDI6IFJEQSBhbmQgaW5kaWNhdG9yIHNwZWNpZXMgYW5hbHlzaXNdKHNlc3Npb24yLmh0bWwpDQo0LiBbU2Vzc2lvbiAzOiBKb2ludCBzcGVjaWVzIGRpc3RyaWJ1dGlvbiBtb2RlbHNdKHNlc3Npb24zLmh0bWwpDQoNClRoZSB0dXRvcmlhbCBwYWdlcyBhcmUgY3VycmVudGx5IHVuZGVyIGRldmVsb3BtZW50Lg0KDQojIyBIb3cgdG8gdXNlIHRoZSB0dXRvcmlhbHMNCg0KUmVhZCB0aGUgZXhwbGFuYXRpb25zIGFsb25nc2lkZSB0aGUgY29kZSBhbmQgcnVuIHRoZSBleGFtcGxlcyBsb2NhbGx5Lg0KDQpFYWNoIGNvbXBsZXRlZCB0dXRvcmlhbCB3aWxsIGRlc2NyaWJlIGl0cyByZXF1aXJlZCBwYWNrYWdlcywgaW5wdXQgZGF0YSwNCmFuZCBwcmVwYXJhdGlvbiBzdGVwcy4NCg0KQWx0aG91Z2ggdGhlIHNlc3Npb25zIGJ1aWxkIG9uIGVhcmxpZXIgY29uY2VwdHMsIGVhY2ggcGFnZSB3aWxsIGxvYWQNCnRoZSBpbnB1dHMgbmVlZGVkIGZvciBpdHMgb3duIGFuYWx5c2lzLg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkVMU1AtQVJLIFR1dG9yaWFscyINCi0tLQ0KDQojIyBBYm91dCB0aGVzZSB0dXRvcmlhbHMNCg0KVGhpcyBzZXJpZXMgb2YgdHV0b3JpYWxzIHdlcmUgcHJlcGFyZWQgYnkgW0lCRkNdKGh0dHBzOi8vd3d3LmludmVybmVzcy51aGkuYWMudWsvcmVzZWFyY2gvaW5zdGl0dXRlLWZvci1iaW9kaXZlcnNpdHktYW5kLWZyZXNod2F0ZXItY29uc2VydmF0aW9uLykgYXMgcGFydCBvZiB0aGUgQWR2YW5jaW5nIFJlc3RvcmF0aW9uIEtub3dsZWRnZSBncmFudHMgb2YgdGhlIFtFbmRhbmdlcmVkIExhbmRzY2FwZXMgYW5kIFNlYXNjYXBlcyBQcm9ncmFtbWVdKGh0dHBzOi8vd3d3LmVuZGFuZ2VyZWRsYW5kc2NhcGVzLm9yZy8pLg0KDQpUaGVpciBwdXJwb3NlIGlzIHRvIHByb3ZpZGUgcmVzdG9yYXRpb24gcHJhY3RpdGlvbmVycyB3aXRoIGFuIGFjY2Vzc2libGUgYW5hbHl0aWNhbCB0b29sc2V0IHRvIGV4dHJhY3QgcmVsZXZhbnQgaW5mb3JtYXRpb24gb3V0IG9mIGVudmlyb25tZW50YWwgRE5BIGRhdGEuDQoNCldoaWxlIGl0IGlzIHBvc3NpYmxlIHRvIGZvbGxvdyB0aHJvdWdoIHdpdGggbGl0dGxlIHRvIG5vIGV4cGVyaWVuY2UgaW4gUiwgYWRhcHRpbmcgdGhlc2UgdG8geW91ciBvd24gZGF0YSB3aWxsIHJlcXVpcmUgYmFzaWMga25vdy1ob3cuIFRoZXJlIGFyZSBtYW55IHJlc291cmNlcyBvbmxpbmUgdG8gbGVhcm4gaG93IHRvIHVzZSBSOg0KDQotIFtBbiBJbnRyb2R1Y3Rpb24gdG8gUl0oaHR0cHM6Ly9pbnRybzJyLmNvbS8pIGlzIGEgZ3JlYXQgcGxhY2UgdG8gc3RhcnQuDQotIFtEYXRhIENhcnBlbnRyeV0oaHR0cHM6Ly9kYXRhY2FycGVudHJ5LmdpdGh1Yi5pby9SLWVjb2xvZ3ktbGVzc29uLykgaXMgYW5vdGhlci4gDQotIFtSIGZvciB0aGUgcmVzdCBvZiB1c10oaHR0cHM6Ly9yZm9ydGhlcmVzdG9mdXMuY29tL2NvdXJzZXMvZ2V0dGluZy1zdGFydGVkLykgcHJvdmlkZSBhIGZyZWUgY291cnNlICh0aG91Z2ggcmVnaXN0cmF0aW9uIGlzIG5lZWRlZCkNCi0gW3N3aXJsXShodHRwczovL3N3aXJsc3RhdHMuY29tLykgaXMgYW4gUiBwYWNrYWdlIHRoYXQgdGVhY2hlcyB5b3UgUiwgYnkgdXNpbmcgUi4gDQoNCg0KIyMgVHV0b3JpYWwgc2VxdWVuY2UNCg0KV2UgaGF2ZSBwcmVwYXJlZCBmb3VyIHNlc3Npb25zOg0KDQoxLiBbU2Vzc2lvbiAwOiBXaGVyZSBkbyB5b3Ugc3RhcnQ/XShzZXNzaW9uMC5odG1sKSB3aWxsIHdhbGsgeW91IHRocm91Z2ggdGhlIGRhdGEgcHJlcGFyYXRpb24gdHlwaWNhbGx5IG5lZWRlZCBhZnRlciBiaW9pbmZvcm1hdGljIGFuYWx5c2lzLiANCjIuIFtTZXNzaW9uIDE6IERpdmVyc2l0eSBpbmRpY2VzIGFuZCBsaW5lYXIgcmVncmVzc2lvbl0oc2Vzc2lvbjEuaHRtbCkgd2lsbCBzaG93IHlvdSBob3cgdG8gZXN0aW1hdGUgdmFyaW91cyBkaXZlcnNpdHkgaW5kaWNlcywgYW5kIGFuYWx5c2UgdGhlbSB0aHJvdWdoIGEgbGluZWFyIHJlZ3Jlc3Npb24uIA0KMy4gW1Nlc3Npb24gMjogUkRBIGFuZCBpbmRpY2F0b3Igc3BlY2llcyBhbmFseXNpc10oc2Vzc2lvbjIuaHRtbCkgd2Fsa3MgdGhyb3VnaCBhbiBleGFtcGxlIG9mIG11bHRpdmFyaWF0ZSBhbmFseXNpcyB3aXRoIGRpc3RhbmNlLWJhc2VkIFJlZHVuZGFuY3kgQW5hbHlzaXMgYW5kIEluZGljYXRvciBTcGVjaWVzIEFuYWx5c2lzLiANCjQuIFtTZXNzaW9uIDM6IEpvaW50IHNwZWNpZXMgZGlzdHJpYnV0aW9uIG1vZGVsc10oc2Vzc2lvbjMuaHRtbCkgcHJvdmlkZXMgYW5vdGhlciBleGFtcGxlIG9mIG11bHRpdmFyaWF0ZSBhbmFseXNpcyB3aXRoIGpvaW50IHNwZWNpZXMgZGlzdHJpYnV0aW9uIG1vZGVscywgc3BlY2lmaWNhbGx5LCBITVNDLiANCg0KDQojIyBIb3cgdG8gdXNlIHRoZSB0dXRvcmlhbHMNCg0KRWFjaCB0dXRvcmlhbHMgaGFzIGV4cGxhbmF0b3J5IHRleHQsIGJsb2NrcyBvZiBjb2RlLCBkYXRhIGV4YW1wbGVzIGFuZCBwbG90cy4gRG93bmxvYWQgdGhlIGRhdGEgKihoZXJlKVtpbnNlcnQgbGlua10qLCByZWFkIHRocm91Z2ggdGhlIHRleHQsIGFuZCBjb3B5IHRoZSBjb2RlIG92ZXIgdG8geW91ciBvd24gc2NyaXB0LCBjaGVjayB0aGF0IHRoZXJlIGFyZSBubyBlcnJvcnMsIGFuZCB0aGF0IHRoZSBvdXRwdXRzIG1hdGNoLiANCg0KSWYgeW91IGRhcmUsIGFkYXB0IGFuZCBhcHBseSB0aGUgY29kZSB0byB5b3VyIG93biBkYXRhLg0KDQpZb3UgY2FuIGFsc28gZG93bmxvYWQgdGhlIHJhdyBSTWFya0Rvd24gZmlsZSwgd2hpY2ggY29udGFpbiBib3RoIGV4cGxhbmF0aW9ucyBhbmQgY29kZSwgYnkgY2xpY2tpbmcgdGhlIGdyZXkgc3F1YXJlICpDb2RlKiBhdCB0aGUgdG9wIHJpZ2h0IG9mIGVhY2ggcGFnZSwgbmV4dCB0byB0aGUgdGl0bGUuIA0KDQo=</div>
 
 
 </div>

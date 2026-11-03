@@ -1,31 +1,36 @@
 ---
-title: "ELSP Tutorials"
+title: "ELSP-ARK Tutorials"
 ---
 
 ## About these tutorials
 
-This series introduces methods for analysing eDNA metabarcoding data using R.
+This series of tutorials were prepared by [IBFC](https://www.inverness.uhi.ac.uk/research/institute-for-biodiversity-and-freshwater-conservation/) as part of the Advancing Restoration Knowledge grants of the [Endangered Landscapes and Seascapes Programme](https://www.endangeredlandscapes.org/).
 
-The tutorials combine explanations, executable code, and interpretation
-of analytical outputs.
+Their purpose is to provide restoration practitioners with an accessible analytical toolset to extract relevant information out of environmental DNA data.
+
+While it is possible to follow through with little to no experience in R, adapting these to your own data will require basic know-how. There are many resources online to learn how to use R:
+
+- [An Introduction to R](https://intro2r.com/) is a great place to start.
+- [Data Carpentry](https://datacarpentry.github.io/R-ecology-lesson/) is another. 
+- [R for the rest of us](https://rfortherestofus.com/courses/getting-started/) provide a free course (though registration is needed)
+- [swirl](https://swirlstats.com/) is an R package that teaches you R, by using R. 
+
 
 ## Tutorial sequence
 
-Work through the sessions in the following order:
+We have prepared four sessions:
 
-1. [Session 0: Getting started](session0.html)
-2. [Session 1: Diversity and regression](session1.html)
-3. [Session 2: RDA and indicator species analysis](session2.html)
-4. [Session 3: Joint species distribution models](session3.html)
+1. [Session 0: Where do you start?](session0.html) will walk you through the data preparation typically needed after bioinformatic analysis. 
+2. [Session 1: Diversity indices and linear regression](session1.html) will show you how to estimate various diversity indices, and analyse them through a linear regression. 
+3. [Session 2: RDA and indicator species analysis](session2.html) walks through an example of multivariate analysis with distance-based Redundancy Analysis and Indicator Species Analysis. 
+4. [Session 3: Joint species distribution models](session3.html) provides another example of multivariate analysis with joint species distribution models, specifically, HMSC. 
 
-The tutorial pages are currently under development.
 
 ## How to use the tutorials
 
-Read the explanations alongside the code and run the examples locally.
+Each tutorials has explanatory text, blocks of code, data examples and plots. Download the data *(here)[insert link]*, read through the text, and copy the code over to your own script, check that there are no errors, and that the outputs match. 
 
-Each completed tutorial will describe its required packages, input data,
-and preparation steps.
+If you dare, adapt and apply the code to your own data.
 
-Although the sessions build on earlier concepts, each page will load
-the inputs needed for its own analysis.
+You can also download the raw RMarkDown file, which contain both explanations and code, by clicking the grey square *Code* at the top right of each page, next to the title. 
+
