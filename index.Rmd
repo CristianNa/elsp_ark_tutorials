@@ -12,7 +12,7 @@ While it is possible to follow through with little to no experience in R, adapti
 
 - [An Introduction to R](https://intro2r.com/) is a great place to start.
 - [Data Carpentry](https://datacarpentry.github.io/R-ecology-lesson/) is another. 
-- [R for the rest of us](https://rfortherestofus.com/courses/getting-started/) provide a free course (though registration is needed)
+- [R for the rest of us](https://rfortherestofus.com/courses/getting-started/) provide a free course with videos (registration needed)
 - [swirl](https://swirlstats.com/) is an R package that teaches you R, by using R. 
 
 
