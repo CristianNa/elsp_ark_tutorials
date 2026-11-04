@@ -4,7 +4,7 @@ title: "Session 0: You have eDNA data. Where do you start?"
 ---
 
 ```{r chunk-options, include=FALSE}
-opts_chunk$set(
+knitr::opts_chunk$set(
   echo = TRUE,
   message = FALSE,
   warning = TRUE,
