@@ -35,4 +35,7 @@ If you dare, adapt and apply the code to your own data.
 You can also download the raw RMarkDown file, which contain both explanations and code, by clicking the grey square *Code* at the top right of each page, next to the title. 
 
 
+## If you have any questions
+
+If you have issues with the materials or questions, please don't hesitate to contact [us](mailto:Cristian.Waggershauser.ic@uhi.ac.uk), we will try to help as best we can. 
 
