@@ -14,10 +14,10 @@ In [Session 0](session0.html), we used the laboratory controls to check for cont
 
 We will:
 
-1. Load the data saved at the end of Session 0.
+1. Prepare the working environment (again).
 2. Calculate diversity indices.
-4. Fit a linear regression to explore how sample diversity varies with habitat and soil pH.
-5. Compare fitted diversity across habitats.
+3. Fit a linear regression, model selection and model validation.
+
 
 As in Session 0, we use *taxa*, and not *species* richness or diversity due to the mixed taxonomy approach. 
 
@@ -96,7 +96,7 @@ metadata %>%
 We had lost 7 samples to rarefaction, matching the figures above. 
 
 
-## 2. Start learning from the data, diversity indices
+## 2. Calculate diversity indices
 
 The value of using eDNA metabarcoding lies in its ability to cover a wide taxonomic range. However, this also creates a challenge. Data from 100s of taxa can be difficult to handle. Data such as this where we want to explain and understand changes in multiple measured variables (each individual taxa) as a function of covariates are referred to as multivariate data. In contraposition to univariate where we have a single variable of interest that we wish to explain (e.g., temperature as a function of time of the day). There are broadly two paths that can be followed, summarising multivariate data into univariate datasets through quantities of interest, like number of taxa (richness) or diversity (abundance-weighted richness) and explain changes in those or use multivariate methods of analysis. Here, we will focus on the former, and session 2 and 3 will cover the latter. 
 
@@ -162,7 +162,7 @@ inext_input <- split(incidence$frequency, incidence$treatment, drop = TRUE)
 
 ```
 
-### Choose a coverage and estimate richness
+### Standardise richness by coverage
 
 Using in-built functions of the `iNEXT` package, we can extract the sample coverage per habitat (`SC`), then "manually" choose a value just below the lowest reported coverage, and feed the data and the chosen coverage to another function `estimateD` to estimate taxon richness (`q = 0`) at said coverage. 
 
@@ -209,7 +209,7 @@ The pattern largely agrees with that of the effective number of species, only th
 Because we have summarised our multivariate data, into a single covariate (e.g., effective number of species), we can use well established methods to analyse these, namely, linear regression. Below, we go through an example. 
 
 
-## 4. Exploring how diversity varies with successional stage and covariates
+## 3. Linear Regression
 
 We will reproduce a standard approach to linear regression, fitting a global model with all covariates of interest, using AIC to select the most parsimonious model, validating model assumption, and finally make and visualise predictions.  
 
@@ -404,7 +404,7 @@ coef_test(model_h1, vcov = site_vcov, test = "Satterthwaite")
 The most notable changes are the loss of marginal significance of veg_PC2, while pH has gone over the 0.05 threshold to statistical significance. This likely responds to the fact that vegetation was only measured at site level, while pH was measured at sample level, hence veg_PC2 would suffer most from a correction of nested data. Moreover, much of the variation in vegetation is likely soaked by the habitat type variable, which remains statistically significant, with estimates in line with our previous table, i.e., they are robust estimates. 
 
 
-## 5. Visual outputs
+### Visual outputs
 
 Once we are confident in the robustness of our coefficients, and our statistical significances. We might want to produce more reader-friendly outputs in the form of visual plots. 
 
