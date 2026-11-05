@@ -11,7 +11,7 @@
 
 
 
-<title>Session 1: Diversity and regression</title>
+<title>Session 1: Your data is ready. What to do with it? Diversity indices and regression</title>
 
 <script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -35,6 +35,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -47,6 +49,117 @@
 
 
 
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 <style type="text/css">
@@ -348,7 +461,13 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/CristianNa/elsp_ark_tutorials">
+    <span class="fa fa-github"></span>
+     
+    GitHub repository
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -368,20 +487,1024 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Session 1: Diversity and regression</h1>
+<h1 class="title toc-ignore">Session 1: Your data is ready. What to do
+with it? Diversity indices and regression</h1>
 
 </div>
 
 
-<div id="tutorial-status" class="section level2">
-<h2>Tutorial status</h2>
-<p>This tutorial is under development.</p>
+<div id="what-we-will-cover-in-this-session" class="section level2">
+<h2>What we will cover in this session</h2>
+<p>In <a href="session0.html">Session 0</a>, we used the laboratory
+controls to check for contamination, filtered the 18S data and saved the
+community matrices and metadata. Here, we use those files to look at the
+diversity of metazoans across heath, regenerating woodland, commercial
+woodland and mature woodland.</p>
+<p>We will:</p>
+<ol style="list-style-type: decimal">
+<li>Load the data saved at the end of Session 0.</li>
+<li>Calculate diversity indices.</li>
+<li>Fit a linear regression to explore how sample diversity varies with
+habitat and soil pH.</li>
+<li>Compare fitted diversity across habitats.</li>
+</ol>
+<p>As in Session 0, we use <em>taxa</em>, and not <em>species</em>
+richness or diversity due to the mixed taxonomy approach.</p>
+</div>
+<div id="prepare-the-working-environment" class="section level2">
+<h2>1. Prepare the working environment</h2>
+<p>Like before, we need to prepare the working environment for our
+session.</p>
+<div id="load-the-packages" class="section level3">
+<h3>Load the packages</h3>
+<p>We installed most packages in the previous session, we only need a
+few additions. <code>DHARMa</code> allows validation of regression
+models, and <code>MuMIn</code> is an enginge to run model selection.
+<code>clubSandwich</code> improves the uncertainty of our model
+estimates caused by the dependence between samples of the same site.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;DHARMa&quot;</span>, <span class="st">&quot;MuMIn&quot;</span>,<span class="st">&quot;clubSandwich&quot;</span>, <span class="st">&quot;patchwork&quot;</span>))</span></code></pre></div>
+<p>Load the packages when you start a new R session.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">library</span>(iNEXT)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="fu">library</span>(DHARMa)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="fu">library</span>(MuMIn)</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="fu">library</span>(clubSandwich)</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code></pre></div>
+<p>Some packages are a bit verbose, and will tell you about conflict
+with others, as well as versions and other information.</p>
+</div>
+<div id="read-the-prepared-data" class="section level3">
+<h3>Read the prepared data</h3>
+<p>All three files have a <code>sample_id</code> column. The counts and
+presence–absence tables have one row per soil sample and one column per
+taxon after the ID. We keep the taxon names as exported and use
+<code>sample_id</code> to join the community data to the metadata.</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">File</th>
+<th align="left">What is it</th>
+<th align="left">What we use it for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>session0_metazoa_counts.csv</code></td>
+<td align="left">Reads-based community matrix.</td>
+<td align="left">Calculate observed richness and read-weighted diversity
+within samples.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>session0_metazoa_presence_absence.csv</code></td>
+<td align="left">Presence-absence community matrix</td>
+<td align="left">Estimate standardised richness.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>session0_metazoa_metadata.csv</code></td>
+<td align="left">Long format environmental metadata</td>
+<td align="left">Recover sample metadata and soil covariates.</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Load the data directory</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>data_dir <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;session1&quot;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co"># Establish levels, labels, and associated colours of habitat types</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>habitat_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">heath =</span> <span class="st">&quot;Heath&quot;</span>, <span class="at">regen =</span> <span class="st">&quot;Regen&quot;</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>                    <span class="at">com_wood =</span> <span class="st">&quot;Commercial woodland&quot;</span>, <span class="at">mat_wood =</span> <span class="st">&quot;Mature woodland&quot;</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>habitat_levels <span class="ot">&lt;-</span> <span class="fu">names</span>(habitat_labels)</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>habitat_colours <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">heath =</span> <span class="st">&quot;#8B5A2B&quot;</span>, <span class="at">regen =</span> <span class="st">&quot;#66CC33&quot;</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>                     <span class="at">com_wood =</span> <span class="st">&quot;#2C7FB8&quot;</span>, <span class="at">mat_wood =</span> <span class="st">&quot;#005A32&quot;</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co"># Load the three csv&#39;s</span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>comm <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(data_dir, <span class="st">&quot;session0_metazoa_counts.csv&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;sample_id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a>  <span class="fu">as.matrix</span>()</span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a>comm_pa <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(data_dir, <span class="st">&quot;session0_metazoa_presence_absence.csv&quot;</span>) )</span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(data_dir, <span class="st">&quot;session0_metazoa_metadata.csv&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">treatment =</span> <span class="fu">factor</span>(treatment, <span class="at">levels =</span> habitat_levels))</span></code></pre></div>
+<p>We restore (factor) the habitat covariate in the metadata to avoid
+issues regarding the way in which csv store data (text), vs how R reads
+them.</p>
+<p>It is always good to double check things match our expectations.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>metadata <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">group_by</span>(treatment) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">soil_samples =</span> <span class="fu">n</span>(), <span class="at">field_sites =</span> <span class="fu">n_distinct</span>(site_id), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Habitat&quot;</span>, <span class="st">&quot;Soil samples&quot;</span>, <span class="st">&quot;Field sites&quot;</span>))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Habitat</th>
+<th align="right">Soil samples</th>
+<th align="right">Field sites</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">heath</td>
+<td align="right">14</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">regen</td>
+<td align="right">13</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">com_wood</td>
+<td align="right">13</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">mat_wood</td>
+<td align="right">13</td>
+<td align="right">5</td>
+</tr>
+</tbody>
+</table>
+<p>We had lost 7 samples to rarefaction, matching the figures above.</p>
+</div>
+</div>
+<div id="start-learning-from-the-data-diversity-indices"
+class="section level2">
+<h2>2. Start learning from the data, diversity indices</h2>
+<p>The value of using eDNA metabarcoding lies in its ability to cover a
+wide taxonomic range. However, this also creates a challenge. Data from
+100s of taxa can be difficult to handle. Data such as this where we want
+to explain and understand changes in multiple measured variables (each
+individual taxa) as a function of covariates are referred to as
+multivariate data. In contraposition to univariate where we have a
+single variable of interest that we wish to explain (e.g., temperature
+as a function of time of the day). There are broadly two paths that can
+be followed, summarising multivariate data into univariate datasets
+through quantities of interest, like number of taxa (richness) or
+diversity (abundance-weighted richness) and explain changes in those or
+use multivariate methods of analysis. Here, we will focus on the former,
+and session 2 and 3 will cover the latter.</p>
+<p>We will focus on two summary metrics, taxon richness, and Hill number
+of order 1 <span class="math inline">\(H_1\)</span>, but there are many
+that can be used, which provide different information from your data. If
+you are interested in this topic, I recommend chapter 13 of <a
+href="https://www.zoology.ubc.ca/~krebs/books.html">Ecological
+Methodology</a> by Charles Krebs.</p>
+<p>Taxonomic richness is straigh forward, the number of unique taxa in a
+sample. <span class="math inline">\(H_1\)</span> we estimate by
+exponentiating the Shannon-Wienner Index (SWI). The reason we do this,
+instead of using SWI directly, is because it measures our ability to
+predict the identity of a taxa drawn at random from the pool of species
+available (in a sample) in units of bits, more evenly abundant taxa
+reduce our ability to predict, which is difficult to interpret in
+ecological terms. Exponentiating the Shannon–Wiener index gives the
+effective number of taxa. This is the number of taxa that would give the
+same diversity if the reads were distributed evenly among them, which is
+more readily interpretable.</p>
+<p>Here, we use the relative frequencies of the retained reads to
+calculate <span class="math inline">\(H_1\)</span>. DNA extraction,
+amplification and other steps in the workflow can affect those
+frequencies, so the values describe the relative read distribution wthin
+a sample, not absolute abundances.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Calculate one set of diversity indices per soil sample</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>div_cc <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">sample_id =</span> <span class="fu">rownames</span>(comm), <span class="at">richness =</span> <span class="fu">specnumber</span>(comm),</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>                 <span class="at">shannon =</span> <span class="fu">diversity</span>(comm, <span class="at">index =</span> <span class="st">&quot;shannon&quot;</span>), <span class="at">hill1 =</span> <span class="fu">exp</span>(shannon)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="fu">inner_join</span>(metadata, <span class="at">by =</span> <span class="st">&quot;sample_id&quot;</span>, <span class="at">relationship =</span> <span class="st">&quot;one-to-one&quot;</span>, <span class="at">unmatched =</span> <span class="st">&quot;error&quot;</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co"># Print summary</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>div_cc <span class="sc">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>  <span class="fu">group_by</span>(treatment) <span class="sc">%&gt;%</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_richness =</span> <span class="fu">mean</span>(richness), <span class="at">mean_hill1 =</span> <span class="fu">mean</span>(hill1), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">1</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Habitat&quot;</span>, <span class="st">&quot;Mean richness&quot;</span>, <span class="st">&quot;Mean H1&quot;</span>),</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">&quot;Mean diversity within soil samples by habitat&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Mean diversity within soil samples by habitat</caption>
+<thead>
+<tr class="header">
+<th align="left">Habitat</th>
+<th align="right">Mean richness</th>
+<th align="right">Mean H1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">heath</td>
+<td align="right">14.7</td>
+<td align="right">3.2</td>
+</tr>
+<tr class="even">
+<td align="left">regen</td>
+<td align="right">23.5</td>
+<td align="right">6.6</td>
+</tr>
+<tr class="odd">
+<td align="left">com_wood</td>
+<td align="right">22.5</td>
+<td align="right">5.5</td>
+</tr>
+<tr class="even">
+<td align="left">mat_wood</td>
+<td align="right">19.6</td>
+<td align="right">5.4</td>
+</tr>
+</tbody>
+</table>
+<p>See the <a href="link">short</a> and <a href="link">long</a> reports
+for a more in-depth interpretation of results. Briefly, we find that
+regen and commercial woodland, have the highest richness and <span
+class="math inline">\(H_1\)</span>, with mature woodland close behind,
+while heath has the lowest richness and diversity. Interestingly, the
+effective number of species is substantially lower than richness,
+indicating that few taxa typically dominate a sample.</p>
+<p>We can also visualise these with <code>ggplot</code>. This package is
+highly versatile and a staple in data explorations. <a
+href="https://ggplot2.tidyverse.org/articles/ggplot2.html">Here</a> is
+the official introduction to learn how it works.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">ggplot</span>(div_cc, <span class="fu">aes</span>(treatment, hill1, <span class="at">fill =</span> treatment)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.6</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.12</span>, <span class="at">height =</span> <span class="dv">0</span>, <span class="at">seed =</span> <span class="dv">123</span>),</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> habitat_labels) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> habitat_colours) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Habitat&quot;</span>, <span class="at">y =</span> <span class="st">&quot;H1 (effective taxa per soil sample)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="session1_files/figure-html/plot-sample-diversity-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<div id="compare-habitat-richness-at-a-common-coverage"
+class="section level3">
+<h3>Compare habitat richness at a common coverage</h3>
+<p>In session 0, we used <code>iNEXT</code> to assess the whether the
+sampling effort was sufficient. We saw that ca. 15 samples per habitat,
+the curves had not flattened. More importantly, the different habitats
+had different slopes (inclination of the curve), which would prevent
+comparison of habitat-level richness. <code>iNEXT</code> also provides a
+tool to overcome this by estimating a quantity called <em>coverage</em>.
+Briefly, it is estimated as an adjusted ratio of the number of taxa that
+appear in a single sample or in two samples relative to the total number
+of taxa, and it provides information on the proportion of seen versus
+unseen taxa. We can then use this to correct richness across habitats at
+the same level of coverage.</p>
+</div>
+<div id="prepare-incidence-frequencies" class="section level3">
+<h3>Prepare incidence frequencies</h3>
+<p>We use the saved presence–absence table to repeat the calculation
+from Session 0. For each habitat, <code>iNEXT</code> needs the total
+number of soil samples followed by the number of samples in which each
+detected taxon occurs. A taxon contributes at most one detection per
+sample.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Count detections by habitat, then put the sample total first</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>incidence <span class="ot">&lt;-</span> comm_pa <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="fu">inner_join</span>(<span class="fu">select</span>(metadata, sample_id, treatment), <span class="at">by =</span> <span class="st">&quot;sample_id&quot;</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>             <span class="at">relationship =</span> <span class="st">&quot;one-to-one&quot;</span>, <span class="at">unmatched =</span> <span class="st">&quot;error&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="fu">group_by</span>(treatment) <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="sc">-</span>sample_id, sum), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>treatment, <span class="at">names_to =</span> <span class="st">&quot;taxon&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;frequency&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>  <span class="fu">filter</span>(frequency <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>incidence <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="fu">count</span>(metadata, treatment, <span class="at">name =</span> <span class="st">&quot;frequency&quot;</span>), incidence)</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>inext_input <span class="ot">&lt;-</span> <span class="fu">split</span>(incidence<span class="sc">$</span>frequency, incidence<span class="sc">$</span>treatment, <span class="at">drop =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+<div id="choose-a-coverage-and-estimate-richness"
+class="section level3">
+<h3>Choose a coverage and estimate richness</h3>
+<p>Using in-built functions of the <code>iNEXT</code> package, we can
+extract the sample coverage per habitat (<code>SC</code>), then
+“manually” choose a value just below the lowest reported coverage, and
+feed the data and the chosen coverage to another function
+<code>estimateD</code> to estimate taxon richness (<code>q = 0</code>)
+at said coverage.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>coverage_info <span class="ot">&lt;-</span> <span class="fu">DataInfo</span>(inext_input, <span class="at">datatype =</span> <span class="st">&quot;incidence_freq&quot;</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>coverage_info <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="fu">select</span>(Assemblage, T, S.obs, SC) <span class="sc">%&gt;%</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">4</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Habitat&quot;</span>, <span class="st">&quot;Soil samples&quot;</span>, <span class="st">&quot;Observed richness&quot;</span>, <span class="st">&quot;Coverage&quot;</span>))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Habitat</th>
+<th align="right">Soil samples</th>
+<th align="right">Observed richness</th>
+<th align="right">Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">heath</td>
+<td align="right">14</td>
+<td align="right">58</td>
+<td align="right">0.8870</td>
+</tr>
+<tr class="even">
+<td align="left">regen</td>
+<td align="right">13</td>
+<td align="right">85</td>
+<td align="right">0.8843</td>
+</tr>
+<tr class="odd">
+<td align="left">com_wood</td>
+<td align="right">13</td>
+<td align="right">74</td>
+<td align="right">0.9100</td>
+</tr>
+<tr class="even">
+<td align="left">mat_wood</td>
+<td align="right">13</td>
+<td align="right">53</td>
+<td align="right">0.9449</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>target_coverage <span class="ot">&lt;-</span> <span class="fu">min</span>(coverage_info<span class="sc">$</span>SC) <span class="sc">-</span> <span class="fl">0.001</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>richness_at_coverage <span class="ot">&lt;-</span> <span class="fu">estimateD</span>(inext_input, <span class="at">q =</span> <span class="dv">0</span>, <span class="at">datatype =</span> <span class="st">&quot;incidence_freq&quot;</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>                                  <span class="at">base =</span> <span class="st">&quot;coverage&quot;</span>, <span class="at">level =</span> target_coverage, <span class="at">nboot =</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">treatment =</span> <span class="fu">factor</span>(Assemblage, <span class="at">levels =</span> habitat_levels),</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>         <span class="at">coverage =</span> SC, <span class="at">method =</span> Method, <span class="at">richness =</span> qD,</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>         <span class="at">lower_95 =</span> qD.LCL, <span class="at">upper_95 =</span> qD.UCL, <span class="at">.keep =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="fu">kable</span>(richness_at_coverage, <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">treatment</th>
+<th align="right">coverage</th>
+<th align="left">method</th>
+<th align="right">richness</th>
+<th align="right">lower_95</th>
+<th align="right">upper_95</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">heath</td>
+<td align="right">0.883</td>
+<td align="left">Rarefaction</td>
+<td align="right">57.211</td>
+<td align="right">44.907</td>
+<td align="right">69.516</td>
+</tr>
+<tr class="even">
+<td align="left">regen</td>
+<td align="right">0.883</td>
+<td align="left">Rarefaction</td>
+<td align="right">84.456</td>
+<td align="right">65.283</td>
+<td align="right">103.628</td>
+</tr>
+<tr class="odd">
+<td align="left">com_wood</td>
+<td align="right">0.883</td>
+<td align="left">Rarefaction</td>
+<td align="right">64.891</td>
+<td align="right">53.448</td>
+<td align="right">76.335</td>
+</tr>
+<tr class="even">
+<td align="left">mat_wood</td>
+<td align="right">0.883</td>
+<td align="left">Rarefaction</td>
+<td align="right">40.548</td>
+<td align="right">35.050</td>
+<td align="right">46.046</td>
+</tr>
+</tbody>
+</table>
+<p>And visually.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">ggplot</span>(richness_at_coverage, <span class="fu">aes</span>(treatment, richness)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower_95, <span class="at">ymax =</span> upper_95, <span class="at">colour =</span> treatment)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> habitat_labels) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> habitat_colours) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Habitat&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Coverage-standardised taxon richness&quot;</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">sprintf</span>(<span class="st">&quot;Common sample coverage %.1f%%&quot;</span>, <span class="dv">100</span> <span class="sc">*</span> target_coverage)) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="session1_files/figure-html/plot-coverage-richness-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<p>The pattern largely agrees with that of the effective number of
+species, only the differences among habitats are more marked, especially
+the extremes of regen and mature woodland. The contrast between the two
+metrics, suggests that richness patterns are drive by numerous but low
+read taxa.</p>
+<p>Because we have summarised our multivariate data, into a single
+covariate (e.g., effective number of species), we can use well
+established methods to analyse these, namely, linear regression. Below,
+we go through an example.</p>
+</div>
+</div>
+<div
+id="exploring-how-diversity-varies-with-successional-stage-and-covariates"
+class="section level2">
+<h2>4. Exploring how diversity varies with successional stage and
+covariates</h2>
+<p>We will reproduce a standard approach to linear regression, fitting a
+global model with all covariates of interest, using AIC to select the
+most parsimonious model, validating model assumption, and finally make
+and visualise predictions.</p>
+<p>There is much literature on the topic of linear regression, which we
+will not cover here. Two classic reads by Alain Zuur are: <a
+href="https://doi.org/10.1111/j.2041-210X.2009.00001.x">A protocol for
+data exploration</a> and <a
+href="https://doi.org/10.1111/2041-210X.12577">A protocol for conducting
+and presenting results of regression-type analyses</a>.</p>
+<p>For our next step, we need to choose the relevant type of regression,
+which depends on the type of data we are analysing. We are using the
+effective number of species (<span class="math inline">\(H_1\)</span>),
+which we might think is count data, which would fit a poisson
+regression. However, because we obtained <span
+class="math inline">\(H_1\)</span> as the exponential of SWI, the
+numbers are not integers (i.e., they have decimals), which a poisson
+model is not well equipped to handle. We could fit <span
+class="math inline">\(H_1\)</span> in a linear regression assuming a
+normal distribution, but in this instance, we will use the original SWI,
+and later backtransform our estimates back to the <span
+class="math inline">\(H_1\)</span> scale. This is typically done with
+data to better approximate the assumption of normality of the residuals
+that linear regression have. However, this is a special case because
+both scales have a clear interpretation. The SWI measures uncertainty
+about the taxon identity of a randomly selected read, while <span
+class="math inline">\(H_1\)</span> expresses the same diversity as an
+effective number of taxa.</p>
+<div id="prepare-the-model-data" class="section level3">
+<h3>Prepare the model data</h3>
+<p>In the linear regression world, we are no longer dealing with
+community matrices, here we use long datasets, with one row per sample,
+and response and explanatory variables as columns. We work out of the
+<code>div_cc</code> we created earlier.</p>
+<p>We also transform our numeric covariates of temperature, pH, and
+moisture. We center them. For instance, we take all of our measurements
+of pH across the dataset, and estimate the average. Then, for each
+individual pH measurement, we substract the mean, such that values that
+are exactly average become zero, values above average are positive, and
+values below average are negative. There are several reasons to do this.
+It increases numerical stability of the models, which roughly translates
+to: the machines running these models are happier with centred data, but
+it also improves interpretation of the outputs, because our estimates
+will be for pH/temperature/moisutre = 0, which now happens to be the
+average rather than some non-existent ultra acidic, dry, and near
+freezing value.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># List vegetation covariates</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>veg_vars <span class="ot">&lt;-</span> <span class="fu">intersect</span>(<span class="fu">c</span>(<span class="st">&quot;moss&quot;</span>, <span class="st">&quot;lichen&quot;</span>, <span class="st">&quot;herbs&quot;</span>, <span class="st">&quot;shrubs&quot;</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>                        <span class="st">&quot;trees&quot;</span>, <span class="st">&quot;bare_litter&quot;</span>, <span class="st">&quot;rocky&quot;</span>, <span class="st">&quot;fern&quot;</span>), <span class="fu">names</span>(div_cc))</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co"># Subset relevant variables, drop missing values, estimate log(hill1) and centre soil variables</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>cc_mod <span class="ot">&lt;-</span> div_cc <span class="sc">%&gt;%</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>  <span class="fu">select</span>(site_id, treatment, hill1, ph, moisture, temp, <span class="fu">all_of</span>(veg_vars)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">treatment =</span> <span class="fu">droplevels</span>(treatment), <span class="at">log_hill1 =</span> <span class="fu">log</span>(hill1),</span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a>         <span class="fu">across</span>(<span class="fu">c</span>(ph, moisture, temp), <span class="sc">~</span> .x <span class="sc">-</span> <span class="fu">mean</span>(.x), <span class="at">.names =</span> <span class="st">&quot;{.col}_c&quot;</span>))</span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co"># Print summary</span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a>cc_mod <span class="sc">%&gt;%</span></span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a>  <span class="fu">group_by</span>(treatment) <span class="sc">%&gt;%</span></span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">soil_samples =</span> <span class="fu">n</span>(), <span class="at">field_sites =</span> <span class="fu">n_distinct</span>(site_id),</span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a>            <span class="at">min_ph =</span> <span class="fu">min</span>(ph), <span class="at">max_ph =</span> <span class="fu">max</span>(ph), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>, <span class="at">caption =</span> <span class="st">&quot;Sample sizes and pH ranges for the regression&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Sample sizes and pH ranges for the regression</caption>
+<thead>
+<tr class="header">
+<th align="left">treatment</th>
+<th align="right">soil_samples</th>
+<th align="right">field_sites</th>
+<th align="right">min_ph</th>
+<th align="right">max_ph</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">heath</td>
+<td align="right">14</td>
+<td align="right">5</td>
+<td align="right">3.30</td>
+<td align="right">6.20</td>
+</tr>
+<tr class="even">
+<td align="left">regen</td>
+<td align="right">13</td>
+<td align="right">5</td>
+<td align="right">2.95</td>
+<td align="right">7.88</td>
+</tr>
+<tr class="odd">
+<td align="left">com_wood</td>
+<td align="right">13</td>
+<td align="right">5</td>
+<td align="right">2.55</td>
+<td align="right">6.55</td>
+</tr>
+<tr class="even">
+<td align="left">mat_wood</td>
+<td align="right">13</td>
+<td align="right">5</td>
+<td align="right">2.55</td>
+<td align="right">6.22</td>
+</tr>
+</tbody>
+</table>
+<p>We are running one more set of data transformations before fitting
+our models. We collected vegetation data at each site as a percentage
+cover. While it was collected in a way that different types can overlap,
+e.g., mosses and lichen underneath shrubs, and thus they do not add up
+to 100%, they can still have some level of complementarity. That is, if
+you have 90% herbaceous cover, you likely will have small shrub cover,
+and viceversa. This means one variable contains information on the
+other, which confounds the effects of the different types of
+vegetation.</p>
+<p>There are several ways to overcome this problem. Here, we will feed
+our vegetation data into Principal Component Analysis (PCA), and then
+extract the scores (i.e., axis) of the three main PC’s. The advantage of
+this, is that the effects of the vegetation are contained in the scores,
+yet each set of scores is independent of the other, hence circumventing
+the complementarity issue.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># Select vegetation covariates</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>veg <span class="ot">&lt;-</span> cc_mod <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(veg_vars)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(<span class="sc">~</span> <span class="fu">isTRUE</span>(<span class="fu">sd</span>(.x) <span class="sc">&gt;</span> <span class="dv">0</span>)))</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="co"># Fit PCA and extract three main axis</span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>veg_pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(veg, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale. =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>veg_scores <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(veg_pca<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">veg_PC1 =</span> PC1, <span class="at">veg_PC2 =</span> PC2, <span class="at">veg_PC3 =</span> PC3)</span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="co"># Bind back to data</span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a>cc_mod <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(cc_mod, veg_scores)</span></code></pre></div>
+<p>While the individual effect of our covariates will be “lost” in these
+axis, we can explore how each vegetation type relates to the PCA scores.
+Here, we correlate each individual variable to each of the three
+scores.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Correlate vegetation variables to PC scores and format</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>veg_pc_cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(veg, veg_scores) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">&quot;vegetation&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>vegetation, <span class="at">names_to =</span> <span class="st">&quot;component&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;correlation&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">component =</span> <span class="fu">str_remove</span>(component, <span class="st">&quot;^veg_&quot;</span>))</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co"># Plot correlations</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>p_veg_cor <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(veg_pc_cor, <span class="fu">aes</span>(correlation, vegetation)) <span class="sc">+</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;grey50&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">xend =</span> correlation, <span class="at">yend =</span> vegetation), <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> component, <span class="at">nrow =</span> <span class="dv">1</span>, <span class="at">axes =</span> <span class="st">&quot;all_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(<span class="fu">names</span>(veg)),</span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="sc">~</span> <span class="fu">str_to_sentence</span>(<span class="fu">str_replace_all</span>(.x, <span class="st">&quot;_&quot;</span>, <span class="st">&quot; &quot;</span>))) <span class="sc">+</span></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Pearson correlation with PC scores&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Vegetation variable&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(), <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a>        <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>))</span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a>p_veg_cor</span></code></pre></div>
+<p><img src="session1_files/figure-html/vegetation-pc-correlations-1.png" alt="" width="1056" style="display: block; margin: auto;" />
+These can then be used to interpret back the effects of each score if
+they are retained in our final model.</p>
+</div>
+<div id="fit-the-global-model" class="section level3">
+<h3>Fit the global model</h3>
+<p>The global model includes habitat type, the three vegetation PCs, and
+centred soil pH, moisture and temperature. The interactions allow each
+soil relationship to differ among habitats. For example,
+<code>treatment * ph_c</code> includes habitat, pH and their
+interaction.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Fit global model on log_hill1</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>global_h1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_hill1 <span class="sc">~</span> veg_PC1 <span class="sc">+</span> veg_PC2 <span class="sc">+</span> veg_PC3 <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>                  treatment <span class="sc">*</span> (ph_c <span class="sc">+</span> moisture_c <span class="sc">+</span> temp_c),</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>                <span class="at">data =</span> cc_mod, <span class="at">na.action =</span> na.fail)</span></code></pre></div>
+</div>
+<div id="find-the-best-model" class="section level3">
+<h3>Find the “best” model</h3>
+<p>When using linear regression, and generally most statistical
+analysis, there is a tension between how many questions we want to
+answer with the data, and how much information the data holds to answer
+those questions. If we try to ask too many questions, i.e., fit lots of
+variables into the model, we risk overfitting the model, which can make
+it fail. To navigate this, we can use what’s called information
+criteria, the most well-known being Aikaike’s Information Criteria
+(AIC), which will help us identify the most parsimonious model to
+explain changes in our response variable, i.e., keep only variables that
+have genuine explanatory power over our response variable.</p>
+<p>We use the function <code>dredge</code> from the package
+<code>MuMIn</code> to automate this, and explore all the models that are
+within 2 AIC points of each other, a rule of thumb threshold below which
+we assume we cannot discern between models.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Compare models through AIC with dredge</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>model_selection <span class="ot">&lt;-</span> <span class="fu">dredge</span>(global_h1, <span class="at">rank =</span> <span class="st">&quot;AICc&quot;</span>, <span class="at">fixed =</span> <span class="st">&quot;treatment&quot;</span>) <span class="co"># We fix treatment as a covariate that must be in all models, given it is our desgin covariate </span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co"># Select the top ranked models</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="fu">subset</span>(model_selection, delta <span class="sc">&lt;=</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## Global model call: lm(formula = log_hill1 ~ veg_PC1 + veg_PC2 + veg_PC3 + treatment * 
+##     (ph_c + moisture_c + temp_c), data = cc_mod, na.action = na.fail)
+## ---
+## Model selection table 
+##     (Int)     mst_c    ph_c trt veg_PC1 veg_PC2 df  logLik  AICc delta weight
+## 19 0.8714           0.14880   +         -0.1384  7 -41.252  99.0  0.00  0.163
+## 9  1.0270                     + 0.12690          6 -42.661  99.1  0.15  0.151
+## 25 0.9484                     + 0.11370 -0.1083  7 -41.459  99.4  0.41  0.133
+## 18 1.0780 -0.010460           +         -0.1518  7 -41.791 100.1  1.08  0.095
+## 27 0.8997           0.10960   + 0.07801 -0.1224  8 -40.496 100.3  1.27  0.086
+## 3  0.9747           0.13730   +                  6 -43.230 100.3  1.29  0.085
+## 17 0.9295                     +         -0.1274  6 -43.275 100.4  1.38  0.082
+## 11 0.9955           0.08904   + 0.09922          7 -42.044 100.6  1.58  0.074
+## 26 1.0530 -0.007687           + 0.09092 -0.1300  8 -40.689 100.7  1.66  0.071
+## 1  1.0210                     +                  5 -44.850 101.0  1.98  0.060
+## Models ranked by AICc(x)</code></pre>
+<p>There are 10 models within 2 AIC points of the best model (i.e.,
+lowest AIC). The table gives is each model as a row, then the columns
+represent terms in the model, the intercept, moisture and pH, our
+treatment (habitat type), first and second vegetation PCs, and then the
+number of degrees of freedom used by the model (how many parameters it
+is estimating). We can also see the AIC, the delta (difference to the
+next one), and the relative weight of each model within this set.</p>
+<p>We can already see that soil temperature was never retained in the
+top models, nor was veg_PC3. The remaining variables are retained in
+some but not others. No interactions have been retained either.</p>
+<p>Given the number of “best” models, we need to choose which one to use
+to learn about our system. We might choose the top one, but that would
+dismiss two variables that are also picked up by the other top models.
+Another approach, sometimes frowned upon, is model averaging. In
+essence, average the covariate effects across models, which can be done
+conditionally or not. When done conditionally, effects are only averaged
+across models that have it, unconditionally, if the covariate is missing
+from one of the models, it counts as a zero towards the average. Then
+you might want to explore differences among the two averages.</p>
+<p>For the purposes of simplicity of explanation and code, we will
+proceed with the top model that includes treatment, pH, and veg_PC2.
+Though this would be inadvisable with these results.</p>
+</div>
+<div id="is-the-best-model-any-good" class="section level3">
+<h3>Is the best model any good?</h3>
+<p>We have chosen our best model. But before we use it to learn about
+our system, we must check whether it is any good at all. How do we do
+this? We check the model’s assumptions. What are the model
+assumptions?</p>
+<p>The model’s assumptions are a series of conditions that the data, the
+experimental design, and the model structure (namely the formula) must
+meet, such that the statistical machinery underneath the hood can do a
+good job and produce appropriate estimates.</p>
+<p>The most obvious assumption is whether the data type of your response
+is adequate for the type of model. For instance, if we had count data, a
+gaussian (or normal) model would not be appropriate, and we should use a
+<code>poisson</code> or a <code>negative binomial</code> model. There
+are other assumptions that we need to meet, regarding the spread of the
+data, the absence of outliers, but we wll not go into them.</p>
+<p>There are several ways we can check these assumptions, for a classic
+<code>lm()</code> we could simply run <code>plot(model object)</code>
+and it would print several plots where we can evaluate of these
+assumptions are met or not. This would not work with other types of
+models e.g., <code>glm()</code>. Below I show a method that is equally
+simple to implement, but that is far more versatile, and can be used
+with more complex models using the package <code>DHARMa</code>. While it
+is easy to implement, there a lot of machinery underneath making it
+possible, but we will not go into it either.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Selecting the best model</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>model_h1 <span class="ot">&lt;-</span> <span class="fu">get.models</span>(model_selection, <span class="at">subset =</span> <span class="dv">1</span>)[[<span class="dv">1</span>]]</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="co"># Simulate residuals from model object, and plot validations</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>sim_h1 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(model_h1, <span class="at">n =</span> <span class="dv">1000</span>, <span class="at">seed =</span> <span class="dv">123</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a><span class="fu">plot</span>(sim_h1)</span></code></pre></div>
+<p><img src="session1_files/figure-html/best%20model%20and%20residual-diagnostics-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<p>We are after a lack of red. Which we have. More specifically, on the
+QQ-plot, we want the points (triangles) to sit more or less on the
+diagonal line. There are also several statistical tests (KS, Dispersion,
+and Outlier), which come up as not significant (n.s.). On the right, we
+have the residuals vs model predictions, and here, we want our points to
+be more or less randomly distributed around the median (0.5) with no
+discernible pattern. DHARMa fits quantile regressions at the mediate,
+and 25th and 75th quantiles, which we want to overlap with the dotted
+lines.</p>
+</div>
+<div id="model-outputs" class="section level3">
+<h3>Model Outputs</h3>
+<p>Now we have a parsimonious model (with caveats, see text in model
+selection) that we can trust. Let’s look at the outputs.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># Printing the outputs</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">summary</span>(model_h1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = log_hill1 ~ ph_c + veg_PC2 + 1 + treatment, data = cc_mod, 
+##     na.action = na.fail)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.10289 -0.38141 -0.01854  0.39000  0.88049 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)        0.87138    0.16116   5.407  2.1e-06 ***
+## ph_c               0.14880    0.07706   1.931 0.059535 .  
+## veg_PC2           -0.13839    0.07252  -1.908 0.062475 .  
+## treatmentregen     0.91378    0.23976   3.811 0.000401 ***
+## treatmentcom_wood  0.82860    0.24668   3.359 0.001559 ** 
+## treatmentmat_wood  0.59645    0.22228   2.683 0.010033 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5596 on 47 degrees of freedom
+## Multiple R-squared:  0.2835, Adjusted R-squared:  0.2073 
+## F-statistic:  3.72 on 5 and 47 DF,  p-value: 0.006425</code></pre>
+<p>Here we have the typical output of a linear regression. It is divided
+into four parts:</p>
+<ul>
+<li>Call: shows you the function used to fit the model, including the
+formula and its variables.</li>
+<li>Residuals: tells you about the distribution of residuals. If you are
+interested in learning more about residuals, check Zuur’s references
+above. Briefly, there is at least one residual for each datapoint, which
+is measured as the distance between said data point, and the prediction
+of the model. Thus, it measures your residual variance, hence,
+residuals. What you want to see is that the median is near zero, and
+that the quantiles to either side are more or less symmetric, which they
+are. We will come back to them.</li>
+<li>Coefficients: Here is where we learn about our system. There are a
+few quirks that we must know to be able to draw inferences.
+<ul>
+<li>Intercept: In the way that we have fitted the model, all estimates
+are estimated relative to an intercept. the intercept is the value of
+our response variable, log_hill1 (or SWI), when our numeric values are
+zero (this is why it is valuable to centre your numeric variables), and
+for the reference level of your factors, here, heath (the one that is
+missing from the list). Thus, we have a SWI of 0.87 in heath at average
+pH and PC2 values.</li>
+<li>Contrasts - Slopes: When we fit a numeric variable to a model, it
+estimates a slope. A slope is a rate of change of the response variable
+over the covariate. For instance, SWI is declining by 0.14 points for
+every unit of increase of pH. The P value on the right hand side tells
+us whether the slope is significantly different from zero. If it is
+zero, the predicted line would be flat, and SWI would not change over
+pH. Technically speaking, the p-value tells us the following: what is
+the probability that we could obtain the data we have observed, IF the
+slope was zero (null hypothesis). If the probability is small enough,
+typically &lt; 0.05 (5%), the null hypothesis is rejected, and we
+conclude that there is a significant effect of our covariate.<br />
+There is much debate about whether p-values should be use or not, or at
+least whether the arbitrary 0.05 threshold of significance should be
+used. Here, we have two “border-line” (or marginal) significances for pH
+and PC2, and strictly speaking, we could conclude no relationship. In
+any case, p-values should not be assessed independently of the effect
+sizes (i.e., the estimate).</li>
+<li>Contrasts - Factors: When we fit categorical variables, like habitat
+type, the estimates are telling us about the difference between our
+intercept (heath at pH and PC2 = 0), relative to the new level (e.g.,
+regen also at pH and PC2 = 0). Such that SWI for regen is
+<code>0.87138+0.91378 = 1.78516</code>. Here, the p-value is telling us,
+whether the difference between the two levels we are contrasting is
+significantly different from zero. The same technical definition I used
+for slope applies here though. In our summary, we can see that all
+wooded habitats have significantly higher SWI than heath. I will not go
+into details about the t-value, it is part of the statistical machinery
+that the model uses to derive the p-value.</li>
+<li>Std. Error and statistical frameworks: The standard error tells us
+about the precision of our estimate, or how much the estimate would vary
+if you were to repeat the study. It is used to estimate the confidence
+interval, typically 95%. This also has a technical definition that is a
+bit obscure: if you repeated your experiment an infinite number of
+times, you would find that the estimates for each of them are within
+your confidence interval, 95% of the time. Ultimately, it is telling us
+about how confident we are about our estimates. The reason for these
+obscures definitions is that we are using a Frequentist statistical
+framework, which focuses on predictions of the future, as opposed to the
+Bayesian framework, but this is beyond our scope.</li>
+</ul></li>
+<li>The rest: after the coefficient table, we have some additional
+information about the model. The residual degrees of freedom tells us
+how much information is left in the data after fitting the model, here
+53 observations minus six estimated coefficients, 47 df left. Residual
+standard error tells us about the scatter of our observations relative
+to our model predictions. The R-square and adjusted R-square tell us
+about the proportion of variance explained by the model. If the data
+contains 100% of the variance, we can measure how much of it is
+explained by our model, here 28%. The adjusted R-square corrects for the
+fact that some covariates may overlap in the variance they explained,
+e.g., veg_PC and habitat type. Lastly, we have an F-statistic, with
+degree of freedom and a p-value. This is a contrast (using ANOVA) of our
+fitted model, against an intercept-only model, which has no covariates.
+This tells us whether our fitted covariates improve against a model that
+fits a flat straight line through the data. Which in our case, they
+do.</li>
+</ul>
+</div>
+<div id="nested-structure-of-the-data" class="section level3">
+<h3>Nested structure of the data</h3>
+<p>Without going into much detail, we will cover the structure of the
+data itself, because this is often necessary with noisy ecological data
+such as this. Often, we might want opt for a design with sites, and
+replicated sampling within a site. This imposes a structure on the data,
+such that samples within a site may share a conditions that samples
+between sites do not. This creates correlation among data points and
+their residuals (the lack of which is one of the assumptions), in turn,
+it overestimates the number of degrees of freedom because where the
+datapoints are not correlated 1 data point = 1 d.f., if they are
+correlated this is not true, we have less. Overestimated d.f. leads to
+underestimates of standard errors, and ultimately to overconfident
+estimates of effect sizes and statistical significance.</p>
+<p>This can be addressed with random effects in mixed models, also
+called hierarchical regression models. We have used hierarchical models
+for our bacteria and fungal data but not for the invertebrate data
+presented in this tutorial because the data did not allow it. For an
+introduction to hierarchical models see Brown’s <a
+href="https://doi.org/10.1177/2515245920960351">tutorial</a> using the
+<code>lme4</code> package. <a
+href="https://quantdev.ssri.psu.edu/sites/qdev/files/GCM_Chp3_Tutorial_2.html?utm_source=chatgpt.com">Chapter
+3</a> of Grimm, Ram, and Estabrook’s Growth Modelling provides worked
+examples across a range of R packages.</p>
+<p>Nonetheless, we want to acknowledge the structure of the data, and
+correct our measures of confidence. We use a post-hoc correction with
+the <code>ClubSandwich</code> package to apply a cluster-robust variance
+estimator and a Satterthwaite correction of degrees of freedom, and
+extract the coefficient table again.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="co"># Cluster-robust variance estimation</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>site_vcov <span class="ot">&lt;-</span> <span class="fu">vcovCR</span>(model_h1, <span class="at">cluster =</span> cc_mod<span class="sc">$</span>site_id, <span class="at">type =</span> <span class="st">&quot;CR2&quot;</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a><span class="co"># Coefficient table with df correction</span></span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a><span class="fu">coef_test</span>(model_h1, <span class="at">vcov =</span> site_vcov, <span class="at">test =</span> <span class="st">&quot;Satterthwaite&quot;</span>)</span></code></pre></div>
+<pre><code>## Alternative hypothesis: two-sided 
+##              Coef. Estimate     SE Null value t-stat d.f. (Satt) p-val (Satt)
+##        (Intercept)    0.871 0.0892          0   9.77        4.63      &lt; 0.001
+##               ph_c    0.149 0.0543          0   2.74        5.39      0.03757
+##            veg_PC2   -0.138 0.0830          0  -1.67        2.35      0.21835
+##     treatmentregen    0.914 0.1965          0   4.65        7.70      0.00182
+##  treatmentcom_wood    0.829 0.1884          0   4.40        8.10      0.00222
+##  treatmentmat_wood    0.596 0.1610          0   3.71        7.33      0.00701
+##  Sig.
+##   ***
+##     *
+##      
+##    **
+##    **
+##    **</code></pre>
+<p>The most notable changes are the loss of marginal significance of
+veg_PC2, while pH has gone over the 0.05 threshold to statistical
+significance. This likely responds to the fact that vegetation was only
+measured at site level, while pH was measured at sample level, hence
+veg_PC2 would suffer most from a correction of nested data. Moreover,
+much of the variation in vegetation is likely soaked by the habitat type
+variable, which remains statistically significant, with estimates in
+line with our previous table, i.e., they are robust estimates.</p>
+</div>
+</div>
+<div id="visual-outputs" class="section level2">
+<h2>5. Visual outputs</h2>
+<p>Once we are confident in the robustness of our coefficients, and our
+statistical significances. We might want to produce more reader-friendly
+outputs in the form of visual plots.</p>
+<p>We do this by creating a “new” dataset over which we make
+predictions. This new dataset is a dummy dataset with the values of our
+covariates over which we want to predict, in our case, habitat type and
+pH, we will not predict over veg_PC2 since we saw in the previous
+section it was not significant when correcting for the nested structure
+of the data.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="co"># Predict over the observed pH range in each habitat</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>new_habitat <span class="ot">&lt;-</span> cc_mod <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>  <span class="fu">reframe</span>(<span class="at">ph_c =</span> <span class="fu">seq</span>(<span class="fu">min</span>(ph_c), <span class="fu">max</span>(ph_c), <span class="at">length.out =</span> <span class="dv">100</span>),</span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>          <span class="at">.by =</span> treatment) <span class="sc">%&gt;%</span></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">veg_PC2 =</span> <span class="dv">0</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a>pred_log <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_h1, <span class="at">newdata =</span> new_habitat, <span class="at">interval =</span> <span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a>pred_habitat <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(new_habitat, <span class="fu">as_tibble</span>(pred_log)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ph =</span> ph_c <span class="sc">+</span> <span class="fu">mean</span>(cc_mod<span class="sc">$</span>ph),</span>
+<span id="cb22-11"><a href="#cb22-11" tabindex="-1"></a>         <span class="at">hill1 =</span> <span class="fu">exp</span>(fit), <span class="at">lower_95 =</span> <span class="fu">exp</span>(lwr), <span class="at">upper_95 =</span> <span class="fu">exp</span>(upr))</span>
+<span id="cb22-12"><a href="#cb22-12" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="#cb22-13" tabindex="-1"></a><span class="co"># Predict habitat means at the same pH</span></span>
+<span id="cb22-14"><a href="#cb22-14" tabindex="-1"></a>new_at_mean <span class="ot">&lt;-</span> cc_mod <span class="sc">%&gt;%</span></span>
+<span id="cb22-15"><a href="#cb22-15" tabindex="-1"></a>  <span class="fu">distinct</span>(treatment) <span class="sc">%&gt;%</span></span>
+<span id="cb22-16"><a href="#cb22-16" tabindex="-1"></a>  <span class="fu">arrange</span>(treatment) <span class="sc">%&gt;%</span></span>
+<span id="cb22-17"><a href="#cb22-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ph_c =</span> <span class="dv">0</span>, <span class="at">veg_PC2 =</span> <span class="dv">0</span>)</span>
+<span id="cb22-18"><a href="#cb22-18" tabindex="-1"></a></span>
+<span id="cb22-19"><a href="#cb22-19" tabindex="-1"></a>pred_at_mean_log <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_h1, <span class="at">newdata =</span> new_at_mean, <span class="at">interval =</span> <span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb22-20"><a href="#cb22-20" tabindex="-1"></a></span>
+<span id="cb22-21"><a href="#cb22-21" tabindex="-1"></a><span class="co"># Note that we backtransform fit (SWI) back to Hill1</span></span>
+<span id="cb22-22"><a href="#cb22-22" tabindex="-1"></a>pred_at_mean <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(new_at_mean, <span class="fu">as_tibble</span>(pred_at_mean_log)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-23"><a href="#cb22-23" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hill1 =</span> <span class="fu">exp</span>(fit), <span class="at">lower_95 =</span> <span class="fu">exp</span>(lwr), <span class="at">upper_95 =</span> <span class="fu">exp</span>(upr))</span></code></pre></div>
+<p>By using predict, we are not implementing the correction for the
+nested structure of the data. Doing so requires more involved coding,
+which, in this case, does not affect the output substantially, hence we
+are reproducing the most commonly used approach with the
+<code>predict()</code> function.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>h1_theme <span class="ot">&lt;-</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>),</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>        <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>))</span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a><span class="co"># Observed H1 and fitted habitat means ----</span></span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a>p_habitat <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(cc_mod, <span class="fu">aes</span>(treatment, hill1)) <span class="sc">+</span></span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> treatment), <span class="at">alpha =</span> <span class="fl">0.25</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> treatment), <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">size =</span> <span class="fl">1.8</span>,</span>
+<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.12</span>, <span class="at">height =</span> <span class="dv">0</span>, <span class="at">seed =</span> <span class="dv">123</span>)) <span class="sc">+</span></span>
+<span id="cb23-10"><a href="#cb23-10" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="at">data =</span> pred_at_mean, <span class="fu">aes</span>(<span class="at">ymin =</span> lower_95, <span class="at">ymax =</span> upper_95),</span>
+<span id="cb23-11"><a href="#cb23-11" tabindex="-1"></a>                  <span class="at">shape =</span> <span class="dv">18</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb23-12"><a href="#cb23-12" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="sc">~</span> <span class="fu">str_wrap</span>(habitat_labels[.x], <span class="at">width =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
+<span id="cb23-13"><a href="#cb23-13" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> habitat_colours) <span class="sc">+</span></span>
+<span id="cb23-14"><a href="#cb23-14" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> habitat_colours) <span class="sc">+</span></span>
+<span id="cb23-15"><a href="#cb23-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Habitat&quot;</span>, <span class="at">y =</span> <span class="st">&quot;H1 (effective taxa)&quot;</span>,</span>
+<span id="cb23-16"><a href="#cb23-16" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Observed and fitted H1 by habitat&quot;</span>,</span>
+<span id="cb23-17"><a href="#cb23-17" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Diamonds show fitted geometric means at mean soil pH&quot;</span>) <span class="sc">+</span></span>
+<span id="cb23-18"><a href="#cb23-18" tabindex="-1"></a>  h1_theme <span class="sc">+</span></span>
+<span id="cb23-19"><a href="#cb23-19" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb23-20"><a href="#cb23-20" tabindex="-1"></a></span>
+<span id="cb23-21"><a href="#cb23-21" tabindex="-1"></a><span class="co"># Fitted H1 over soil pH with observed pH values ----</span></span>
+<span id="cb23-22"><a href="#cb23-22" tabindex="-1"></a>p_ph <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(pred_habitat, <span class="fu">aes</span>(ph, hill1, <span class="at">colour =</span> treatment)) <span class="sc">+</span></span>
+<span id="cb23-23"><a href="#cb23-23" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower_95, <span class="at">ymax =</span> upper_95, <span class="at">fill =</span> treatment),</span>
+<span id="cb23-24"><a href="#cb23-24" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">colour =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb23-25"><a href="#cb23-25" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb23-26"><a href="#cb23-26" tabindex="-1"></a>  <span class="fu">geom_rug</span>(<span class="at">data =</span> cc_mod, <span class="fu">aes</span>(<span class="at">x =</span> ph, <span class="at">colour =</span> treatment),</span>
+<span id="cb23-27"><a href="#cb23-27" tabindex="-1"></a>           <span class="at">sides =</span> <span class="st">&quot;b&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb23-28"><a href="#cb23-28" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> habitat_colours, <span class="at">labels =</span> habitat_labels) <span class="sc">+</span></span>
+<span id="cb23-29"><a href="#cb23-29" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> habitat_colours, <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb23-30"><a href="#cb23-30" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Soil pH&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Fitted H1 (geometric mean)&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;Habitat&quot;</span>,</span>
+<span id="cb23-31"><a href="#cb23-31" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Fitted H1 over soil pH&quot;</span>,</span>
+<span id="cb23-32"><a href="#cb23-32" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Rug marks show observed soil pH&quot;</span>) <span class="sc">+</span></span>
+<span id="cb23-33"><a href="#cb23-33" tabindex="-1"></a>  h1_theme <span class="sc">+</span></span>
+<span id="cb23-34"><a href="#cb23-34" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb23-35"><a href="#cb23-35" tabindex="-1"></a></span>
+<span id="cb23-36"><a href="#cb23-36" tabindex="-1"></a>(p_habitat <span class="sc">|</span> p_ph) <span class="sc">+</span></span>
+<span id="cb23-37"><a href="#cb23-37" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">1.3</span>)) <span class="sc">+</span></span>
+<span id="cb23-38"><a href="#cb23-38" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(</span>
+<span id="cb23-39"><a href="#cb23-39" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Predictions hold vegetation PC2 at zero. Bars and shading show ordinary lm() 95% confidence intervals.&quot;</span>)</span></code></pre></div>
+<p><img src="session1_files/figure-html/plot-predictions-1.png" alt="" width="1056" style="display: block; margin: auto;" /></p>
+<p>The panel on the left should look familiar, it is very similar to the
+exploration of the raw data, only now we have the statistical test
+telling us what constitutes a significant difference or not. We are also
+able to extract the differences. On the right, we find a modest effect
+of pH on H1. The effect seems largely driven by a few pH values at pH
+&gt; 5.</p>
+<p>This completes our univariate analysis of eDNA data, where we have
+summarised a diverse community of invertebrates into a single metric (a
+2 in 1 in ths case) of SWI and H1. In <a href="session2.html">Session
+2</a>, we will explore a multivariate analysis of community composition
+using fungi.</p>
+<details>
+<summary>
+Software versions
+</summary>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode r fold-none"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.6.2 (2026-10-29 ucrt)
+## Platform: x86_64-w64-mingw32/x64
+## Running under: Windows 11 x64 (build 26300)
+## 
+## Matrix products: default
+##   LAPACK version 3.12.1
+## 
+## locale:
+## [1] LC_COLLATE=English_United Kingdom.utf8 
+## [2] LC_CTYPE=English_United Kingdom.utf8   
+## [3] LC_MONETARY=English_United Kingdom.utf8
+## [4] LC_NUMERIC=C                           
+## [5] LC_TIME=English_United Kingdom.utf8    
+## 
+## time zone: Europe/London
+## tzcode source: internal
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] patchwork_1.3.2    clubSandwich_0.7.0 MuMIn_1.48.19      DHARMa_0.4.7      
+##  [5] knitr_1.51         iNEXT_3.0.2        vegan_2.7-3        permute_0.9-10    
+##  [9] lubridate_1.9.5    forcats_1.0.1      stringr_1.6.0      dplyr_1.2.1       
+## [13] purrr_1.2.2        readr_2.2.0        tidyr_1.3.2        tibble_3.3.1      
+## [17] ggplot2_4.0.3      tidyverse_2.0.0    here_1.0.2        
+## 
+## loaded via a namespace (and not attached):
+##  [1] tidyselect_1.2.1   farver_2.1.2       S7_0.2.2           fastmap_1.2.0     
+##  [5] promises_1.5.0     digest_0.6.39      mime_0.13          timechange_0.4.0  
+##  [9] lifecycle_1.0.5    cluster_2.1.8.3    magrittr_2.0.5     compiler_4.6.2    
+## [13] rlang_1.2.0        sass_0.4.10        tools_4.6.2        yaml_2.3.12       
+## [17] labeling_0.4.3     bit_4.6.0          plyr_1.8.9         RColorBrewer_1.1-3
+## [21] gap.datasets_0.0.6 withr_3.0.3        grid_4.6.2         stats4_4.6.2      
+## [25] xtable_1.8-8       iterators_1.0.14   scales_1.4.0       MASS_7.3-66       
+## [29] cli_3.6.6          rmarkdown_2.31     crayon_1.5.3       reformulas_0.4.4  
+## [33] generics_0.1.4     otel_0.2.0         rstudioapi_0.18.0  reshape2_1.4.5    
+## [37] tzdb_0.5.0         minqa_1.2.8        cachem_1.1.0       splines_4.6.2     
+## [41] parallel_4.6.2     vctrs_0.7.3        boot_1.3-32        Matrix_1.7-6      
+## [45] sandwich_3.1-3     jsonlite_2.0.0     hms_1.1.4          bit64_4.8.0       
+## [49] qgam_2.0.0         foreach_1.5.2      jquerylib_0.1.4    gap_1.14          
+## [53] glue_1.8.1         nloptr_2.2.1       codetools_0.2-20   stringi_1.8.7     
+## [57] gtable_0.3.6       later_1.4.8        lme4_2.0-1         pillar_1.11.1     
+## [61] htmltools_0.5.9    R6_2.6.1           Rdpack_2.6.6       doParallel_1.0.17 
+## [65] rprojroot_2.1.1    shiny_1.13.0       vroom_1.7.1        evaluate_1.0.5    
+## [69] lattice_0.23-1     rbibutils_2.4.1    httpuv_1.6.17      bslib_0.10.0      
+## [73] Rcpp_1.1.1-1.1     nlme_3.1-171       mgcv_1.9-4         xfun_0.57         
+## [77] zoo_1.8-15         pkgconfig_2.0.3</code></pre>
+</details>
+<hr />
 <p><a href="session0.html">Previous: Session 0</a> | <a
 href="index.html">Home</a> | <a href="session2.html">Next: Session
 2</a></p>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlNlc3Npb24gMTogRGl2ZXJzaXR5IGFuZCByZWdyZXNzaW9uIg0KLS0tDQoNCiMjIFR1dG9yaWFsIHN0YXR1cw0KDQpUaGlzIHR1dG9yaWFsIGlzIHVuZGVyIGRldmVsb3BtZW50Lg0KDQpbUHJldmlvdXM6IFNlc3Npb24gMF0oc2Vzc2lvbjAuaHRtbCkgfA0KW0hvbWVdKGluZGV4Lmh0bWwpIHwNCltOZXh0OiBTZXNzaW9uIDJdKHNlc3Npb24yLmh0bWwp</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlNlc3Npb24gMTogWW91ciBkYXRhIGlzIHJlYWR5LiBXaGF0IHRvIGRvIHdpdGggaXQ/IERpdmVyc2l0eSBpbmRpY2VzIGFuZCByZWdyZXNzaW9uIg0KLS0tDQoNCmBgYHtyIGNodW5rLW9wdGlvbnMsIGluY2x1ZGU9RkFMU0V9DQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUsIG1lc3NhZ2UgPSBGQUxTRSwgd2FybmluZyA9IFRSVUUsDQogICAgICAgICAgICAgICAgICAgICBlcnJvciA9IEZBTFNFLCBjYWNoZSA9IEZBTFNFLCBmaWcud2lkdGggPSA4LA0KICAgICAgICAgICAgICAgICAgICAgZmlnLmhlaWdodCA9IDUsIGZpZy5hbGlnbiA9ICJjZW50ZXIiKQ0KYGBgDQoNCiMjIFdoYXQgd2Ugd2lsbCBjb3ZlciBpbiB0aGlzIHNlc3Npb24NCg0KSW4gW1Nlc3Npb24gMF0oc2Vzc2lvbjAuaHRtbCksIHdlIHVzZWQgdGhlIGxhYm9yYXRvcnkgY29udHJvbHMgdG8gY2hlY2sgZm9yIGNvbnRhbWluYXRpb24sIGZpbHRlcmVkIHRoZSAxOFMgZGF0YSBhbmQgc2F2ZWQgdGhlIGNvbW11bml0eSBtYXRyaWNlcyBhbmQgbWV0YWRhdGEuIEhlcmUsIHdlIHVzZSB0aG9zZSBmaWxlcyB0byBsb29rIGF0IHRoZSBkaXZlcnNpdHkgb2YgbWV0YXpvYW5zIGFjcm9zcyBoZWF0aCwgcmVnZW5lcmF0aW5nIHdvb2RsYW5kLCBjb21tZXJjaWFsIHdvb2RsYW5kIGFuZCBtYXR1cmUgd29vZGxhbmQuDQoNCldlIHdpbGw6DQoNCjEuIExvYWQgdGhlIGRhdGEgc2F2ZWQgYXQgdGhlIGVuZCBvZiBTZXNzaW9uIDAuDQoyLiBDYWxjdWxhdGUgZGl2ZXJzaXR5IGluZGljZXMuDQo0LiBGaXQgYSBsaW5lYXIgcmVncmVzc2lvbiB0byBleHBsb3JlIGhvdyBzYW1wbGUgZGl2ZXJzaXR5IHZhcmllcyB3aXRoIGhhYml0YXQgYW5kIHNvaWwgcEguDQo1LiBDb21wYXJlIGZpdHRlZCBkaXZlcnNpdHkgYWNyb3NzIGhhYml0YXRzLg0KDQpBcyBpbiBTZXNzaW9uIDAsIHdlIHVzZSAqdGF4YSosIGFuZCBub3QgKnNwZWNpZXMqIHJpY2huZXNzIG9yIGRpdmVyc2l0eSBkdWUgdG8gdGhlIG1peGVkIHRheG9ub215IGFwcHJvYWNoLiANCg0KIyMgMS4gUHJlcGFyZSB0aGUgd29ya2luZyBlbnZpcm9ubWVudA0KDQpMaWtlIGJlZm9yZSwgd2UgbmVlZCB0byBwcmVwYXJlIHRoZSB3b3JraW5nIGVudmlyb25tZW50IGZvciBvdXIgc2Vzc2lvbi4gDQoNCiMjIyBMb2FkIHRoZSBwYWNrYWdlcw0KDQpXZSBpbnN0YWxsZWQgbW9zdCBwYWNrYWdlcyBpbiB0aGUgcHJldmlvdXMgc2Vzc2lvbiwgd2Ugb25seSBuZWVkIGEgZmV3IGFkZGl0aW9ucy4gYERIQVJNYWAgYWxsb3dzIHZhbGlkYXRpb24gb2YgcmVncmVzc2lvbiBtb2RlbHMsIGFuZCBgTXVNSW5gIGlzIGFuIGVuZ2luZ2UgdG8gcnVuIG1vZGVsIHNlbGVjdGlvbi4gYGNsdWJTYW5kd2ljaGAgaW1wcm92ZXMgdGhlIHVuY2VydGFpbnR5IG9mIG91ciBtb2RlbCBlc3RpbWF0ZXMgY2F1c2VkIGJ5IHRoZSBkZXBlbmRlbmNlIGJldHdlZW4gc2FtcGxlcyBvZiB0aGUgc2FtZSBzaXRlLg0KDQpgYGB7ciBpbnN0YWxsLWNsdWJzYW5kd2ljaCwgZXZhbD1GQUxTRX0NCmluc3RhbGwucGFja2FnZXMoYygiREhBUk1hIiwgIk11TUluIiwiY2x1YlNhbmR3aWNoIiwgInBhdGNod29yayIpKQ0KYGBgDQoNCkxvYWQgdGhlIHBhY2thZ2VzIHdoZW4geW91IHN0YXJ0IGEgbmV3IFIgc2Vzc2lvbi4NCg0KYGBge3IgcGFja2FnZXN9DQpsaWJyYXJ5KGhlcmUpDQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkodmVnYW4pDQpsaWJyYXJ5KGlORVhUKQ0KbGlicmFyeShrbml0cikNCmxpYnJhcnkoREhBUk1hKQ0KbGlicmFyeShNdU1JbikNCmxpYnJhcnkoY2x1YlNhbmR3aWNoKQ0KbGlicmFyeShwYXRjaHdvcmspDQpgYGANClNvbWUgcGFja2FnZXMgYXJlIGEgYml0IHZlcmJvc2UsIGFuZCB3aWxsIHRlbGwgeW91IGFib3V0IGNvbmZsaWN0IHdpdGggb3RoZXJzLCBhcyB3ZWxsIGFzIHZlcnNpb25zIGFuZCBvdGhlciBpbmZvcm1hdGlvbi4gDQoNCiMjIyBSZWFkIHRoZSBwcmVwYXJlZCBkYXRhDQoNCkFsbCB0aHJlZSBmaWxlcyBoYXZlIGEgYHNhbXBsZV9pZGAgY29sdW1uLiBUaGUgY291bnRzIGFuZCBwcmVzZW5jZeKAk2Fic2VuY2UgdGFibGVzIGhhdmUgb25lIHJvdyBwZXIgc29pbCBzYW1wbGUgYW5kIG9uZSBjb2x1bW4gcGVyIHRheG9uIGFmdGVyIHRoZSBJRC4gV2Uga2VlcCB0aGUgdGF4b24gbmFtZXMgYXMgZXhwb3J0ZWQgYW5kIHVzZSBgc2FtcGxlX2lkYCB0byBqb2luIHRoZSBjb21tdW5pdHkgZGF0YSB0byB0aGUgbWV0YWRhdGEuDQoNCnwgRmlsZSB8IFdoYXQgaXMgaXQgIHwgV2hhdCB3ZSB1c2UgaXQgZm9yIHwNCnw6LS0tLS0tLS0tLS0tLS0tLS0tLXw6LS0tLS0tLS0tLS0tLS0tLS0tLXw6LS0tLS0tLS0tLS0tLS0tLS0tLXwNCnwgYHNlc3Npb24wX21ldGF6b2FfY291bnRzLmNzdmAgfCBSZWFkcy1iYXNlZCBjb21tdW5pdHkgbWF0cml4LiB8IENhbGN1bGF0ZSBvYnNlcnZlZCByaWNobmVzcyBhbmQgcmVhZC13ZWlnaHRlZCBkaXZlcnNpdHkgd2l0aGluIHNhbXBsZXMuIHwNCnwgYHNlc3Npb24wX21ldGF6b2FfcHJlc2VuY2VfYWJzZW5jZS5jc3ZgIHwgUHJlc2VuY2UtYWJzZW5jZSBjb21tdW5pdHkgbWF0cml4IHwgRXN0aW1hdGUgc3RhbmRhcmRpc2VkIHJpY2huZXNzLiB8DQp8IGBzZXNzaW9uMF9tZXRhem9hX21ldGFkYXRhLmNzdmAgfCBMb25nIGZvcm1hdCBlbnZpcm9ubWVudGFsIG1ldGFkYXRhIHwgUmVjb3ZlciBzYW1wbGUgbWV0YWRhdGEgYW5kIHNvaWwgY292YXJpYXRlcy4gfA0KDQpgYGB7ciByZWFkLXByZXBhcmVkLWRhdGF9DQojIExvYWQgdGhlIGRhdGEgZGlyZWN0b3J5DQpkYXRhX2RpciA8LSBoZXJlKCJkYXRhIiwgInNlc3Npb24xIikNCg0KIyBFc3RhYmxpc2ggbGV2ZWxzLCBsYWJlbHMsIGFuZCBhc3NvY2lhdGVkIGNvbG91cnMgb2YgaGFiaXRhdCB0eXBlcw0KaGFiaXRhdF9sYWJlbHMgPC0gYyhoZWF0aCA9ICJIZWF0aCIsIHJlZ2VuID0gIlJlZ2VuIiwNCiAgICAgICAgICAgICAgICAgICAgY29tX3dvb2QgPSAiQ29tbWVyY2lhbCB3b29kbGFuZCIsIG1hdF93b29kID0gIk1hdHVyZSB3b29kbGFuZCIpDQoNCmhhYml0YXRfbGV2ZWxzIDwtIG5hbWVzKGhhYml0YXRfbGFiZWxzKQ0KDQpoYWJpdGF0X2NvbG91cnMgPC0gYyhoZWF0aCA9ICIjOEI1QTJCIiwgcmVnZW4gPSAiIzY2Q0MzMyIsDQogICAgICAgICAgICAgICAgICAgICBjb21fd29vZCA9ICIjMkM3RkI4IiwgbWF0X3dvb2QgPSAiIzAwNUEzMiIpDQoNCg0KIyBMb2FkIHRoZSB0aHJlZSBjc3Yncw0KY29tbSA8LSByZWFkX2NzdihmaWxlLnBhdGgoZGF0YV9kaXIsICJzZXNzaW9uMF9tZXRhem9hX2NvdW50cy5jc3YiKSkgJT4lDQogIGNvbHVtbl90b19yb3duYW1lcygic2FtcGxlX2lkIikgJT4lDQogIGFzLm1hdHJpeCgpDQoNCmNvbW1fcGEgPC0gcmVhZF9jc3YoZmlsZS5wYXRoKGRhdGFfZGlyLCAic2Vzc2lvbjBfbWV0YXpvYV9wcmVzZW5jZV9hYnNlbmNlLmNzdiIpICkNCg0KbWV0YWRhdGEgPC0gcmVhZF9jc3YoZmlsZS5wYXRoKGRhdGFfZGlyLCAic2Vzc2lvbjBfbWV0YXpvYV9tZXRhZGF0YS5jc3YiKSkgJT4lDQogIG11dGF0ZSh0cmVhdG1lbnQgPSBmYWN0b3IodHJlYXRtZW50LCBsZXZlbHMgPSBoYWJpdGF0X2xldmVscykpDQoNCmBgYA0KV2UgcmVzdG9yZSAoZmFjdG9yKSB0aGUgaGFiaXRhdCBjb3ZhcmlhdGUgaW4gdGhlIG1ldGFkYXRhIHRvIGF2b2lkIGlzc3VlcyByZWdhcmRpbmcgdGhlIHdheSBpbiB3aGljaCBjc3Ygc3RvcmUgZGF0YSAodGV4dCksIHZzIGhvdyBSIHJlYWRzIHRoZW0uICANCg0KSXQgaXMgYWx3YXlzIGdvb2QgdG8gZG91YmxlIGNoZWNrIHRoaW5ncyBtYXRjaCBvdXIgZXhwZWN0YXRpb25zLiANCg0KYGBge3Igc2FtcGxpbmctc3VtbWFyeX0NCm1ldGFkYXRhICU+JQ0KICBncm91cF9ieSh0cmVhdG1lbnQpICU+JQ0KICBzdW1tYXJpc2Uoc29pbF9zYW1wbGVzID0gbigpLCBmaWVsZF9zaXRlcyA9IG5fZGlzdGluY3Qoc2l0ZV9pZCksIC5ncm91cHMgPSAiZHJvcCIpICU+JQ0KICBrYWJsZShjb2wubmFtZXMgPSBjKCJIYWJpdGF0IiwgIlNvaWwgc2FtcGxlcyIsICJGaWVsZCBzaXRlcyIpKQ0KYGBgDQpXZSBoYWQgbG9zdCA3IHNhbXBsZXMgdG8gcmFyZWZhY3Rpb24sIG1hdGNoaW5nIHRoZSBmaWd1cmVzIGFib3ZlLiANCg0KDQojIyAyLiBTdGFydCBsZWFybmluZyBmcm9tIHRoZSBkYXRhLCBkaXZlcnNpdHkgaW5kaWNlcw0KDQpUaGUgdmFsdWUgb2YgdXNpbmcgZUROQSBtZXRhYmFyY29kaW5nIGxpZXMgaW4gaXRzIGFiaWxpdHkgdG8gY292ZXIgYSB3aWRlIHRheG9ub21pYyByYW5nZS4gSG93ZXZlciwgdGhpcyBhbHNvIGNyZWF0ZXMgYSBjaGFsbGVuZ2UuIERhdGEgZnJvbSAxMDBzIG9mIHRheGEgY2FuIGJlIGRpZmZpY3VsdCB0byBoYW5kbGUuIERhdGEgc3VjaCBhcyB0aGlzIHdoZXJlIHdlIHdhbnQgdG8gZXhwbGFpbiBhbmQgdW5kZXJzdGFuZCBjaGFuZ2VzIGluIG11bHRpcGxlIG1lYXN1cmVkIHZhcmlhYmxlcyAoZWFjaCBpbmRpdmlkdWFsIHRheGEpIGFzIGEgZnVuY3Rpb24gb2YgY292YXJpYXRlcyBhcmUgcmVmZXJyZWQgdG8gYXMgbXVsdGl2YXJpYXRlIGRhdGEuIEluIGNvbnRyYXBvc2l0aW9uIHRvIHVuaXZhcmlhdGUgd2hlcmUgd2UgaGF2ZSBhIHNpbmdsZSB2YXJpYWJsZSBvZiBpbnRlcmVzdCB0aGF0IHdlIHdpc2ggdG8gZXhwbGFpbiAoZS5nLiwgdGVtcGVyYXR1cmUgYXMgYSBmdW5jdGlvbiBvZiB0aW1lIG9mIHRoZSBkYXkpLiBUaGVyZSBhcmUgYnJvYWRseSB0d28gcGF0aHMgdGhhdCBjYW4gYmUgZm9sbG93ZWQsIHN1bW1hcmlzaW5nIG11bHRpdmFyaWF0ZSBkYXRhIGludG8gdW5pdmFyaWF0ZSBkYXRhc2V0cyB0aHJvdWdoIHF1YW50aXRpZXMgb2YgaW50ZXJlc3QsIGxpa2UgbnVtYmVyIG9mIHRheGEgKHJpY2huZXNzKSBvciBkaXZlcnNpdHkgKGFidW5kYW5jZS13ZWlnaHRlZCByaWNobmVzcykgYW5kIGV4cGxhaW4gY2hhbmdlcyBpbiB0aG9zZSBvciB1c2UgbXVsdGl2YXJpYXRlIG1ldGhvZHMgb2YgYW5hbHlzaXMuIEhlcmUsIHdlIHdpbGwgZm9jdXMgb24gdGhlIGZvcm1lciwgYW5kIHNlc3Npb24gMiBhbmQgMyB3aWxsIGNvdmVyIHRoZSBsYXR0ZXIuIA0KDQpXZSB3aWxsIGZvY3VzIG9uIHR3byBzdW1tYXJ5IG1ldHJpY3MsIHRheG9uIHJpY2huZXNzLCBhbmQgSGlsbCBudW1iZXIgb2Ygb3JkZXIgMSBcKEhfMVwpLCBidXQgdGhlcmUgYXJlIG1hbnkgdGhhdCBjYW4gYmUgdXNlZCwgd2hpY2ggcHJvdmlkZSBkaWZmZXJlbnQgaW5mb3JtYXRpb24gZnJvbSB5b3VyIGRhdGEuIElmIHlvdSBhcmUgaW50ZXJlc3RlZCBpbiB0aGlzIHRvcGljLCBJIHJlY29tbWVuZCBjaGFwdGVyIDEzIG9mIFtFY29sb2dpY2FsIE1ldGhvZG9sb2d5XShodHRwczovL3d3dy56b29sb2d5LnViYy5jYS9+a3JlYnMvYm9va3MuaHRtbCkgYnkgQ2hhcmxlcyBLcmVicy4NCg0KVGF4b25vbWljIHJpY2huZXNzIGlzIHN0cmFpZ2ggZm9yd2FyZCwgdGhlIG51bWJlciBvZiB1bmlxdWUgdGF4YSBpbiBhIHNhbXBsZS4gXChIXzFcKSB3ZSBlc3RpbWF0ZSBieSBleHBvbmVudGlhdGluZyB0aGUgU2hhbm5vbi1XaWVubmVyIEluZGV4IChTV0kpLiBUaGUgcmVhc29uIHdlIGRvIHRoaXMsIGluc3RlYWQgb2YgdXNpbmcgU1dJIGRpcmVjdGx5LCBpcyBiZWNhdXNlIGl0IG1lYXN1cmVzIG91ciBhYmlsaXR5IHRvIHByZWRpY3QgdGhlIGlkZW50aXR5IG9mIGEgdGF4YSBkcmF3biBhdCByYW5kb20gZnJvbSB0aGUgcG9vbCBvZiBzcGVjaWVzIGF2YWlsYWJsZSAoaW4gYSBzYW1wbGUpIGluIHVuaXRzIG9mIGJpdHMsIG1vcmUgZXZlbmx5IGFidW5kYW50IHRheGEgcmVkdWNlIG91ciBhYmlsaXR5IHRvIHByZWRpY3QsIHdoaWNoIGlzIGRpZmZpY3VsdCB0byBpbnRlcnByZXQgaW4gZWNvbG9naWNhbCB0ZXJtcy4gRXhwb25lbnRpYXRpbmcgdGhlIFNoYW5ub27igJNXaWVuZXIgaW5kZXggZ2l2ZXMgdGhlIGVmZmVjdGl2ZSBudW1iZXIgb2YgdGF4YS4gVGhpcyBpcyB0aGUgbnVtYmVyIG9mIHRheGEgdGhhdCB3b3VsZCBnaXZlIHRoZSBzYW1lIGRpdmVyc2l0eSBpZiB0aGUgcmVhZHMgd2VyZSBkaXN0cmlidXRlZCBldmVubHkgYW1vbmcgdGhlbSwgd2hpY2ggaXMgbW9yZSByZWFkaWx5IGludGVycHJldGFibGUuDQoNCkhlcmUsIHdlIHVzZSB0aGUgcmVsYXRpdmUgZnJlcXVlbmNpZXMgb2YgdGhlIHJldGFpbmVkIHJlYWRzIHRvIGNhbGN1bGF0ZSBcKEhfMVwpLiBETkEgZXh0cmFjdGlvbiwgYW1wbGlmaWNhdGlvbiBhbmQgb3RoZXIgc3RlcHMgaW4gdGhlIHdvcmtmbG93IGNhbiBhZmZlY3QgdGhvc2UgZnJlcXVlbmNpZXMsIHNvIHRoZSB2YWx1ZXMgZGVzY3JpYmUgdGhlIHJlbGF0aXZlIHJlYWQgZGlzdHJpYnV0aW9uIHd0aGluIGEgc2FtcGxlLCBub3QgYWJzb2x1dGUgYWJ1bmRhbmNlcy4gDQoNCmBgYHtyIHNhbXBsZS1kaXZlcnNpdHl9DQojIENhbGN1bGF0ZSBvbmUgc2V0IG9mIGRpdmVyc2l0eSBpbmRpY2VzIHBlciBzb2lsIHNhbXBsZQ0KZGl2X2NjIDwtIHRpYmJsZShzYW1wbGVfaWQgPSByb3duYW1lcyhjb21tKSwgcmljaG5lc3MgPSBzcGVjbnVtYmVyKGNvbW0pLA0KICAgICAgICAgICAgICAgICBzaGFubm9uID0gZGl2ZXJzaXR5KGNvbW0sIGluZGV4ID0gInNoYW5ub24iKSwgaGlsbDEgPSBleHAoc2hhbm5vbikpICU+JQ0KICBpbm5lcl9qb2luKG1ldGFkYXRhLCBieSA9ICJzYW1wbGVfaWQiLCByZWxhdGlvbnNoaXAgPSAib25lLXRvLW9uZSIsIHVubWF0Y2hlZCA9ICJlcnJvciIpDQoNCiMgUHJpbnQgc3VtbWFyeQ0KZGl2X2NjICU+JQ0KICBncm91cF9ieSh0cmVhdG1lbnQpICU+JQ0KICBzdW1tYXJpc2UobWVhbl9yaWNobmVzcyA9IG1lYW4ocmljaG5lc3MpLCBtZWFuX2hpbGwxID0gbWVhbihoaWxsMSksIC5ncm91cHMgPSAiZHJvcCIpICU+JQ0KICBrYWJsZShkaWdpdHMgPSAxLCBjb2wubmFtZXMgPSBjKCJIYWJpdGF0IiwgIk1lYW4gcmljaG5lc3MiLCAiTWVhbiBIMSIpLA0KICAgICAgICBjYXB0aW9uID0gIk1lYW4gZGl2ZXJzaXR5IHdpdGhpbiBzb2lsIHNhbXBsZXMgYnkgaGFiaXRhdCIpDQpgYGANCg0KU2VlIHRoZSBbc2hvcnRdKGxpbmspIGFuZCBbbG9uZ10obGluaykgcmVwb3J0cyBmb3IgYSBtb3JlIGluLWRlcHRoIGludGVycHJldGF0aW9uIG9mIHJlc3VsdHMuIEJyaWVmbHksIHdlIGZpbmQgdGhhdCByZWdlbiBhbmQgY29tbWVyY2lhbCB3b29kbGFuZCwgaGF2ZSB0aGUgaGlnaGVzdCByaWNobmVzcyBhbmQgXChIXzFcKSwgd2l0aCBtYXR1cmUgd29vZGxhbmQgY2xvc2UgYmVoaW5kLCB3aGlsZSBoZWF0aCBoYXMgdGhlIGxvd2VzdCByaWNobmVzcyBhbmQgZGl2ZXJzaXR5LiBJbnRlcmVzdGluZ2x5LCB0aGUgZWZmZWN0aXZlIG51bWJlciBvZiBzcGVjaWVzIGlzIHN1YnN0YW50aWFsbHkgbG93ZXIgdGhhbiByaWNobmVzcywgaW5kaWNhdGluZyB0aGF0IGZldyB0YXhhIHR5cGljYWxseSBkb21pbmF0ZSBhIHNhbXBsZS4gDQoNCldlIGNhbiBhbHNvIHZpc3VhbGlzZSB0aGVzZSB3aXRoIGBnZ3Bsb3RgLiBUaGlzIHBhY2thZ2UgaXMgaGlnaGx5IHZlcnNhdGlsZSBhbmQgYSBzdGFwbGUgaW4gZGF0YSBleHBsb3JhdGlvbnMuIFtIZXJlXShodHRwczovL2dncGxvdDIudGlkeXZlcnNlLm9yZy9hcnRpY2xlcy9nZ3Bsb3QyLmh0bWwpIGlzIHRoZSBvZmZpY2lhbCBpbnRyb2R1Y3Rpb24gdG8gbGVhcm4gaG93IGl0IHdvcmtzLiANCg0KYGBge3IgcGxvdC1zYW1wbGUtZGl2ZXJzaXR5fQ0KZ2dwbG90KGRpdl9jYywgYWVzKHRyZWF0bWVudCwgaGlsbDEsIGZpbGwgPSB0cmVhdG1lbnQpKSArDQogIGdlb21fYm94cGxvdCh3aWR0aCA9IDAuNiwgYWxwaGEgPSAwLjQsIG91dGxpZXIuc2hhcGUgPSBOQSkgKw0KICBnZW9tX3BvaW50KHBvc2l0aW9uID0gcG9zaXRpb25faml0dGVyKHdpZHRoID0gMC4xMiwgaGVpZ2h0ID0gMCwgc2VlZCA9IDEyMyksDQogICAgICAgICAgICAgc2hhcGUgPSAyMSwgc2l6ZSA9IDIsIGFscGhhID0gMC43KSArDQogIHNjYWxlX3hfZGlzY3JldGUobGFiZWxzID0gaGFiaXRhdF9sYWJlbHMpICsNCiAgc2NhbGVfZmlsbF9tYW51YWwodmFsdWVzID0gaGFiaXRhdF9jb2xvdXJzKSArDQogIGxhYnMoeCA9ICJIYWJpdGF0IiwgeSA9ICJIMSAoZWZmZWN0aXZlIHRheGEgcGVyIHNvaWwgc2FtcGxlKSIpICsNCiAgdGhlbWVfbWluaW1hbChiYXNlX3NpemUgPSAxMikgKw0KICB0aGVtZShsZWdlbmQucG9zaXRpb24gPSAibm9uZSIpDQpgYGANCg0KIyMjIENvbXBhcmUgaGFiaXRhdCByaWNobmVzcyBhdCBhIGNvbW1vbiBjb3ZlcmFnZQ0KDQpJbiBzZXNzaW9uIDAsIHdlIHVzZWQgYGlORVhUYCB0byBhc3Nlc3MgdGhlIHdoZXRoZXIgdGhlIHNhbXBsaW5nIGVmZm9ydCB3YXMgc3VmZmljaWVudC4gV2Ugc2F3IHRoYXQgY2EuIDE1IHNhbXBsZXMgcGVyIGhhYml0YXQsIHRoZSBjdXJ2ZXMgaGFkIG5vdCBmbGF0dGVuZWQuIE1vcmUgaW1wb3J0YW50bHksIHRoZSBkaWZmZXJlbnQgaGFiaXRhdHMgaGFkIGRpZmZlcmVudCBzbG9wZXMgKGluY2xpbmF0aW9uIG9mIHRoZSBjdXJ2ZSksIHdoaWNoIHdvdWxkIHByZXZlbnQgY29tcGFyaXNvbiBvZiBoYWJpdGF0LWxldmVsIHJpY2huZXNzLiBgaU5FWFRgIGFsc28gcHJvdmlkZXMgYSB0b29sIHRvIG92ZXJjb21lIHRoaXMgYnkgZXN0aW1hdGluZyBhIHF1YW50aXR5IGNhbGxlZCAqY292ZXJhZ2UqLiBCcmllZmx5LCBpdCBpcyBlc3RpbWF0ZWQgYXMgYW4gYWRqdXN0ZWQgcmF0aW8gb2YgdGhlIG51bWJlciBvZiB0YXhhIHRoYXQgYXBwZWFyIGluIGEgc2luZ2xlIHNhbXBsZSBvciBpbiB0d28gc2FtcGxlcyByZWxhdGl2ZSB0byB0aGUgdG90YWwgbnVtYmVyIG9mIHRheGEsIGFuZCBpdCBwcm92aWRlcyBpbmZvcm1hdGlvbiBvbiB0aGUgcHJvcG9ydGlvbiBvZiBzZWVuIHZlcnN1cyB1bnNlZW4gdGF4YS4gV2UgY2FuIHRoZW4gdXNlIHRoaXMgdG8gY29ycmVjdCByaWNobmVzcyBhY3Jvc3MgaGFiaXRhdHMgYXQgdGhlIHNhbWUgbGV2ZWwgb2YgY292ZXJhZ2UuIA0KDQoNCiMjIyBQcmVwYXJlIGluY2lkZW5jZSBmcmVxdWVuY2llcw0KDQpXZSB1c2UgdGhlIHNhdmVkIHByZXNlbmNl4oCTYWJzZW5jZSB0YWJsZSB0byByZXBlYXQgdGhlIGNhbGN1bGF0aW9uIGZyb20gU2Vzc2lvbiAwLiBGb3IgZWFjaCBoYWJpdGF0LCBgaU5FWFRgIG5lZWRzIHRoZSB0b3RhbCBudW1iZXIgb2Ygc29pbCBzYW1wbGVzIGZvbGxvd2VkIGJ5IHRoZSBudW1iZXIgb2Ygc2FtcGxlcyBpbiB3aGljaCBlYWNoIGRldGVjdGVkIHRheG9uIG9jY3Vycy4gQSB0YXhvbiBjb250cmlidXRlcyBhdCBtb3N0IG9uZSBkZXRlY3Rpb24gcGVyIHNhbXBsZS4NCg0KYGBge3IgaW5jaWRlbmNlLWZyZXF1ZW5jaWVzfQ0KDQojIENvdW50IGRldGVjdGlvbnMgYnkgaGFiaXRhdCwgdGhlbiBwdXQgdGhlIHNhbXBsZSB0b3RhbCBmaXJzdA0KaW5jaWRlbmNlIDwtIGNvbW1fcGEgJT4lDQogIGlubmVyX2pvaW4oc2VsZWN0KG1ldGFkYXRhLCBzYW1wbGVfaWQsIHRyZWF0bWVudCksIGJ5ID0gInNhbXBsZV9pZCIsDQogICAgICAgICAgICAgcmVsYXRpb25zaGlwID0gIm9uZS10by1vbmUiLCB1bm1hdGNoZWQgPSAiZXJyb3IiKSAlPiUNCiAgZ3JvdXBfYnkodHJlYXRtZW50KSAlPiUNCiAgc3VtbWFyaXNlKGFjcm9zcygtc2FtcGxlX2lkLCBzdW0pLCAuZ3JvdXBzID0gImRyb3AiKSAlPiUNCiAgcGl2b3RfbG9uZ2VyKC10cmVhdG1lbnQsIG5hbWVzX3RvID0gInRheG9uIiwgdmFsdWVzX3RvID0gImZyZXF1ZW5jeSIpICU+JQ0KICBmaWx0ZXIoZnJlcXVlbmN5ID4gMCkNCg0KaW5jaWRlbmNlIDwtIGJpbmRfcm93cyhjb3VudChtZXRhZGF0YSwgdHJlYXRtZW50LCBuYW1lID0gImZyZXF1ZW5jeSIpLCBpbmNpZGVuY2UpDQoNCmluZXh0X2lucHV0IDwtIHNwbGl0KGluY2lkZW5jZSRmcmVxdWVuY3ksIGluY2lkZW5jZSR0cmVhdG1lbnQsIGRyb3AgPSBUUlVFKQ0KDQpgYGANCg0KIyMjIENob29zZSBhIGNvdmVyYWdlIGFuZCBlc3RpbWF0ZSByaWNobmVzcw0KDQpVc2luZyBpbi1idWlsdCBmdW5jdGlvbnMgb2YgdGhlIGBpTkVYVGAgcGFja2FnZSwgd2UgY2FuIGV4dHJhY3QgdGhlIHNhbXBsZSBjb3ZlcmFnZSBwZXIgaGFiaXRhdCAoYFNDYCksIHRoZW4gIm1hbnVhbGx5IiBjaG9vc2UgYSB2YWx1ZSBqdXN0IGJlbG93IHRoZSBsb3dlc3QgcmVwb3J0ZWQgY292ZXJhZ2UsIGFuZCBmZWVkIHRoZSBkYXRhIGFuZCB0aGUgY2hvc2VuIGNvdmVyYWdlIHRvIGFub3RoZXIgZnVuY3Rpb24gYGVzdGltYXRlRGAgdG8gZXN0aW1hdGUgdGF4b24gcmljaG5lc3MgKGBxID0gMGApIGF0IHNhaWQgY292ZXJhZ2UuIA0KDQoNCmBgYHtyIGNvdmVyYWdlLXJpY2huZXNzfQ0KDQpjb3ZlcmFnZV9pbmZvIDwtIERhdGFJbmZvKGluZXh0X2lucHV0LCBkYXRhdHlwZSA9ICJpbmNpZGVuY2VfZnJlcSIpDQoNCmNvdmVyYWdlX2luZm8gJT4lDQogIHNlbGVjdChBc3NlbWJsYWdlLCBULCBTLm9icywgU0MpICU+JQ0KICBrYWJsZShkaWdpdHMgPSA0LCBjb2wubmFtZXMgPSBjKCJIYWJpdGF0IiwgIlNvaWwgc2FtcGxlcyIsICJPYnNlcnZlZCByaWNobmVzcyIsICJDb3ZlcmFnZSIpKQ0KDQp0YXJnZXRfY292ZXJhZ2UgPC0gbWluKGNvdmVyYWdlX2luZm8kU0MpIC0gMC4wMDENCg0Kc2V0LnNlZWQoMTIzKQ0KDQpyaWNobmVzc19hdF9jb3ZlcmFnZSA8LSBlc3RpbWF0ZUQoaW5leHRfaW5wdXQsIHEgPSAwLCBkYXRhdHlwZSA9ICJpbmNpZGVuY2VfZnJlcSIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmFzZSA9ICJjb3ZlcmFnZSIsIGxldmVsID0gdGFyZ2V0X2NvdmVyYWdlLCBuYm9vdCA9IDEwMCkgJT4lDQogIG11dGF0ZSh0cmVhdG1lbnQgPSBmYWN0b3IoQXNzZW1ibGFnZSwgbGV2ZWxzID0gaGFiaXRhdF9sZXZlbHMpLA0KICAgICAgICAgY292ZXJhZ2UgPSBTQywgbWV0aG9kID0gTWV0aG9kLCByaWNobmVzcyA9IHFELA0KICAgICAgICAgbG93ZXJfOTUgPSBxRC5MQ0wsIHVwcGVyXzk1ID0gcUQuVUNMLCAua2VlcCA9ICJub25lIikNCg0Ka2FibGUocmljaG5lc3NfYXRfY292ZXJhZ2UsIGRpZ2l0cyA9IDMpDQoNCmBgYA0KDQpBbmQgdmlzdWFsbHkuIA0KDQpgYGB7ciBwbG90LWNvdmVyYWdlLXJpY2huZXNzfQ0KDQpnZ3Bsb3QocmljaG5lc3NfYXRfY292ZXJhZ2UsIGFlcyh0cmVhdG1lbnQsIHJpY2huZXNzKSkgKw0KICBnZW9tX3BvaW50cmFuZ2UoYWVzKHltaW4gPSBsb3dlcl85NSwgeW1heCA9IHVwcGVyXzk1LCBjb2xvdXIgPSB0cmVhdG1lbnQpKSArDQogIHNjYWxlX3hfZGlzY3JldGUobGFiZWxzID0gaGFiaXRhdF9sYWJlbHMpICsNCiAgc2NhbGVfY29sb3VyX21hbnVhbCh2YWx1ZXMgPSBoYWJpdGF0X2NvbG91cnMpICsNCiAgbGFicyh4ID0gIkhhYml0YXQiLCB5ID0gIkNvdmVyYWdlLXN0YW5kYXJkaXNlZCB0YXhvbiByaWNobmVzcyIsDQogICAgICAgc3VidGl0bGUgPSBzcHJpbnRmKCJDb21tb24gc2FtcGxlIGNvdmVyYWdlICUuMWYlJSIsIDEwMCAqIHRhcmdldF9jb3ZlcmFnZSkpICsNCiAgdGhlbWVfbWluaW1hbChiYXNlX3NpemUgPSAxMikgKw0KICB0aGVtZShsZWdlbmQucG9zaXRpb24gPSAibm9uZSIpDQoNCmBgYA0KDQpUaGUgcGF0dGVybiBsYXJnZWx5IGFncmVlcyB3aXRoIHRoYXQgb2YgdGhlIGVmZmVjdGl2ZSBudW1iZXIgb2Ygc3BlY2llcywgb25seSB0aGUgZGlmZmVyZW5jZXMgYW1vbmcgaGFiaXRhdHMgYXJlIG1vcmUgbWFya2VkLCBlc3BlY2lhbGx5IHRoZSBleHRyZW1lcyBvZiByZWdlbiBhbmQgbWF0dXJlIHdvb2RsYW5kLiBUaGUgY29udHJhc3QgYmV0d2VlbiB0aGUgdHdvIG1ldHJpY3MsIHN1Z2dlc3RzIHRoYXQgcmljaG5lc3MgcGF0dGVybnMgYXJlIGRyaXZlIGJ5IG51bWVyb3VzIGJ1dCBsb3cgcmVhZCB0YXhhLiANCg0KQmVjYXVzZSB3ZSBoYXZlIHN1bW1hcmlzZWQgb3VyIG11bHRpdmFyaWF0ZSBkYXRhLCBpbnRvIGEgc2luZ2xlIGNvdmFyaWF0ZSAoZS5nLiwgZWZmZWN0aXZlIG51bWJlciBvZiBzcGVjaWVzKSwgd2UgY2FuIHVzZSB3ZWxsIGVzdGFibGlzaGVkIG1ldGhvZHMgdG8gYW5hbHlzZSB0aGVzZSwgbmFtZWx5LCBsaW5lYXIgcmVncmVzc2lvbi4gQmVsb3csIHdlIGdvIHRocm91Z2ggYW4gZXhhbXBsZS4gDQoNCg0KIyMgNC4gRXhwbG9yaW5nIGhvdyBkaXZlcnNpdHkgdmFyaWVzIHdpdGggc3VjY2Vzc2lvbmFsIHN0YWdlIGFuZCBjb3ZhcmlhdGVzDQoNCldlIHdpbGwgcmVwcm9kdWNlIGEgc3RhbmRhcmQgYXBwcm9hY2ggdG8gbGluZWFyIHJlZ3Jlc3Npb24sIGZpdHRpbmcgYSBnbG9iYWwgbW9kZWwgd2l0aCBhbGwgY292YXJpYXRlcyBvZiBpbnRlcmVzdCwgdXNpbmcgQUlDIHRvIHNlbGVjdCB0aGUgbW9zdCBwYXJzaW1vbmlvdXMgbW9kZWwsIHZhbGlkYXRpbmcgbW9kZWwgYXNzdW1wdGlvbiwgYW5kIGZpbmFsbHkgbWFrZSBhbmQgdmlzdWFsaXNlIHByZWRpY3Rpb25zLiAgDQoNClRoZXJlIGlzIG11Y2ggbGl0ZXJhdHVyZSBvbiB0aGUgdG9waWMgb2YgbGluZWFyIHJlZ3Jlc3Npb24sIHdoaWNoIHdlIHdpbGwgbm90IGNvdmVyIGhlcmUuIFR3byBjbGFzc2ljIHJlYWRzIGJ5IEFsYWluIFp1dXIgYXJlOiBbQSBwcm90b2NvbCBmb3IgZGF0YSBleHBsb3JhdGlvbl0oaHR0cHM6Ly9kb2kub3JnLzEwLjExMTEvai4yMDQxLTIxMFguMjAwOS4wMDAwMS54KSBhbmQgW0EgcHJvdG9jb2wgZm9yIGNvbmR1Y3RpbmcgYW5kIHByZXNlbnRpbmcgcmVzdWx0cyBvZiByZWdyZXNzaW9uLXR5cGUgYW5hbHlzZXNdKGh0dHBzOi8vZG9pLm9yZy8xMC4xMTExLzIwNDEtMjEwWC4xMjU3NykuDQoNCkZvciBvdXIgbmV4dCBzdGVwLCB3ZSBuZWVkIHRvIGNob29zZSB0aGUgcmVsZXZhbnQgdHlwZSBvZiByZWdyZXNzaW9uLCB3aGljaCBkZXBlbmRzIG9uIHRoZSB0eXBlIG9mIGRhdGEgd2UgYXJlIGFuYWx5c2luZy4gV2UgYXJlIHVzaW5nIHRoZSBlZmZlY3RpdmUgbnVtYmVyIG9mIHNwZWNpZXMgKFwoSF8xXCkpLCB3aGljaCB3ZSBtaWdodCB0aGluayBpcyBjb3VudCBkYXRhLCB3aGljaCB3b3VsZCBmaXQgYSBwb2lzc29uIHJlZ3Jlc3Npb24uIEhvd2V2ZXIsIGJlY2F1c2Ugd2Ugb2J0YWluZWQgXChIXzFcKSBhcyB0aGUgZXhwb25lbnRpYWwgb2YgU1dJLCB0aGUgbnVtYmVycyBhcmUgbm90IGludGVnZXJzIChpLmUuLCB0aGV5IGhhdmUgZGVjaW1hbHMpLCB3aGljaCBhIHBvaXNzb24gbW9kZWwgaXMgbm90IHdlbGwgZXF1aXBwZWQgdG8gaGFuZGxlLiBXZSBjb3VsZCBmaXQgXChIXzFcKSBpbiBhIGxpbmVhciByZWdyZXNzaW9uIGFzc3VtaW5nIGEgbm9ybWFsIGRpc3RyaWJ1dGlvbiwgYnV0IGluIHRoaXMgaW5zdGFuY2UsIHdlIHdpbGwgdXNlIHRoZSBvcmlnaW5hbCBTV0ksIGFuZCBsYXRlciBiYWNrdHJhbnNmb3JtIG91ciBlc3RpbWF0ZXMgYmFjayB0byB0aGUgXChIXzFcKSBzY2FsZS4gVGhpcyBpcyB0eXBpY2FsbHkgZG9uZSB3aXRoIGRhdGEgdG8gYmV0dGVyIGFwcHJveGltYXRlIHRoZSBhc3N1bXB0aW9uIG9mIG5vcm1hbGl0eSBvZiB0aGUgcmVzaWR1YWxzIHRoYXQgbGluZWFyIHJlZ3Jlc3Npb24gaGF2ZS4gSG93ZXZlciwgdGhpcyBpcyBhIHNwZWNpYWwgY2FzZSBiZWNhdXNlIGJvdGggc2NhbGVzIGhhdmUgYSBjbGVhciBpbnRlcnByZXRhdGlvbi4gVGhlIFNXSSBtZWFzdXJlcyB1bmNlcnRhaW50eSBhYm91dCB0aGUgdGF4b24gaWRlbnRpdHkgb2YgYSByYW5kb21seSBzZWxlY3RlZCByZWFkLCB3aGlsZSBcKEhfMVwpIGV4cHJlc3NlcyB0aGUgc2FtZSBkaXZlcnNpdHkgYXMgYW4gZWZmZWN0aXZlIG51bWJlciBvZiB0YXhhLg0KDQoNCiMjIyBQcmVwYXJlIHRoZSBtb2RlbCBkYXRhDQoNCkluIHRoZSBsaW5lYXIgcmVncmVzc2lvbiB3b3JsZCwgd2UgYXJlIG5vIGxvbmdlciBkZWFsaW5nIHdpdGggY29tbXVuaXR5IG1hdHJpY2VzLCBoZXJlIHdlIHVzZSBsb25nIGRhdGFzZXRzLCB3aXRoIG9uZSByb3cgcGVyIHNhbXBsZSwgYW5kIHJlc3BvbnNlIGFuZCBleHBsYW5hdG9yeSB2YXJpYWJsZXMgYXMgY29sdW1ucy4gV2Ugd29yayBvdXQgb2YgdGhlIGBkaXZfY2NgIHdlIGNyZWF0ZWQgZWFybGllci4gDQoNCldlIGFsc28gdHJhbnNmb3JtIG91ciBudW1lcmljIGNvdmFyaWF0ZXMgb2YgdGVtcGVyYXR1cmUsIHBILCBhbmQgbW9pc3R1cmUuIFdlIGNlbnRlciB0aGVtLiBGb3IgaW5zdGFuY2UsIHdlIHRha2UgYWxsIG9mIG91ciBtZWFzdXJlbWVudHMgb2YgcEggYWNyb3NzIHRoZSBkYXRhc2V0LCBhbmQgZXN0aW1hdGUgdGhlIGF2ZXJhZ2UuIFRoZW4sIGZvciBlYWNoIGluZGl2aWR1YWwgcEggbWVhc3VyZW1lbnQsIHdlIHN1YnN0cmFjdCB0aGUgbWVhbiwgc3VjaCB0aGF0IHZhbHVlcyB0aGF0IGFyZSBleGFjdGx5IGF2ZXJhZ2UgYmVjb21lIHplcm8sIHZhbHVlcyBhYm92ZSBhdmVyYWdlIGFyZSBwb3NpdGl2ZSwgYW5kIHZhbHVlcyBiZWxvdyBhdmVyYWdlIGFyZSBuZWdhdGl2ZS4gVGhlcmUgYXJlIHNldmVyYWwgcmVhc29ucyB0byBkbyB0aGlzLiBJdCBpbmNyZWFzZXMgbnVtZXJpY2FsIHN0YWJpbGl0eSBvZiB0aGUgbW9kZWxzLCB3aGljaCByb3VnaGx5IHRyYW5zbGF0ZXMgdG86IHRoZSBtYWNoaW5lcyBydW5uaW5nIHRoZXNlIG1vZGVscyBhcmUgaGFwcGllciB3aXRoIGNlbnRyZWQgZGF0YSwgYnV0IGl0IGFsc28gaW1wcm92ZXMgaW50ZXJwcmV0YXRpb24gb2YgdGhlIG91dHB1dHMsIGJlY2F1c2Ugb3VyIGVzdGltYXRlcyB3aWxsIGJlIGZvciBwSC90ZW1wZXJhdHVyZS9tb2lzdXRyZSA9IDAsIHdoaWNoIG5vdyBoYXBwZW5zIHRvIGJlIHRoZSBhdmVyYWdlIHJhdGhlciB0aGFuIHNvbWUgbm9uLWV4aXN0ZW50IHVsdHJhIGFjaWRpYywgZHJ5LCBhbmQgbmVhciBmcmVlemluZyB2YWx1ZS4gIA0KDQoNCmBgYHtyIHJlZ3Jlc3Npb24tZGF0YX0NCiMgTGlzdCB2ZWdldGF0aW9uIGNvdmFyaWF0ZXMNCg0KdmVnX3ZhcnMgPC0gaW50ZXJzZWN0KGMoIm1vc3MiLCAibGljaGVuIiwgImhlcmJzIiwgInNocnVicyIsDQogICAgICAgICAgICAgICAgICAgICAgICAidHJlZXMiLCAiYmFyZV9saXR0ZXIiLCAicm9ja3kiLCAiZmVybiIpLCBuYW1lcyhkaXZfY2MpKQ0KDQojIFN1YnNldCByZWxldmFudCB2YXJpYWJsZXMsIGRyb3AgbWlzc2luZyB2YWx1ZXMsIGVzdGltYXRlIGxvZyhoaWxsMSkgYW5kIGNlbnRyZSBzb2lsIHZhcmlhYmxlcw0KY2NfbW9kIDwtIGRpdl9jYyAlPiUNCiAgc2VsZWN0KHNpdGVfaWQsIHRyZWF0bWVudCwgaGlsbDEsIHBoLCBtb2lzdHVyZSwgdGVtcCwgYWxsX29mKHZlZ192YXJzKSkgJT4lDQogIGRyb3BfbmEoKSAlPiUNCiAgbXV0YXRlKHRyZWF0bWVudCA9IGRyb3BsZXZlbHModHJlYXRtZW50KSwgbG9nX2hpbGwxID0gbG9nKGhpbGwxKSwNCiAgICAgICAgIGFjcm9zcyhjKHBoLCBtb2lzdHVyZSwgdGVtcCksIH4gLnggLSBtZWFuKC54KSwgLm5hbWVzID0gInsuY29sfV9jIikpDQoNCiMgUHJpbnQgc3VtbWFyeQ0KY2NfbW9kICU+JQ0KICBncm91cF9ieSh0cmVhdG1lbnQpICU+JQ0KICBzdW1tYXJpc2Uoc29pbF9zYW1wbGVzID0gbigpLCBmaWVsZF9zaXRlcyA9IG5fZGlzdGluY3Qoc2l0ZV9pZCksDQogICAgICAgICAgICBtaW5fcGggPSBtaW4ocGgpLCBtYXhfcGggPSBtYXgocGgpLCAuZ3JvdXBzID0gImRyb3AiKSAlPiUNCiAga2FibGUoZGlnaXRzID0gMiwgY2FwdGlvbiA9ICJTYW1wbGUgc2l6ZXMgYW5kIHBIIHJhbmdlcyBmb3IgdGhlIHJlZ3Jlc3Npb24iKQ0KDQpgYGANCg0KV2UgYXJlIHJ1bm5pbmcgb25lIG1vcmUgc2V0IG9mIGRhdGEgdHJhbnNmb3JtYXRpb25zIGJlZm9yZSBmaXR0aW5nIG91ciBtb2RlbHMuIFdlIGNvbGxlY3RlZCB2ZWdldGF0aW9uIGRhdGEgYXQgZWFjaCBzaXRlIGFzIGEgcGVyY2VudGFnZSBjb3Zlci4gV2hpbGUgaXQgd2FzIGNvbGxlY3RlZCBpbiBhIHdheSB0aGF0IGRpZmZlcmVudCB0eXBlcyBjYW4gb3ZlcmxhcCwgZS5nLiwgbW9zc2VzIGFuZCBsaWNoZW4gdW5kZXJuZWF0aCBzaHJ1YnMsIGFuZCB0aHVzIHRoZXkgZG8gbm90IGFkZCB1cCB0byAxMDAlLCB0aGV5IGNhbiBzdGlsbCBoYXZlIHNvbWUgbGV2ZWwgb2YgY29tcGxlbWVudGFyaXR5LiBUaGF0IGlzLCBpZiB5b3UgaGF2ZSA5MCUgaGVyYmFjZW91cyBjb3ZlciwgeW91IGxpa2VseSB3aWxsIGhhdmUgc21hbGwgc2hydWIgY292ZXIsIGFuZCB2aWNldmVyc2EuIFRoaXMgbWVhbnMgb25lIHZhcmlhYmxlIGNvbnRhaW5zIGluZm9ybWF0aW9uIG9uIHRoZSBvdGhlciwgd2hpY2ggY29uZm91bmRzIHRoZSBlZmZlY3RzIG9mIHRoZSBkaWZmZXJlbnQgdHlwZXMgb2YgdmVnZXRhdGlvbi4gDQoNClRoZXJlIGFyZSBzZXZlcmFsIHdheXMgdG8gb3ZlcmNvbWUgdGhpcyBwcm9ibGVtLiBIZXJlLCB3ZSB3aWxsIGZlZWQgb3VyIHZlZ2V0YXRpb24gZGF0YSBpbnRvIFByaW5jaXBhbCBDb21wb25lbnQgQW5hbHlzaXMgKFBDQSksIGFuZCB0aGVuIGV4dHJhY3QgdGhlIHNjb3JlcyAoaS5lLiwgYXhpcykgb2YgdGhlIHRocmVlIG1haW4gUEMncy4gVGhlIGFkdmFudGFnZSBvZiB0aGlzLCBpcyB0aGF0IHRoZSBlZmZlY3RzIG9mIHRoZSB2ZWdldGF0aW9uIGFyZSBjb250YWluZWQgaW4gdGhlIHNjb3JlcywgeWV0IGVhY2ggc2V0IG9mIHNjb3JlcyBpcyBpbmRlcGVuZGVudCBvZiB0aGUgb3RoZXIsIGhlbmNlIGNpcmN1bXZlbnRpbmcgdGhlIGNvbXBsZW1lbnRhcml0eSBpc3N1ZS4gDQoNCmBgYHtyIHZlZ2V0YXRpb24tcGNhfQ0KIyBTZWxlY3QgdmVnZXRhdGlvbiBjb3ZhcmlhdGVzDQp2ZWcgPC0gY2NfbW9kICU+JQ0KICBzZWxlY3QoYWxsX29mKHZlZ192YXJzKSkgJT4lDQogIHNlbGVjdCh3aGVyZSh+IGlzVFJVRShzZCgueCkgPiAwKSkpDQoNCiMgRml0IFBDQSBhbmQgZXh0cmFjdCB0aHJlZSBtYWluIGF4aXMNCnZlZ19wY2EgPC0gcHJjb21wKHZlZywgY2VudGVyID0gVFJVRSwgc2NhbGUuID0gVFJVRSkNCnZlZ19zY29yZXMgPC0gYXNfdGliYmxlKHZlZ19wY2EkeCkgJT4lDQogIHNlbGVjdCh2ZWdfUEMxID0gUEMxLCB2ZWdfUEMyID0gUEMyLCB2ZWdfUEMzID0gUEMzKQ0KDQojIEJpbmQgYmFjayB0byBkYXRhDQpjY19tb2QgPC0gYmluZF9jb2xzKGNjX21vZCwgdmVnX3Njb3JlcykNCmBgYA0KDQpXaGlsZSB0aGUgaW5kaXZpZHVhbCBlZmZlY3Qgb2Ygb3VyIGNvdmFyaWF0ZXMgd2lsbCBiZSAibG9zdCIgaW4gdGhlc2UgYXhpcywgd2UgY2FuIGV4cGxvcmUgaG93IGVhY2ggdmVnZXRhdGlvbiB0eXBlIHJlbGF0ZXMgdG8gdGhlIFBDQSBzY29yZXMuIEhlcmUsIHdlIGNvcnJlbGF0ZSBlYWNoIGluZGl2aWR1YWwgdmFyaWFibGUgdG8gZWFjaCBvZiB0aGUgdGhyZWUgc2NvcmVzLg0KDQpgYGB7ciB2ZWdldGF0aW9uLXBjLWNvcnJlbGF0aW9ucywgZmlnLndpZHRoPTExLCBmaWcuaGVpZ2h0PTQuNX0NCg0KIyBDb3JyZWxhdGUgdmVnZXRhdGlvbiB2YXJpYWJsZXMgdG8gUEMgc2NvcmVzIGFuZCBmb3JtYXQNCnZlZ19wY19jb3IgPC0gY29yKHZlZywgdmVnX3Njb3JlcykgJT4lDQogIGFzX3RpYmJsZShyb3duYW1lcyA9ICJ2ZWdldGF0aW9uIikgJT4lDQogIHBpdm90X2xvbmdlcigtdmVnZXRhdGlvbiwgbmFtZXNfdG8gPSAiY29tcG9uZW50IiwgdmFsdWVzX3RvID0gImNvcnJlbGF0aW9uIikgJT4lDQogIG11dGF0ZShjb21wb25lbnQgPSBzdHJfcmVtb3ZlKGNvbXBvbmVudCwgIl52ZWdfIikpDQoNCiMgUGxvdCBjb3JyZWxhdGlvbnMNCnBfdmVnX2NvciA8LSBnZ3Bsb3QodmVnX3BjX2NvciwgYWVzKGNvcnJlbGF0aW9uLCB2ZWdldGF0aW9uKSkgKw0KICBnZW9tX3ZsaW5lKHhpbnRlcmNlcHQgPSAwLCBsaW5ldHlwZSA9ICJkYXNoZWQiLCBjb2xvdXIgPSAiZ3JleTUwIikgKw0KICBnZW9tX3NlZ21lbnQoYWVzKHggPSAwLCB4ZW5kID0gY29ycmVsYXRpb24sIHllbmQgPSB2ZWdldGF0aW9uKSwgbGluZXdpZHRoID0gMC44KSArDQogIGdlb21fcG9pbnQoc2l6ZSA9IDMpICsNCiAgZmFjZXRfd3JhcCh+IGNvbXBvbmVudCwgbnJvdyA9IDEsIGF4ZXMgPSAiYWxsX3kiKSArDQogIHNjYWxlX3hfY29udGludW91cyhsaW1pdHMgPSBjKC0xLCAxKSwgYnJlYWtzID0gc2VxKC0xLCAxLCBieSA9IDAuNSkpICsNCiAgc2NhbGVfeV9kaXNjcmV0ZShsaW1pdHMgPSByZXYobmFtZXModmVnKSksDQogICAgICAgICAgICAgICAgICAgbGFiZWxzID0gfiBzdHJfdG9fc2VudGVuY2Uoc3RyX3JlcGxhY2VfYWxsKC54LCAiXyIsICIgIikpKSArDQogIGxhYnMoeCA9ICJQZWFyc29uIGNvcnJlbGF0aW9uIHdpdGggUEMgc2NvcmVzIiwgeSA9ICJWZWdldGF0aW9uIHZhcmlhYmxlIikgKw0KICB0aGVtZV9idyhiYXNlX3NpemUgPSAxMikgKw0KICB0aGVtZShwYW5lbC5ncmlkLm1ham9yLnkgPSBlbGVtZW50X2JsYW5rKCksIHBhbmVsLmdyaWQubWlub3IgPSBlbGVtZW50X2JsYW5rKCksDQogICAgICAgIHN0cmlwLmJhY2tncm91bmQgPSBlbGVtZW50X3JlY3QoZmlsbCA9ICJ3aGl0ZSIsIGNvbG91ciA9ICJibGFjayIpKQ0KDQpwX3ZlZ19jb3INCg0KYGBgDQpUaGVzZSBjYW4gdGhlbiBiZSB1c2VkIHRvIGludGVycHJldCBiYWNrIHRoZSBlZmZlY3RzIG9mIGVhY2ggc2NvcmUgaWYgdGhleSBhcmUgcmV0YWluZWQgaW4gb3VyIGZpbmFsIG1vZGVsLiANCg0KDQoNCg0KIyMjIEZpdCB0aGUgZ2xvYmFsIG1vZGVsDQoNClRoZSBnbG9iYWwgbW9kZWwgaW5jbHVkZXMgaGFiaXRhdCB0eXBlLCB0aGUgdGhyZWUgdmVnZXRhdGlvbiBQQ3MsIGFuZCBjZW50cmVkIHNvaWwgcEgsIG1vaXN0dXJlIGFuZCB0ZW1wZXJhdHVyZS4gVGhlIGludGVyYWN0aW9ucyBhbGxvdyBlYWNoIHNvaWwgcmVsYXRpb25zaGlwIHRvIGRpZmZlciBhbW9uZyBoYWJpdGF0cy4gRm9yIGV4YW1wbGUsIGB0cmVhdG1lbnQgKiBwaF9jYCBpbmNsdWRlcyBoYWJpdGF0LCBwSCBhbmQgdGhlaXIgaW50ZXJhY3Rpb24uDQoNCmBgYHtyIGdsb2JhbC1tb2RlbH0NCg0KIyBGaXQgZ2xvYmFsIG1vZGVsIG9uIGxvZ19oaWxsMQ0KZ2xvYmFsX2gxIDwtIGxtKGxvZ19oaWxsMSB+IHZlZ19QQzEgKyB2ZWdfUEMyICsgdmVnX1BDMyArDQogICAgICAgICAgICAgICAgICB0cmVhdG1lbnQgKiAocGhfYyArIG1vaXN0dXJlX2MgKyB0ZW1wX2MpLA0KICAgICAgICAgICAgICAgIGRhdGEgPSBjY19tb2QsIG5hLmFjdGlvbiA9IG5hLmZhaWwpDQoNCmBgYA0KDQojIyMgRmluZCB0aGUgImJlc3QiIG1vZGVsDQoNCldoZW4gdXNpbmcgbGluZWFyIHJlZ3Jlc3Npb24sIGFuZCBnZW5lcmFsbHkgbW9zdCBzdGF0aXN0aWNhbCBhbmFseXNpcywgdGhlcmUgaXMgYSB0ZW5zaW9uIGJldHdlZW4gaG93IG1hbnkgcXVlc3Rpb25zIHdlIHdhbnQgdG8gYW5zd2VyIHdpdGggdGhlIGRhdGEsIGFuZCBob3cgbXVjaCBpbmZvcm1hdGlvbiB0aGUgZGF0YSBob2xkcyB0byBhbnN3ZXIgdGhvc2UgcXVlc3Rpb25zLiBJZiB3ZSB0cnkgdG8gYXNrIHRvbyBtYW55IHF1ZXN0aW9ucywgaS5lLiwgZml0IGxvdHMgb2YgdmFyaWFibGVzIGludG8gdGhlIG1vZGVsLCB3ZSByaXNrIG92ZXJmaXR0aW5nIHRoZSBtb2RlbCwgd2hpY2ggY2FuIG1ha2UgaXQgZmFpbC4gVG8gbmF2aWdhdGUgdGhpcywgd2UgY2FuIHVzZSB3aGF0J3MgY2FsbGVkIGluZm9ybWF0aW9uIGNyaXRlcmlhLCB0aGUgbW9zdCB3ZWxsLWtub3duIGJlaW5nIEFpa2Fpa2UncyBJbmZvcm1hdGlvbiBDcml0ZXJpYSAoQUlDKSwgd2hpY2ggd2lsbCBoZWxwIHVzIGlkZW50aWZ5IHRoZSBtb3N0IHBhcnNpbW9uaW91cyBtb2RlbCB0byBleHBsYWluIGNoYW5nZXMgaW4gb3VyIHJlc3BvbnNlIHZhcmlhYmxlLCBpLmUuLCBrZWVwIG9ubHkgdmFyaWFibGVzIHRoYXQgaGF2ZSBnZW51aW5lIGV4cGxhbmF0b3J5IHBvd2VyIG92ZXIgb3VyIHJlc3BvbnNlIHZhcmlhYmxlLiANCg0KV2UgdXNlIHRoZSBmdW5jdGlvbiBgZHJlZGdlYCBmcm9tIHRoZSBwYWNrYWdlIGBNdU1JbmAgdG8gYXV0b21hdGUgdGhpcywgYW5kIGV4cGxvcmUgYWxsIHRoZSBtb2RlbHMgdGhhdCBhcmUgd2l0aGluIDIgQUlDIHBvaW50cyBvZiBlYWNoIG90aGVyLCBhIHJ1bGUgb2YgdGh1bWIgdGhyZXNob2xkIGJlbG93IHdoaWNoIHdlIGFzc3VtZSB3ZSBjYW5ub3QgZGlzY2VybiBiZXR3ZWVuIG1vZGVscy4gDQoNCg0KYGBge3IgbW9kZWwtc2VsZWN0aW9ufQ0KDQojIENvbXBhcmUgbW9kZWxzIHRocm91Z2ggQUlDIHdpdGggZHJlZGdlDQptb2RlbF9zZWxlY3Rpb24gPC0gZHJlZGdlKGdsb2JhbF9oMSwgcmFuayA9ICJBSUNjIiwgZml4ZWQgPSAidHJlYXRtZW50IikgIyBXZSBmaXggdHJlYXRtZW50IGFzIGEgY292YXJpYXRlIHRoYXQgbXVzdCBiZSBpbiBhbGwgbW9kZWxzLCBnaXZlbiBpdCBpcyBvdXIgZGVzZ2luIGNvdmFyaWF0ZSANCg0KIyBTZWxlY3QgdGhlIHRvcCByYW5rZWQgbW9kZWxzDQpzdWJzZXQobW9kZWxfc2VsZWN0aW9uLCBkZWx0YSA8PSAyKQ0KDQpgYGANClRoZXJlIGFyZSAxMCBtb2RlbHMgd2l0aGluIDIgQUlDIHBvaW50cyBvZiB0aGUgYmVzdCBtb2RlbCAoaS5lLiwgbG93ZXN0IEFJQykuIFRoZSB0YWJsZSBnaXZlcyBpcyBlYWNoIG1vZGVsIGFzIGEgcm93LCB0aGVuIHRoZSBjb2x1bW5zIHJlcHJlc2VudCB0ZXJtcyBpbiB0aGUgbW9kZWwsIHRoZSBpbnRlcmNlcHQsIG1vaXN0dXJlIGFuZCBwSCwgb3VyIHRyZWF0bWVudCAoaGFiaXRhdCB0eXBlKSwgZmlyc3QgYW5kIHNlY29uZCB2ZWdldGF0aW9uIFBDcywgYW5kIHRoZW4gdGhlIG51bWJlciBvZiBkZWdyZWVzIG9mIGZyZWVkb20gdXNlZCBieSB0aGUgbW9kZWwgKGhvdyBtYW55IHBhcmFtZXRlcnMgaXQgaXMgZXN0aW1hdGluZykuIFdlIGNhbiBhbHNvIHNlZSB0aGUgQUlDLCB0aGUgZGVsdGEgKGRpZmZlcmVuY2UgdG8gdGhlIG5leHQgb25lKSwgYW5kIHRoZSByZWxhdGl2ZSB3ZWlnaHQgb2YgZWFjaCBtb2RlbCB3aXRoaW4gdGhpcyBzZXQuIA0KDQpXZSBjYW4gYWxyZWFkeSBzZWUgdGhhdCBzb2lsIHRlbXBlcmF0dXJlIHdhcyBuZXZlciByZXRhaW5lZCBpbiB0aGUgdG9wIG1vZGVscywgbm9yIHdhcyB2ZWdfUEMzLiBUaGUgcmVtYWluaW5nIHZhcmlhYmxlcyBhcmUgcmV0YWluZWQgaW4gc29tZSBidXQgbm90IG90aGVycy4gTm8gaW50ZXJhY3Rpb25zIGhhdmUgYmVlbiByZXRhaW5lZCBlaXRoZXIuIA0KDQpHaXZlbiB0aGUgbnVtYmVyIG9mICJiZXN0IiBtb2RlbHMsIHdlIG5lZWQgdG8gY2hvb3NlIHdoaWNoIG9uZSB0byB1c2UgdG8gbGVhcm4gYWJvdXQgb3VyIHN5c3RlbS4gV2UgbWlnaHQgY2hvb3NlIHRoZSB0b3Agb25lLCBidXQgdGhhdCB3b3VsZCBkaXNtaXNzIHR3byB2YXJpYWJsZXMgdGhhdCBhcmUgYWxzbyBwaWNrZWQgdXAgYnkgdGhlIG90aGVyIHRvcCBtb2RlbHMuIEFub3RoZXIgYXBwcm9hY2gsIHNvbWV0aW1lcyBmcm93bmVkIHVwb24sIGlzIG1vZGVsIGF2ZXJhZ2luZy4gSW4gZXNzZW5jZSwgYXZlcmFnZSB0aGUgY292YXJpYXRlIGVmZmVjdHMgYWNyb3NzIG1vZGVscywgd2hpY2ggY2FuIGJlIGRvbmUgY29uZGl0aW9uYWxseSBvciBub3QuIFdoZW4gZG9uZSBjb25kaXRpb25hbGx5LCBlZmZlY3RzIGFyZSBvbmx5IGF2ZXJhZ2VkIGFjcm9zcyBtb2RlbHMgdGhhdCBoYXZlIGl0LCB1bmNvbmRpdGlvbmFsbHksIGlmIHRoZSBjb3ZhcmlhdGUgaXMgbWlzc2luZyBmcm9tIG9uZSBvZiB0aGUgbW9kZWxzLCBpdCBjb3VudHMgYXMgYSB6ZXJvIHRvd2FyZHMgdGhlIGF2ZXJhZ2UuIFRoZW4geW91IG1pZ2h0IHdhbnQgdG8gZXhwbG9yZSBkaWZmZXJlbmNlcyBhbW9uZyB0aGUgdHdvIGF2ZXJhZ2VzLiANCg0KRm9yIHRoZSBwdXJwb3NlcyBvZiBzaW1wbGljaXR5IG9mIGV4cGxhbmF0aW9uIGFuZCBjb2RlLCB3ZSB3aWxsIHByb2NlZWQgd2l0aCB0aGUgdG9wIG1vZGVsIHRoYXQgaW5jbHVkZXMgdHJlYXRtZW50LCBwSCwgYW5kIHZlZ19QQzIuIFRob3VnaCB0aGlzIHdvdWxkIGJlIGluYWR2aXNhYmxlIHdpdGggdGhlc2UgcmVzdWx0cy4gDQoNCg0KIyMjIElzIHRoZSBiZXN0IG1vZGVsIGFueSBnb29kPw0KDQpXZSBoYXZlIGNob3NlbiBvdXIgYmVzdCBtb2RlbC4gQnV0IGJlZm9yZSB3ZSB1c2UgaXQgdG8gbGVhcm4gYWJvdXQgb3VyIHN5c3RlbSwgd2UgbXVzdCBjaGVjayB3aGV0aGVyIGl0IGlzIGFueSBnb29kIGF0IGFsbC4gSG93IGRvIHdlIGRvIHRoaXM/IFdlIGNoZWNrIHRoZSBtb2RlbCdzIGFzc3VtcHRpb25zLiBXaGF0IGFyZSB0aGUgbW9kZWwgYXNzdW1wdGlvbnM/IA0KDQpUaGUgbW9kZWwncyBhc3N1bXB0aW9ucyBhcmUgYSBzZXJpZXMgb2YgY29uZGl0aW9ucyB0aGF0IHRoZSBkYXRhLCB0aGUgZXhwZXJpbWVudGFsIGRlc2lnbiwgYW5kIHRoZSBtb2RlbCBzdHJ1Y3R1cmUgKG5hbWVseSB0aGUgZm9ybXVsYSkgbXVzdCBtZWV0LCBzdWNoIHRoYXQgdGhlIHN0YXRpc3RpY2FsIG1hY2hpbmVyeSB1bmRlcm5lYXRoIHRoZSBob29kIGNhbiBkbyBhIGdvb2Qgam9iIGFuZCBwcm9kdWNlIGFwcHJvcHJpYXRlIGVzdGltYXRlcy4gDQoNClRoZSBtb3N0IG9idmlvdXMgYXNzdW1wdGlvbiBpcyB3aGV0aGVyIHRoZSBkYXRhIHR5cGUgb2YgeW91ciByZXNwb25zZSBpcyBhZGVxdWF0ZSBmb3IgdGhlIHR5cGUgb2YgbW9kZWwuIEZvciBpbnN0YW5jZSwgaWYgd2UgaGFkIGNvdW50IGRhdGEsIGEgZ2F1c3NpYW4gKG9yIG5vcm1hbCkgbW9kZWwgd291bGQgbm90IGJlIGFwcHJvcHJpYXRlLCBhbmQgd2Ugc2hvdWxkIHVzZSBhIGBwb2lzc29uYCBvciBhIGBuZWdhdGl2ZSBiaW5vbWlhbGAgbW9kZWwuIFRoZXJlIGFyZSBvdGhlciBhc3N1bXB0aW9ucyB0aGF0IHdlIG5lZWQgdG8gbWVldCwgcmVnYXJkaW5nIHRoZSBzcHJlYWQgb2YgdGhlIGRhdGEsIHRoZSBhYnNlbmNlIG9mIG91dGxpZXJzLCBidXQgd2Ugd2xsIG5vdCBnbyBpbnRvIHRoZW0uIA0KDQpUaGVyZSBhcmUgc2V2ZXJhbCB3YXlzIHdlIGNhbiBjaGVjayB0aGVzZSBhc3N1bXB0aW9ucywgZm9yIGEgY2xhc3NpYyBgbG0oKWAgd2UgY291bGQgc2ltcGx5IHJ1biBgcGxvdChtb2RlbCBvYmplY3QpYCBhbmQgaXQgd291bGQgcHJpbnQgc2V2ZXJhbCBwbG90cyB3aGVyZSB3ZSBjYW4gZXZhbHVhdGUgb2YgdGhlc2UgYXNzdW1wdGlvbnMgYXJlIG1ldCBvciBub3QuIFRoaXMgd291bGQgbm90IHdvcmsgd2l0aCBvdGhlciB0eXBlcyBvZiBtb2RlbHMgZS5nLiwgYGdsbSgpYC4gQmVsb3cgSSBzaG93IGEgbWV0aG9kIHRoYXQgaXMgZXF1YWxseSBzaW1wbGUgdG8gaW1wbGVtZW50LCBidXQgdGhhdCBpcyBmYXIgbW9yZSB2ZXJzYXRpbGUsIGFuZCBjYW4gYmUgdXNlZCB3aXRoIG1vcmUgY29tcGxleCBtb2RlbHMgdXNpbmcgdGhlIHBhY2thZ2UgYERIQVJNYWAuIFdoaWxlIGl0IGlzIGVhc3kgdG8gaW1wbGVtZW50LCB0aGVyZSBhIGxvdCBvZiBtYWNoaW5lcnkgdW5kZXJuZWF0aCBtYWtpbmcgaXQgcG9zc2libGUsIGJ1dCB3ZSB3aWxsIG5vdCBnbyBpbnRvIGl0IGVpdGhlci4gDQoNCmBgYHtyIGJlc3QgbW9kZWwgYW5kIHJlc2lkdWFsLWRpYWdub3N0aWNzLCBmaWcuaGVpZ2h0PTd9DQoNCiMgU2VsZWN0aW5nIHRoZSBiZXN0IG1vZGVsDQptb2RlbF9oMSA8LSBnZXQubW9kZWxzKG1vZGVsX3NlbGVjdGlvbiwgc3Vic2V0ID0gMSlbWzFdXQ0KDQojIFNpbXVsYXRlIHJlc2lkdWFscyBmcm9tIG1vZGVsIG9iamVjdCwgYW5kIHBsb3QgdmFsaWRhdGlvbnMNCnNpbV9oMSA8LSBzaW11bGF0ZVJlc2lkdWFscyhtb2RlbF9oMSwgbiA9IDEwMDAsIHNlZWQgPSAxMjMpDQpwbG90KHNpbV9oMSkNCg0KYGBgDQoNCldlIGFyZSBhZnRlciBhIGxhY2sgb2YgcmVkLiBXaGljaCB3ZSBoYXZlLiBNb3JlIHNwZWNpZmljYWxseSwgb24gdGhlIFFRLXBsb3QsIHdlIHdhbnQgdGhlIHBvaW50cyAodHJpYW5nbGVzKSB0byBzaXQgbW9yZSBvciBsZXNzIG9uIHRoZSBkaWFnb25hbCBsaW5lLiBUaGVyZSBhcmUgYWxzbyBzZXZlcmFsIHN0YXRpc3RpY2FsIHRlc3RzIChLUywgRGlzcGVyc2lvbiwgYW5kIE91dGxpZXIpLCB3aGljaCBjb21lIHVwIGFzIG5vdCBzaWduaWZpY2FudCAobi5zLikuIE9uIHRoZSByaWdodCwgd2UgaGF2ZSB0aGUgcmVzaWR1YWxzIHZzIG1vZGVsIHByZWRpY3Rpb25zLCBhbmQgaGVyZSwgd2Ugd2FudCBvdXIgcG9pbnRzIHRvIGJlIG1vcmUgb3IgbGVzcyByYW5kb21seSBkaXN0cmlidXRlZCBhcm91bmQgdGhlIG1lZGlhbiAoMC41KSB3aXRoIG5vIGRpc2Nlcm5pYmxlIHBhdHRlcm4uIERIQVJNYSBmaXRzIHF1YW50aWxlIHJlZ3Jlc3Npb25zIGF0IHRoZSBtZWRpYXRlLCBhbmQgMjV0aCBhbmQgNzV0aCBxdWFudGlsZXMsIHdoaWNoIHdlIHdhbnQgdG8gb3ZlcmxhcCB3aXRoIHRoZSBkb3R0ZWQgbGluZXMuIA0KDQoNCiMjIyBNb2RlbCBPdXRwdXRzDQoNCk5vdyB3ZSBoYXZlIGEgcGFyc2ltb25pb3VzIG1vZGVsICh3aXRoIGNhdmVhdHMsIHNlZSB0ZXh0IGluIG1vZGVsIHNlbGVjdGlvbikgdGhhdCB3ZSBjYW4gdHJ1c3QuIExldCdzIGxvb2sgYXQgdGhlIG91dHB1dHMuDQoNCmBgYHtyIG1vZGVsLW91dHB1dHN9DQoNCiMgUHJpbnRpbmcgdGhlIG91dHB1dHMNCnN1bW1hcnkobW9kZWxfaDEpDQoNCmBgYA0KSGVyZSB3ZSBoYXZlIHRoZSB0eXBpY2FsIG91dHB1dCBvZiBhIGxpbmVhciByZWdyZXNzaW9uLiBJdCBpcyBkaXZpZGVkIGludG8gZm91ciBwYXJ0czoNCg0KLSBDYWxsOiBzaG93cyB5b3UgdGhlIGZ1bmN0aW9uIHVzZWQgdG8gZml0IHRoZSBtb2RlbCwgaW5jbHVkaW5nIHRoZSBmb3JtdWxhIGFuZCBpdHMgdmFyaWFibGVzLg0KLSBSZXNpZHVhbHM6IHRlbGxzIHlvdSBhYm91dCB0aGUgZGlzdHJpYnV0aW9uIG9mIHJlc2lkdWFscy4gSWYgeW91IGFyZSBpbnRlcmVzdGVkIGluIGxlYXJuaW5nIG1vcmUgYWJvdXQgcmVzaWR1YWxzLCBjaGVjayBadXVyJ3MgcmVmZXJlbmNlcyBhYm92ZS4gQnJpZWZseSwgdGhlcmUgaXMgYXQgbGVhc3Qgb25lIHJlc2lkdWFsIGZvciBlYWNoIGRhdGFwb2ludCwgd2hpY2ggaXMgbWVhc3VyZWQgYXMgdGhlIGRpc3RhbmNlIGJldHdlZW4gc2FpZCBkYXRhIHBvaW50LCBhbmQgdGhlIHByZWRpY3Rpb24gb2YgdGhlIG1vZGVsLiBUaHVzLCBpdCBtZWFzdXJlcyB5b3VyIHJlc2lkdWFsIHZhcmlhbmNlLCBoZW5jZSwgcmVzaWR1YWxzLiBXaGF0IHlvdSB3YW50IHRvIHNlZSBpcyB0aGF0IHRoZSBtZWRpYW4gaXMgbmVhciB6ZXJvLCBhbmQgdGhhdCB0aGUgcXVhbnRpbGVzIHRvIGVpdGhlciBzaWRlIGFyZSBtb3JlIG9yIGxlc3Mgc3ltbWV0cmljLCB3aGljaCB0aGV5IGFyZS4gV2Ugd2lsbCBjb21lIGJhY2sgdG8gdGhlbS4NCi0gQ29lZmZpY2llbnRzOiBIZXJlIGlzIHdoZXJlIHdlIGxlYXJuIGFib3V0IG91ciBzeXN0ZW0uIFRoZXJlIGFyZSBhIGZldyBxdWlya3MgdGhhdCB3ZSBtdXN0IGtub3cgdG8gYmUgYWJsZSB0byBkcmF3IGluZmVyZW5jZXMuIA0KICAgIC0gSW50ZXJjZXB0OiBJbiB0aGUgd2F5IHRoYXQgd2UgaGF2ZSBmaXR0ZWQgdGhlIG1vZGVsLCBhbGwgZXN0aW1hdGVzIGFyZSBlc3RpbWF0ZWQgcmVsYXRpdmUgdG8gYW4gaW50ZXJjZXB0LiB0aGUgaW50ZXJjZXB0IGlzIHRoZSB2YWx1ZSBvZiBvdXIgcmVzcG9uc2UgdmFyaWFibGUsIGxvZ19oaWxsMSAob3IgU1dJKSwgd2hlbiBvdXIgbnVtZXJpYyB2YWx1ZXMgYXJlIHplcm8gKHRoaXMgaXMgd2h5IGl0IGlzIHZhbHVhYmxlIHRvIGNlbnRyZSB5b3VyIG51bWVyaWMgdmFyaWFibGVzKSwgYW5kIGZvciB0aGUgcmVmZXJlbmNlIGxldmVsIG9mIHlvdXIgZmFjdG9ycywgaGVyZSwgaGVhdGggKHRoZSBvbmUgdGhhdCBpcyBtaXNzaW5nIGZyb20gdGhlIGxpc3QpLiBUaHVzLCB3ZSBoYXZlIGEgU1dJIG9mIDAuODcgaW4gaGVhdGggYXQgYXZlcmFnZSBwSCBhbmQgUEMyIHZhbHVlcy4gDQogICAgLSBDb250cmFzdHMgLSBTbG9wZXM6IFdoZW4gd2UgZml0IGEgbnVtZXJpYyB2YXJpYWJsZSB0byBhIG1vZGVsLCBpdCBlc3RpbWF0ZXMgYSBzbG9wZS4gQSBzbG9wZSBpcyBhIHJhdGUgb2YgY2hhbmdlIG9mIHRoZSByZXNwb25zZSB2YXJpYWJsZSBvdmVyIHRoZSBjb3ZhcmlhdGUuIEZvciBpbnN0YW5jZSwgU1dJIGlzIGRlY2xpbmluZyBieSAwLjE0IHBvaW50cyBmb3IgZXZlcnkgdW5pdCBvZiBpbmNyZWFzZSBvZiBwSC4gVGhlIFAgdmFsdWUgb24gdGhlIHJpZ2h0IGhhbmQgc2lkZSB0ZWxscyB1cyB3aGV0aGVyIHRoZSBzbG9wZSBpcyBzaWduaWZpY2FudGx5IGRpZmZlcmVudCBmcm9tIHplcm8uIElmIGl0IGlzIHplcm8sIHRoZSBwcmVkaWN0ZWQgbGluZSB3b3VsZCBiZSBmbGF0LCBhbmQgU1dJIHdvdWxkIG5vdCBjaGFuZ2Ugb3ZlciBwSC4gVGVjaG5pY2FsbHkgc3BlYWtpbmcsIHRoZSBwLXZhbHVlIHRlbGxzIHVzIHRoZSBmb2xsb3dpbmc6IHdoYXQgaXMgdGhlIHByb2JhYmlsaXR5IHRoYXQgd2UgY291bGQgb2J0YWluIHRoZSBkYXRhIHdlIGhhdmUgb2JzZXJ2ZWQsIElGIHRoZSBzbG9wZSB3YXMgemVybyAobnVsbCBoeXBvdGhlc2lzKS4gSWYgdGhlIHByb2JhYmlsaXR5IGlzIHNtYWxsIGVub3VnaCwgdHlwaWNhbGx5IDwgMC4wNSAoNSUpLCB0aGUgbnVsbCBoeXBvdGhlc2lzIGlzIHJlamVjdGVkLCBhbmQgd2UgY29uY2x1ZGUgdGhhdCB0aGVyZSBpcyBhIHNpZ25pZmljYW50IGVmZmVjdCBvZiBvdXIgY292YXJpYXRlLiAgDQogICAgVGhlcmUgaXMgbXVjaCBkZWJhdGUgYWJvdXQgd2hldGhlciBwLXZhbHVlcyBzaG91bGQgYmUgdXNlIG9yIG5vdCwgb3IgYXQgbGVhc3Qgd2hldGhlciB0aGUgYXJiaXRyYXJ5IDAuMDUgdGhyZXNob2xkIG9mIHNpZ25pZmljYW5jZSBzaG91bGQgYmUgdXNlZC4gSGVyZSwgd2UgaGF2ZSB0d28gImJvcmRlci1saW5lIiAob3IgbWFyZ2luYWwpIHNpZ25pZmljYW5jZXMgZm9yIHBIIGFuZCBQQzIsIGFuZCBzdHJpY3RseSBzcGVha2luZywgd2UgY291bGQgY29uY2x1ZGUgbm8gcmVsYXRpb25zaGlwLiBJbiBhbnkgY2FzZSwgcC12YWx1ZXMgc2hvdWxkIG5vdCBiZSBhc3Nlc3NlZCBpbmRlcGVuZGVudGx5IG9mIHRoZSBlZmZlY3Qgc2l6ZXMgKGkuZS4sIHRoZSBlc3RpbWF0ZSkuDQogICAgLSBDb250cmFzdHMgLSBGYWN0b3JzOiBXaGVuIHdlIGZpdCBjYXRlZ29yaWNhbCB2YXJpYWJsZXMsIGxpa2UgaGFiaXRhdCB0eXBlLCB0aGUgZXN0aW1hdGVzIGFyZSB0ZWxsaW5nIHVzIGFib3V0IHRoZSBkaWZmZXJlbmNlIGJldHdlZW4gb3VyIGludGVyY2VwdCAoaGVhdGggYXQgcEggYW5kIFBDMiA9IDApLCByZWxhdGl2ZSB0byB0aGUgbmV3IGxldmVsIChlLmcuLCByZWdlbiBhbHNvIGF0IHBIIGFuZCBQQzIgPSAwKS4gU3VjaCB0aGF0IFNXSSBmb3IgcmVnZW4gaXMgYDAuODcxMzgrMC45MTM3OCA9IDEuNzg1MTZgLiBIZXJlLCB0aGUgcC12YWx1ZSBpcyB0ZWxsaW5nIHVzLCB3aGV0aGVyIHRoZSBkaWZmZXJlbmNlIGJldHdlZW4gdGhlIHR3byBsZXZlbHMgd2UgYXJlIGNvbnRyYXN0aW5nIGlzIHNpZ25pZmljYW50bHkgZGlmZmVyZW50IGZyb20gemVyby4gVGhlIHNhbWUgdGVjaG5pY2FsIGRlZmluaXRpb24gSSB1c2VkIGZvciBzbG9wZSBhcHBsaWVzIGhlcmUgdGhvdWdoLiBJbiBvdXIgc3VtbWFyeSwgd2UgY2FuIHNlZSB0aGF0IGFsbCB3b29kZWQgaGFiaXRhdHMgaGF2ZSBzaWduaWZpY2FudGx5IGhpZ2hlciBTV0kgdGhhbiBoZWF0aC4gSSB3aWxsIG5vdCBnbyBpbnRvIGRldGFpbHMgYWJvdXQgdGhlIHQtdmFsdWUsIGl0IGlzIHBhcnQgb2YgdGhlIHN0YXRpc3RpY2FsIG1hY2hpbmVyeSB0aGF0IHRoZSBtb2RlbCB1c2VzIHRvIGRlcml2ZSB0aGUgcC12YWx1ZS4gDQogICAgLSBTdGQuIEVycm9yIGFuZCBzdGF0aXN0aWNhbCBmcmFtZXdvcmtzOiBUaGUgc3RhbmRhcmQgZXJyb3IgdGVsbHMgdXMgYWJvdXQgdGhlIHByZWNpc2lvbiBvZiBvdXIgZXN0aW1hdGUsIG9yIGhvdyBtdWNoIHRoZSBlc3RpbWF0ZSB3b3VsZCB2YXJ5IGlmIHlvdSB3ZXJlIHRvIHJlcGVhdCB0aGUgc3R1ZHkuIEl0IGlzIHVzZWQgdG8gZXN0aW1hdGUgdGhlIGNvbmZpZGVuY2UgaW50ZXJ2YWwsIHR5cGljYWxseSA5NSUuIFRoaXMgYWxzbyBoYXMgYSB0ZWNobmljYWwgZGVmaW5pdGlvbiB0aGF0IGlzIGEgYml0IG9ic2N1cmU6IGlmIHlvdSByZXBlYXRlZCB5b3VyIGV4cGVyaW1lbnQgYW4gaW5maW5pdGUgbnVtYmVyIG9mIHRpbWVzLCB5b3Ugd291bGQgZmluZCB0aGF0IHRoZSBlc3RpbWF0ZXMgZm9yIGVhY2ggb2YgdGhlbSBhcmUgd2l0aGluIHlvdXIgY29uZmlkZW5jZSBpbnRlcnZhbCwgOTUlIG9mIHRoZSB0aW1lLiBVbHRpbWF0ZWx5LCBpdCBpcyB0ZWxsaW5nIHVzIGFib3V0IGhvdyBjb25maWRlbnQgd2UgYXJlIGFib3V0IG91ciBlc3RpbWF0ZXMuIFRoZSByZWFzb24gZm9yIHRoZXNlIG9ic2N1cmVzIGRlZmluaXRpb25zIGlzIHRoYXQgd2UgYXJlIHVzaW5nIGEgRnJlcXVlbnRpc3Qgc3RhdGlzdGljYWwgZnJhbWV3b3JrLCB3aGljaCBmb2N1c2VzIG9uIHByZWRpY3Rpb25zIG9mIHRoZSBmdXR1cmUsIGFzIG9wcG9zZWQgdG8gdGhlIEJheWVzaWFuIGZyYW1ld29yaywgYnV0IHRoaXMgaXMgYmV5b25kIG91ciBzY29wZS4gDQotIFRoZSByZXN0OiBhZnRlciB0aGUgY29lZmZpY2llbnQgdGFibGUsIHdlIGhhdmUgc29tZSBhZGRpdGlvbmFsIGluZm9ybWF0aW9uIGFib3V0IHRoZSBtb2RlbC4gVGhlIHJlc2lkdWFsIGRlZ3JlZXMgb2YgZnJlZWRvbSB0ZWxscyB1cyBob3cgbXVjaCBpbmZvcm1hdGlvbiBpcyBsZWZ0IGluIHRoZSBkYXRhIGFmdGVyIGZpdHRpbmcgdGhlIG1vZGVsLCBoZXJlIDUzIG9ic2VydmF0aW9ucyBtaW51cyBzaXggZXN0aW1hdGVkIGNvZWZmaWNpZW50cywgNDcgZGYgbGVmdC4gUmVzaWR1YWwgc3RhbmRhcmQgZXJyb3IgdGVsbHMgdXMgYWJvdXQgdGhlIHNjYXR0ZXIgb2Ygb3VyIG9ic2VydmF0aW9ucyByZWxhdGl2ZSB0byBvdXIgbW9kZWwgcHJlZGljdGlvbnMuIFRoZSBSLXNxdWFyZSBhbmQgYWRqdXN0ZWQgUi1zcXVhcmUgdGVsbCB1cyBhYm91dCB0aGUgcHJvcG9ydGlvbiBvZiB2YXJpYW5jZSBleHBsYWluZWQgYnkgdGhlIG1vZGVsLiBJZiB0aGUgZGF0YSBjb250YWlucyAxMDAlIG9mIHRoZSB2YXJpYW5jZSwgd2UgY2FuIG1lYXN1cmUgaG93IG11Y2ggb2YgaXQgaXMgZXhwbGFpbmVkIGJ5IG91ciBtb2RlbCwgaGVyZSAyOCUuIFRoZSBhZGp1c3RlZCBSLXNxdWFyZSBjb3JyZWN0cyBmb3IgdGhlIGZhY3QgdGhhdCBzb21lIGNvdmFyaWF0ZXMgbWF5IG92ZXJsYXAgaW4gdGhlIHZhcmlhbmNlIHRoZXkgZXhwbGFpbmVkLCBlLmcuLCB2ZWdfUEMgYW5kIGhhYml0YXQgdHlwZS4gTGFzdGx5LCB3ZSBoYXZlIGFuIEYtc3RhdGlzdGljLCB3aXRoIGRlZ3JlZSBvZiBmcmVlZG9tIGFuZCBhIHAtdmFsdWUuIFRoaXMgaXMgYSBjb250cmFzdCAodXNpbmcgQU5PVkEpIG9mIG91ciBmaXR0ZWQgbW9kZWwsIGFnYWluc3QgYW4gaW50ZXJjZXB0LW9ubHkgbW9kZWwsIHdoaWNoIGhhcyBubyBjb3ZhcmlhdGVzLiBUaGlzIHRlbGxzIHVzIHdoZXRoZXIgb3VyIGZpdHRlZCBjb3ZhcmlhdGVzIGltcHJvdmUgYWdhaW5zdCBhIG1vZGVsIHRoYXQgZml0cyBhIGZsYXQgc3RyYWlnaHQgbGluZSB0aHJvdWdoIHRoZSBkYXRhLiBXaGljaCBpbiBvdXIgY2FzZSwgdGhleSBkby4gDQoNCg0KIyMjIE5lc3RlZCBzdHJ1Y3R1cmUgb2YgdGhlIGRhdGENCg0KV2l0aG91dCBnb2luZyBpbnRvIG11Y2ggZGV0YWlsLCB3ZSB3aWxsIGNvdmVyIHRoZSBzdHJ1Y3R1cmUgb2YgdGhlIGRhdGEgaXRzZWxmLCBiZWNhdXNlIHRoaXMgaXMgb2Z0ZW4gbmVjZXNzYXJ5IHdpdGggbm9pc3kgZWNvbG9naWNhbCBkYXRhIHN1Y2ggYXMgdGhpcy4gT2Z0ZW4sIHdlIG1pZ2h0IHdhbnQgb3B0IGZvciBhIGRlc2lnbiB3aXRoIHNpdGVzLCBhbmQgcmVwbGljYXRlZCBzYW1wbGluZyB3aXRoaW4gYSBzaXRlLiBUaGlzIGltcG9zZXMgYSBzdHJ1Y3R1cmUgb24gdGhlIGRhdGEsIHN1Y2ggdGhhdCBzYW1wbGVzIHdpdGhpbiBhIHNpdGUgbWF5IHNoYXJlIGEgY29uZGl0aW9ucyB0aGF0IHNhbXBsZXMgYmV0d2VlbiBzaXRlcyBkbyBub3QuIFRoaXMgY3JlYXRlcyBjb3JyZWxhdGlvbiBhbW9uZyBkYXRhIHBvaW50cyBhbmQgdGhlaXIgcmVzaWR1YWxzICh0aGUgbGFjayBvZiB3aGljaCBpcyBvbmUgb2YgdGhlIGFzc3VtcHRpb25zKSwgaW4gdHVybiwgaXQgb3ZlcmVzdGltYXRlcyB0aGUgbnVtYmVyIG9mIGRlZ3JlZXMgb2YgZnJlZWRvbSBiZWNhdXNlIHdoZXJlIHRoZSBkYXRhcG9pbnRzIGFyZSBub3QgY29ycmVsYXRlZCAxIGRhdGEgcG9pbnQgPSAxIGQuZi4sIGlmIHRoZXkgYXJlIGNvcnJlbGF0ZWQgdGhpcyBpcyBub3QgdHJ1ZSwgd2UgaGF2ZSBsZXNzLiBPdmVyZXN0aW1hdGVkIGQuZi4gbGVhZHMgdG8gdW5kZXJlc3RpbWF0ZXMgb2Ygc3RhbmRhcmQgZXJyb3JzLCBhbmQgdWx0aW1hdGVseSB0byBvdmVyY29uZmlkZW50IGVzdGltYXRlcyBvZiBlZmZlY3Qgc2l6ZXMgYW5kIHN0YXRpc3RpY2FsIHNpZ25pZmljYW5jZS4gDQoNClRoaXMgY2FuIGJlIGFkZHJlc3NlZCB3aXRoIHJhbmRvbSBlZmZlY3RzIGluIG1peGVkIG1vZGVscywgYWxzbyBjYWxsZWQgaGllcmFyY2hpY2FsIHJlZ3Jlc3Npb24gbW9kZWxzLiBXZSBoYXZlIHVzZWQgaGllcmFyY2hpY2FsIG1vZGVscyBmb3Igb3VyIGJhY3RlcmlhIGFuZCBmdW5nYWwgZGF0YSBidXQgbm90IGZvciB0aGUgaW52ZXJ0ZWJyYXRlIGRhdGEgcHJlc2VudGVkIGluIHRoaXMgdHV0b3JpYWwgYmVjYXVzZSB0aGUgZGF0YSBkaWQgbm90IGFsbG93IGl0LiBGb3IgYW4gaW50cm9kdWN0aW9uIHRvIGhpZXJhcmNoaWNhbCBtb2RlbHMgc2VlIEJyb3duJ3MgW3R1dG9yaWFsXShodHRwczovL2RvaS5vcmcvMTAuMTE3Ny8yNTE1MjQ1OTIwOTYwMzUxKSB1c2luZyB0aGUgYGxtZTRgIHBhY2thZ2UuIFtDaGFwdGVyIDNdKGh0dHBzOi8vcXVhbnRkZXYuc3NyaS5wc3UuZWR1L3NpdGVzL3FkZXYvZmlsZXMvR0NNX0NocDNfVHV0b3JpYWxfMi5odG1sP3V0bV9zb3VyY2U9Y2hhdGdwdC5jb20pIG9mIEdyaW1tLCBSYW0sIGFuZCBFc3RhYnJvb2sncyBHcm93dGggTW9kZWxsaW5nIHByb3ZpZGVzIHdvcmtlZCBleGFtcGxlcyBhY3Jvc3MgYSByYW5nZSBvZiBSIHBhY2thZ2VzLiANCg0KTm9uZXRoZWxlc3MsIHdlIHdhbnQgdG8gYWNrbm93bGVkZ2UgdGhlIHN0cnVjdHVyZSBvZiB0aGUgZGF0YSwgYW5kIGNvcnJlY3Qgb3VyIG1lYXN1cmVzIG9mIGNvbmZpZGVuY2UuIFdlIHVzZSBhIHBvc3QtaG9jIGNvcnJlY3Rpb24gd2l0aCB0aGUgYENsdWJTYW5kd2ljaGAgcGFja2FnZSB0byBhcHBseSBhIGNsdXN0ZXItcm9idXN0IHZhcmlhbmNlIGVzdGltYXRvciBhbmQgYSBTYXR0ZXJ0aHdhaXRlIGNvcnJlY3Rpb24gb2YgZGVncmVlcyBvZiBmcmVlZG9tLCBhbmQgZXh0cmFjdCB0aGUgY29lZmZpY2llbnQgdGFibGUgYWdhaW4uIA0KDQpgYGB7ciBzaXRlLWFkanVzdGVkLWNvZWZmaWNpZW50c30NCg0KIyBDbHVzdGVyLXJvYnVzdCB2YXJpYW5jZSBlc3RpbWF0aW9uDQpzaXRlX3Zjb3YgPC0gdmNvdkNSKG1vZGVsX2gxLCBjbHVzdGVyID0gY2NfbW9kJHNpdGVfaWQsIHR5cGUgPSAiQ1IyIikNCg0KIyBDb2VmZmljaWVudCB0YWJsZSB3aXRoIGRmIGNvcnJlY3Rpb24NCmNvZWZfdGVzdChtb2RlbF9oMSwgdmNvdiA9IHNpdGVfdmNvdiwgdGVzdCA9ICJTYXR0ZXJ0aHdhaXRlIikNCg0KYGBgDQoNClRoZSBtb3N0IG5vdGFibGUgY2hhbmdlcyBhcmUgdGhlIGxvc3Mgb2YgbWFyZ2luYWwgc2lnbmlmaWNhbmNlIG9mIHZlZ19QQzIsIHdoaWxlIHBIIGhhcyBnb25lIG92ZXIgdGhlIDAuMDUgdGhyZXNob2xkIHRvIHN0YXRpc3RpY2FsIHNpZ25pZmljYW5jZS4gVGhpcyBsaWtlbHkgcmVzcG9uZHMgdG8gdGhlIGZhY3QgdGhhdCB2ZWdldGF0aW9uIHdhcyBvbmx5IG1lYXN1cmVkIGF0IHNpdGUgbGV2ZWwsIHdoaWxlIHBIIHdhcyBtZWFzdXJlZCBhdCBzYW1wbGUgbGV2ZWwsIGhlbmNlIHZlZ19QQzIgd291bGQgc3VmZmVyIG1vc3QgZnJvbSBhIGNvcnJlY3Rpb24gb2YgbmVzdGVkIGRhdGEuIE1vcmVvdmVyLCBtdWNoIG9mIHRoZSB2YXJpYXRpb24gaW4gdmVnZXRhdGlvbiBpcyBsaWtlbHkgc29ha2VkIGJ5IHRoZSBoYWJpdGF0IHR5cGUgdmFyaWFibGUsIHdoaWNoIHJlbWFpbnMgc3RhdGlzdGljYWxseSBzaWduaWZpY2FudCwgd2l0aCBlc3RpbWF0ZXMgaW4gbGluZSB3aXRoIG91ciBwcmV2aW91cyB0YWJsZSwgaS5lLiwgdGhleSBhcmUgcm9idXN0IGVzdGltYXRlcy4gDQoNCg0KIyMgNS4gVmlzdWFsIG91dHB1dHMNCg0KT25jZSB3ZSBhcmUgY29uZmlkZW50IGluIHRoZSByb2J1c3RuZXNzIG9mIG91ciBjb2VmZmljaWVudHMsIGFuZCBvdXIgc3RhdGlzdGljYWwgc2lnbmlmaWNhbmNlcy4gV2UgbWlnaHQgd2FudCB0byBwcm9kdWNlIG1vcmUgcmVhZGVyLWZyaWVuZGx5IG91dHB1dHMgaW4gdGhlIGZvcm0gb2YgdmlzdWFsIHBsb3RzLiANCg0KV2UgZG8gdGhpcyBieSBjcmVhdGluZyBhICJuZXciIGRhdGFzZXQgb3ZlciB3aGljaCB3ZSBtYWtlIHByZWRpY3Rpb25zLiBUaGlzIG5ldyBkYXRhc2V0IGlzIGEgZHVtbXkgZGF0YXNldCB3aXRoIHRoZSB2YWx1ZXMgb2Ygb3VyIGNvdmFyaWF0ZXMgb3ZlciB3aGljaCB3ZSB3YW50IHRvIHByZWRpY3QsIGluIG91ciBjYXNlLCBoYWJpdGF0IHR5cGUgYW5kIHBILCB3ZSB3aWxsIG5vdCBwcmVkaWN0IG92ZXIgdmVnX1BDMiBzaW5jZSB3ZSBzYXcgaW4gdGhlIHByZXZpb3VzIHNlY3Rpb24gaXQgd2FzIG5vdCBzaWduaWZpY2FudCB3aGVuIGNvcnJlY3RpbmcgZm9yIHRoZSBuZXN0ZWQgc3RydWN0dXJlIG9mIHRoZSBkYXRhLg0KDQpgYGB7ciBwcmVkaWN0LWJ5LWhhYml0YXR9DQoNCiMgUHJlZGljdCBvdmVyIHRoZSBvYnNlcnZlZCBwSCByYW5nZSBpbiBlYWNoIGhhYml0YXQNCm5ld19oYWJpdGF0IDwtIGNjX21vZCAlPiUNCiAgcmVmcmFtZShwaF9jID0gc2VxKG1pbihwaF9jKSwgbWF4KHBoX2MpLCBsZW5ndGgub3V0ID0gMTAwKSwNCiAgICAgICAgICAuYnkgPSB0cmVhdG1lbnQpICU+JQ0KICBtdXRhdGUodmVnX1BDMiA9IDApDQoNCnByZWRfbG9nIDwtIHByZWRpY3QobW9kZWxfaDEsIG5ld2RhdGEgPSBuZXdfaGFiaXRhdCwgaW50ZXJ2YWwgPSAiY29uZmlkZW5jZSIpDQoNCnByZWRfaGFiaXRhdCA8LSBiaW5kX2NvbHMobmV3X2hhYml0YXQsIGFzX3RpYmJsZShwcmVkX2xvZykpICU+JQ0KICBtdXRhdGUocGggPSBwaF9jICsgbWVhbihjY19tb2QkcGgpLA0KICAgICAgICAgaGlsbDEgPSBleHAoZml0KSwgbG93ZXJfOTUgPSBleHAobHdyKSwgdXBwZXJfOTUgPSBleHAodXByKSkNCg0KIyBQcmVkaWN0IGhhYml0YXQgbWVhbnMgYXQgdGhlIHNhbWUgcEgNCm5ld19hdF9tZWFuIDwtIGNjX21vZCAlPiUNCiAgZGlzdGluY3QodHJlYXRtZW50KSAlPiUNCiAgYXJyYW5nZSh0cmVhdG1lbnQpICU+JQ0KICBtdXRhdGUocGhfYyA9IDAsIHZlZ19QQzIgPSAwKQ0KDQpwcmVkX2F0X21lYW5fbG9nIDwtIHByZWRpY3QobW9kZWxfaDEsIG5ld2RhdGEgPSBuZXdfYXRfbWVhbiwgaW50ZXJ2YWwgPSAiY29uZmlkZW5jZSIpDQoNCiMgTm90ZSB0aGF0IHdlIGJhY2t0cmFuc2Zvcm0gZml0IChTV0kpIGJhY2sgdG8gSGlsbDENCnByZWRfYXRfbWVhbiA8LSBiaW5kX2NvbHMobmV3X2F0X21lYW4sIGFzX3RpYmJsZShwcmVkX2F0X21lYW5fbG9nKSkgJT4lDQogIG11dGF0ZShoaWxsMSA9IGV4cChmaXQpLCBsb3dlcl85NSA9IGV4cChsd3IpLCB1cHBlcl85NSA9IGV4cCh1cHIpKQ0KDQpgYGANCg0KQnkgdXNpbmcgcHJlZGljdCwgd2UgYXJlIG5vdCBpbXBsZW1lbnRpbmcgdGhlIGNvcnJlY3Rpb24gZm9yIHRoZSBuZXN0ZWQgc3RydWN0dXJlIG9mIHRoZSBkYXRhLiBEb2luZyBzbyAgcmVxdWlyZXMgbW9yZSBpbnZvbHZlZCBjb2RpbmcsIHdoaWNoLCBpbiB0aGlzIGNhc2UsIGRvZXMgbm90IGFmZmVjdCB0aGUgb3V0cHV0IHN1YnN0YW50aWFsbHksIGhlbmNlIHdlIGFyZSByZXByb2R1Y2luZyB0aGUgbW9zdCBjb21tb25seSB1c2VkIGFwcHJvYWNoIHdpdGggdGhlIGBwcmVkaWN0KClgIGZ1bmN0aW9uLiANCg0KYGBge3IgcGxvdC1wcmVkaWN0aW9ucywgZmlnLndpZHRoPTExLCBmaWcuaGVpZ2h0PTV9DQpoMV90aGVtZSA8LSB0aGVtZV9taW5pbWFsKGJhc2Vfc2l6ZSA9IDEyKSArDQogIHRoZW1lKGF4aXMubGluZSA9IGVsZW1lbnRfbGluZShjb2xvdXIgPSAiYmxhY2siLCBsaW5ld2lkdGggPSAwLjQpLA0KICAgICAgICBheGlzLnRpY2tzID0gZWxlbWVudF9saW5lKGNvbG91ciA9ICJibGFjayIsIGxpbmV3aWR0aCA9IDAuNCkpDQoNCiMgT2JzZXJ2ZWQgSDEgYW5kIGZpdHRlZCBoYWJpdGF0IG1lYW5zIC0tLS0NCnBfaGFiaXRhdCA8LSBnZ3Bsb3QoY2NfbW9kLCBhZXModHJlYXRtZW50LCBoaWxsMSkpICsNCiAgZ2VvbV9ib3hwbG90KGFlcyhmaWxsID0gdHJlYXRtZW50KSwgYWxwaGEgPSAwLjI1LCBvdXRsaWVyLnNoYXBlID0gTkEpICsNCiAgZ2VvbV9wb2ludChhZXMoY29sb3VyID0gdHJlYXRtZW50KSwgYWxwaGEgPSAwLjYsIHNpemUgPSAxLjgsDQogICAgICAgICAgICAgcG9zaXRpb24gPSBwb3NpdGlvbl9qaXR0ZXIod2lkdGggPSAwLjEyLCBoZWlnaHQgPSAwLCBzZWVkID0gMTIzKSkgKw0KICBnZW9tX3BvaW50cmFuZ2UoZGF0YSA9IHByZWRfYXRfbWVhbiwgYWVzKHltaW4gPSBsb3dlcl85NSwgeW1heCA9IHVwcGVyXzk1KSwNCiAgICAgICAgICAgICAgICAgIHNoYXBlID0gMTgsIGNvbG91ciA9ICJibGFjayIpICsNCiAgc2NhbGVfeF9kaXNjcmV0ZShsYWJlbHMgPSB+IHN0cl93cmFwKGhhYml0YXRfbGFiZWxzWy54XSwgd2lkdGggPSAxMikpICsNCiAgc2NhbGVfY29sb3VyX21hbnVhbCh2YWx1ZXMgPSBoYWJpdGF0X2NvbG91cnMpICsNCiAgc2NhbGVfZmlsbF9tYW51YWwodmFsdWVzID0gaGFiaXRhdF9jb2xvdXJzKSArDQogIGxhYnMoeCA9ICJIYWJpdGF0IiwgeSA9ICJIMSAoZWZmZWN0aXZlIHRheGEpIiwNCiAgICAgICB0aXRsZSA9ICJPYnNlcnZlZCBhbmQgZml0dGVkIEgxIGJ5IGhhYml0YXQiLA0KICAgICAgIHN1YnRpdGxlID0gIkRpYW1vbmRzIHNob3cgZml0dGVkIGdlb21ldHJpYyBtZWFucyBhdCBtZWFuIHNvaWwgcEgiKSArDQogIGgxX3RoZW1lICsNCiAgdGhlbWUobGVnZW5kLnBvc2l0aW9uID0gIm5vbmUiKQ0KDQojIEZpdHRlZCBIMSBvdmVyIHNvaWwgcEggd2l0aCBvYnNlcnZlZCBwSCB2YWx1ZXMgLS0tLQ0KcF9waCA8LSBnZ3Bsb3QocHJlZF9oYWJpdGF0LCBhZXMocGgsIGhpbGwxLCBjb2xvdXIgPSB0cmVhdG1lbnQpKSArDQogIGdlb21fcmliYm9uKGFlcyh5bWluID0gbG93ZXJfOTUsIHltYXggPSB1cHBlcl85NSwgZmlsbCA9IHRyZWF0bWVudCksDQogICAgICAgICAgICAgIGFscGhhID0gMC4xNSwgY29sb3VyID0gTkEpICsNCiAgZ2VvbV9saW5lKGxpbmV3aWR0aCA9IDAuOCkgKw0KICBnZW9tX3J1ZyhkYXRhID0gY2NfbW9kLCBhZXMoeCA9IHBoLCBjb2xvdXIgPSB0cmVhdG1lbnQpLA0KICAgICAgICAgICBzaWRlcyA9ICJiIiwgYWxwaGEgPSAwLjYsIGluaGVyaXQuYWVzID0gRkFMU0UpICsNCiAgc2NhbGVfY29sb3VyX21hbnVhbCh2YWx1ZXMgPSBoYWJpdGF0X2NvbG91cnMsIGxhYmVscyA9IGhhYml0YXRfbGFiZWxzKSArDQogIHNjYWxlX2ZpbGxfbWFudWFsKHZhbHVlcyA9IGhhYml0YXRfY29sb3VycywgZ3VpZGUgPSAibm9uZSIpICsNCiAgbGFicyh4ID0gIlNvaWwgcEgiLCB5ID0gIkZpdHRlZCBIMSAoZ2VvbWV0cmljIG1lYW4pIiwgY29sb3VyID0gIkhhYml0YXQiLA0KICAgICAgIHRpdGxlID0gIkZpdHRlZCBIMSBvdmVyIHNvaWwgcEgiLA0KICAgICAgIHN1YnRpdGxlID0gIlJ1ZyBtYXJrcyBzaG93IG9ic2VydmVkIHNvaWwgcEgiKSArDQogIGgxX3RoZW1lICsNCiAgdGhlbWUobGVnZW5kLnBvc2l0aW9uID0gImJvdHRvbSIpDQoNCihwX2hhYml0YXQgfCBwX3BoKSArDQogIHBsb3RfbGF5b3V0KHdpZHRocyA9IGMoMSwgMS4zKSkgKw0KICBwbG90X2Fubm90YXRpb24oDQogICAgY2FwdGlvbiA9ICJQcmVkaWN0aW9ucyBob2xkIHZlZ2V0YXRpb24gUEMyIGF0IHplcm8uIEJhcnMgYW5kIHNoYWRpbmcgc2hvdyBvcmRpbmFyeSBsbSgpIDk1JSBjb25maWRlbmNlIGludGVydmFscy4iKQ0KYGBgDQoNClRoZSBwYW5lbCBvbiB0aGUgbGVmdCBzaG91bGQgbG9vayBmYW1pbGlhciwgaXQgaXMgdmVyeSBzaW1pbGFyIHRvIHRoZSBleHBsb3JhdGlvbiBvZiB0aGUgcmF3IGRhdGEsIG9ubHkgbm93IHdlIGhhdmUgdGhlIHN0YXRpc3RpY2FsIHRlc3QgdGVsbGluZyB1cyB3aGF0IGNvbnN0aXR1dGVzIGEgc2lnbmlmaWNhbnQgZGlmZmVyZW5jZSBvciBub3QuIFdlIGFyZSBhbHNvIGFibGUgdG8gZXh0cmFjdCB0aGUgZGlmZmVyZW5jZXMuIE9uIHRoZSByaWdodCwgd2UgZmluZCBhIG1vZGVzdCBlZmZlY3Qgb2YgcEggb24gSDEuIFRoZSBlZmZlY3Qgc2VlbXMgbGFyZ2VseSBkcml2ZW4gYnkgYSBmZXcgcEggdmFsdWVzIGF0IHBIID4gNS4NCg0KVGhpcyBjb21wbGV0ZXMgb3VyIHVuaXZhcmlhdGUgYW5hbHlzaXMgb2YgZUROQSBkYXRhLCB3aGVyZSB3ZSBoYXZlIHN1bW1hcmlzZWQgYSBkaXZlcnNlIGNvbW11bml0eSBvZiBpbnZlcnRlYnJhdGVzIGludG8gYSBzaW5nbGUgbWV0cmljIChhIDIgaW4gMSBpbiB0aHMgY2FzZSkgb2YgU1dJIGFuZCBIMS4gSW4gW1Nlc3Npb24gMl0oc2Vzc2lvbjIuaHRtbCksIHdlIHdpbGwgZXhwbG9yZSBhIG11bHRpdmFyaWF0ZSBhbmFseXNpcyBvZiBjb21tdW5pdHkgY29tcG9zaXRpb24gdXNpbmcgZnVuZ2kuIA0KDQoNCjxkZXRhaWxzPg0KPHN1bW1hcnk+U29mdHdhcmUgdmVyc2lvbnM8L3N1bW1hcnk+DQoNCmBgYHtyIHNvZnR3YXJlLWluZm9ybWF0aW9uLCBjbGFzcy5zb3VyY2U9ImZvbGQtbm9uZSJ9DQpzZXNzaW9uSW5mbygpDQpgYGANCg0KPC9kZXRhaWxzPg0KDQotLS0NCg0KW1ByZXZpb3VzOiBTZXNzaW9uIDBdKHNlc3Npb24wLmh0bWwpIHwgW0hvbWVdKGluZGV4Lmh0bWwpIHwgW05leHQ6IFNlc3Npb24gMl0oc2Vzc2lvbjIuaHRtbCkNCg==</div>
 
 
 </div>
