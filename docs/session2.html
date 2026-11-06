@@ -11,7 +11,7 @@
 
 
 
-<title>Session 2: RDA and indicator species analysis</title>
+<title>Session 2: Multivariate and Indicator Species Analysis</title>
 
 <script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -35,6 +35,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -47,6 +49,117 @@
 
 
 
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 <style type="text/css">
@@ -348,7 +461,13 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/CristianNa/elsp_ark_tutorials">
+    <span class="fa fa-github"></span>
+     
+    GitHub repository
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -368,21 +487,748 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Session 2: RDA and indicator species
-analysis</h1>
+<h1 class="title toc-ignore">Session 2: Multivariate and Indicator
+Species Analysis</h1>
 
 </div>
 
 
-<div id="tutorial-status" class="section level2">
-<h2>Tutorial status</h2>
-<p>This tutorial is under development.</p>
+<div id="what-we-will-cover-in-this-session" class="section level2">
+<h2>What we will cover in this session</h2>
+<p>In <a href="session1.html">Session 1</a>, we saw how to address
+multivariate biodiversity data by summarising into univariate metrics
+such as richness or diversity indices. However, two samples oculd have
+the same richness of completely different taxa.</p>
+<p>Here, we will use fungal data to ask how the whole community varies
+across the four habitat types, using a type of multi-variate analysis,
+distance-based Redundancy Analysis (db-RDA).</p>
+<p>We will also see how to do an Indicator Species Analysis (ISA) to
+find associations between taxa and habitat types.</p>
+<p>We will:</p>
+<ol style="list-style-type: decimal">
+<li>Prepare the working environment (again again).</li>
+<li>Multivariate ordination analysis with db-RDA</li>
+<li>Indicator Species Analysis</li>
+</ol>
+<p>As in Sessions 0 and 1, we use <em>taxon</em> and <em>taxa</em>
+instead of species as we use a mixed taxonomy approach.</p>
+</div>
+<div id="prepare-the-working-environment" class="section level2">
+<h2>1. Prepare the working environment</h2>
+<div id="load-the-packages" class="section level3">
+<h3>Load the packages</h3>
+<p>We will rely largely on <code>vegan</code> for this session. We have
+already used it in session zero, it has many useful tools for ecological
+summary, analysis, and visualisation. There are also many resources
+available like this <a
+href="https://peat-clark.github.io/BIO381/veganTutorial.html">tutorial</a>
+by Peat Clark. More can be found in the Vignettes section of the
+package’s official release <a
+href="https://cran.r-project.org/web/packages/vegan/index.html">here</a>.</p>
+<p>We will use other packages to support this session, including
+<code>permute</code> to support our statistical tests, and
+<code>indicspecies</code> for the indicator analysis. Run the first
+chunk once if you need to install packages.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;here&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;vegan&quot;</span>, <span class="st">&quot;permute&quot;</span>, <span class="st">&quot;indicspecies&quot;</span>, <span class="st">&quot;knitr&quot;</span>, <span class="st">&quot;indicspecies&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">library</span>(permute)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="fu">library</span>(indicspecies)</span></code></pre></div>
+</div>
+<div id="read-the-prepared-data" class="section level3">
+<h3>Read the prepared data</h3>
+<p>The fungal community matrix has one row per sample, and one column
+per taxa, with read counts as cell values, including zero. We keep a
+separate table for metadata and for the full taxonomic lineage of each
+taxa.</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">File</th>
+<th align="left">What is it</th>
+<th align="left">What we use it for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>session2_fungi_counts.csv</code></td>
+<td align="left">Fungal community matrix with read counts.</td>
+<td align="left">Multivariate compositional analysis and ISA.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>session2_fungi_metadata.csv</code></td>
+<td align="left">Environmental metadata</td>
+<td align="left">Covariates in the above.</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Set the the data directory</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>data_dir <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;session2&quot;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co"># Establish habitat labels, levels, and colours</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>habitat_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">heath =</span> <span class="st">&quot;Heath&quot;</span>, <span class="at">regen =</span> <span class="st">&quot;Regen&quot;</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>                    <span class="at">com_wood =</span> <span class="st">&quot;Commercial woodland&quot;</span>, <span class="at">mat_wood =</span> <span class="st">&quot;Mature woodland&quot;</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>habitat_levels <span class="ot">&lt;-</span> <span class="fu">names</span>(habitat_labels)</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>habitat_colours <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">heath =</span> <span class="st">&quot;#8B5A2B&quot;</span>, <span class="at">regen =</span> <span class="st">&quot;#66CC33&quot;</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>                     <span class="at">com_wood =</span> <span class="st">&quot;#2C7FB8&quot;</span>, <span class="at">mat_wood =</span> <span class="st">&quot;#005A32&quot;</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co"># Declare vegetation covariates</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>veg_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;moss&quot;</span>, <span class="st">&quot;lichen&quot;</span>, <span class="st">&quot;herbs&quot;</span>, <span class="st">&quot;shrubs&quot;</span>, <span class="st">&quot;trees&quot;</span>, <span class="st">&quot;bare_litter&quot;</span>, <span class="st">&quot;rocky&quot;</span>, <span class="st">&quot;fern&quot;</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co"># Declare number of permutations to be used in later analyses</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a>n_perm <span class="ot">&lt;-</span> <span class="dv">9999</span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co"># Load community matrix and metadata </span></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>comm <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(data_dir, <span class="st">&quot;session2_fungi_counts.csv&quot;</span>),</span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>                 <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">sample_id =</span> <span class="fu">col_character</span>(), <span class="at">.default =</span> <span class="fu">col_double</span>()),</span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a>                 <span class="at">name_repair =</span> <span class="st">&quot;check_unique&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;sample_id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a>  <span class="fu">as.matrix</span>()</span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(data_dir, <span class="st">&quot;session2_fungi_metadata.csv&quot;</span>),</span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a>                     <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">sample_id =</span> <span class="fu">col_character</span>(), <span class="at">site_id =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a>                                      <span class="at">treatment =</span> <span class="fu">col_character</span>()))</span></code></pre></div>
+<p>We match the rows between the two CSVs by <code>sample_id</code>. We
+do this because in analyses like db-RDA, community data and covariates
+are fed separately, and we must ensure the two are in the same
+order.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Align the metadata to the community matrix </span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> metadata <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">match</span>(<span class="fu">rownames</span>(comm), sample_id)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">treatment =</span> <span class="fu">factor</span>(treatment, <span class="at">levels =</span> habitat_levels))</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>comm <span class="ot">&lt;-</span> comm[, <span class="fu">colSums</span>(comm) <span class="sc">&gt;</span> <span class="dv">0</span>, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span></code></pre></div>
+<p>Feel free to use the materials from the previous sessions to explore
+this data.</p>
+</div>
+<div id="summarise-community-matrix-to-site-level"
+class="section level3">
+<h3>Summarise community matrix to site-level</h3>
+<p>In Session 1, we spend some time dealing with the nested structure of
+the data, with multiple samples per site, and the implications on the
+linear regression’s estimates and confidence. We also need to give it
+some attention here.</p>
+<p>Under ideal conditions, we would be able to pass the nested structure
+of the data to the db-RDA, as we would do a random effect in a
+hierarchical model. However, because we lost samples to rarefaction
+filtering, creating an imbalanced design, we cannot use this. A
+straightforward alternative is to average samples within sites to a
+single site-level community. That is what we do below.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Convert counts to relative read frequencies and average them within sites</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>comm_site <span class="ot">&lt;-</span> <span class="fu">decostand</span>(comm, <span class="at">method =</span> <span class="st">&quot;total&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">&quot;sample_id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">select</span>(metadata, sample_id, site_id), <span class="at">by =</span> <span class="st">&quot;sample_id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="fu">group_by</span>(site_id) <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="sc">-</span>sample_id, mean), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;site_id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>  <span class="fu">as.matrix</span>()</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co"># Summarise the available vegetation measurements </span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>cov_site <span class="ot">&lt;-</span> metadata <span class="sc">%&gt;%</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>  <span class="fu">distinct</span>(site_id, treatment, <span class="at">.keep_all =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>  <span class="fu">select</span>(site_id, treatment, <span class="fu">all_of</span>(veg_vars))</span></code></pre></div>
+</div>
+</div>
+<div id="multivariate-ordination-analysis-with-with-db-rda"
+class="section level2">
+<h2>2. Multivariate ordination analysis with with db-RDA</h2>
+<div id="a-taster-of-multivariate-methods" class="section level3">
+<h3>A taster of Multivariate methods</h3>
+<p>Multivariate analysis is an umbrella term for a diverse suite of
+methods that allow us deal with data with multiple response variables.
+Biodiversity data is one such type of data, where you are interested in
+studying changes across sets of taxa, rather than one taxa at a time.
+One family of multivariate analysis is ordination.</p>
+<p>There are many examples of ordination methods, popular ones include
+Principal Component Analysis (which we used in Session 1 to prepare a
+set of vegetation scores for our regressions), Redundancy Analysis
+(RDA), Canonical Correspondence Analysis (CCA), Non-metric
+Multidimensional Scaling (NMDS). They all differ in how the treat the
+data, and what they are trying to preserve, but they all attempt to
+reduce the number of dimensions (originally we have one per taxa) to a
+tractable number, typically 2 to 3, while <em>preserving</em>
+information form the original highly dimensional object that is our
+community composition.</p>
+<p>In a nutshell, if you have Taxa A, as the Y-axis of a scatter plot,
+and Taxa B as the X-axis, you can place a data point in this graph
+according to the abundance of these two taxa and create a 2D (flat)
+cloud of points. If you added a third Taxa, C, and a third axis, Z, you
+would create a 3D point cloud. Now if you added a fourth, fight, 100th
+taxa, you have an object that human brains cannot process, but
+mathematically we can, and computers can do it for us.</p>
+<p>For more detail on these methods, see chapters 11-13 of <a
+href="https://doi.org/10.1007/978-0-387-45972-1">Analyzing Ecological
+Data</a> by Zuur et al, and for an example of its application, <a
+href="https://doi.org/10.1111/j.1574-6941.2007.00375.x">Ramette’s</a>
+publication.</p>
+</div>
+<div id="dissimilarity-indices" class="section level3">
+<h3>Dissimilarity indices</h3>
+<p>A rough split can be drawn in these methods based on whether the
+information they use is extracted directly from the geometry of the
+data, PCA and RDA use Euclidean distances (i.e., straight lines) between
+points or from dissimilarity matrices (e.g., NMDS, db-RDA).</p>
+<p>There are also a range of dissimilarity indices that can be used.
+Bray-Curtis is a commonly used when you have some measure of abundance,
+with presence-absence data it becomes a Sørensen dissimilarity index,
+similar to Jaccard’s Index. For more information, see chapter 12 of <a
+href="https://www.zoology.ubc.ca/~krebs/books.html">Ecological
+Methodology</a>.</p>
+<p>Regardless of the index, the way the work is that two samples with
+identical composition of taxa will have a dissimilarity of zero, and two
+samples with no overlap will have a dissimilarity of 1, and everything
+in between expresses the range of (dis)similarity between pairs of
+samples. This is placed into a matrix with samples as both rows and
+column, with each cell containing the dissimilarity between each pair.
+This is then fed to your method of choice, alongside your environmental
+covariates as metadata, if applicable.</p>
+</div>
+<div id="distance-based-redundancy-analysis" class="section level3">
+<h3>Distance-based Redundancy Analysis</h3>
+<p>From the options available, here we will apply distance-based
+Redundancy Analysis (db-RDA), which takes in a dissimilarity matrix,
+Bray-Curtis in our case, estimated from relative read abundances. This
+is a useful set up, when we want to learn about the power of covariates,
+e.g., vegetation, habitat type, to explain changes in community
+composition.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Retain the same sites for all models and calculate their dissimilarities</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>cov_rda <span class="ot">&lt;-</span> cov_site <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="fu">drop_na</span>(<span class="fu">all_of</span>(veg_vars)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">treatment =</span> <span class="fu">droplevels</span>(treatment))</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co"># Estimate Bray-Curtis Dissimilarity from community data at site-level</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>bray <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(comm_site[cov_rda<span class="sc">$</span>site_id, , <span class="at">drop =</span> <span class="cn">FALSE</span>], <span class="at">method =</span> <span class="st">&quot;bray&quot;</span>)</span></code></pre></div>
+</div>
+<div id="model-selection" class="section level3">
+<h3>Model selection?</h3>
+<p>Unlike in linear regression, we don’t have a straight forward
+criterion to choose between models like AIC when using permutation-based
+statistical tests. What we can use, is the percentage of variance
+explained R-square and adjusted R-square, to assess the performance of
+different models. Here we test three models: with treatment only, with
+vegetation only, and with both.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Fit habitat, vegetation and combined models to the same distances</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>rda_habitat <span class="ot">&lt;-</span> <span class="fu">dbrda</span>(bray <span class="sc">~</span> treatment, <span class="at">data =</span> cov_rda)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>rda_vegetation <span class="ot">&lt;-</span> <span class="fu">dbrda</span>(bray <span class="sc">~</span> moss <span class="sc">+</span> lichen <span class="sc">+</span> herbs <span class="sc">+</span> shrubs <span class="sc">+</span> trees <span class="sc">+</span> bare_litter <span class="sc">+</span> </span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>    rocky <span class="sc">+</span> fern, <span class="at">data =</span> cov_rda)</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>rda_full <span class="ot">&lt;-</span> <span class="fu">dbrda</span>(bray <span class="sc">~</span> treatment <span class="sc">+</span> moss <span class="sc">+</span> lichen <span class="sc">+</span> herbs <span class="sc">+</span> shrubs <span class="sc">+</span> trees <span class="sc">+</span> bare_litter <span class="sc">+</span> </span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>    rocky <span class="sc">+</span> fern, <span class="at">data =</span> cov_rda)</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co"># Test the models&#39; explanatory power</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>perms <span class="ot">&lt;-</span> <span class="fu">shuffleSet</span>(<span class="fu">nrow</span>(cov_rda), <span class="at">nset =</span> n_perm)</span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co"># Extract R-square and run the overall permutation test for each model</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>r2_habitat <span class="ot">&lt;-</span> <span class="fu">RsquareAdj</span>(rda_habitat)</span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a>test_habitat <span class="ot">&lt;-</span> <span class="fu">anova</span>(rda_habitat, <span class="at">permutations =</span> perms)</span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a>r2_vegetation <span class="ot">&lt;-</span> <span class="fu">RsquareAdj</span>(rda_vegetation)</span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a>test_vegetation <span class="ot">&lt;-</span> <span class="fu">anova</span>(rda_vegetation, <span class="at">permutations =</span> perms)</span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a>r2_full <span class="ot">&lt;-</span> <span class="fu">RsquareAdj</span>(rda_full)</span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a>test_full <span class="ot">&lt;-</span> <span class="fu">anova</span>(rda_full, <span class="at">permutations =</span> perms)</span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a><span class="co"># Put the three model results side by side in one table ----</span></span>
+<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a>model_summary <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a>  <span class="at">Model =</span> <span class="fu">c</span>(<span class="st">&quot;Habitat&quot;</span>, <span class="st">&quot;Vegetation&quot;</span>, <span class="st">&quot;Habitat + vegetation&quot;</span>),</span>
+<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a>  <span class="st">`</span><span class="at">R-square</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(r2_habitat<span class="sc">$</span>r.squared, r2_vegetation<span class="sc">$</span>r.squared, r2_full<span class="sc">$</span>r.squared),</span>
+<span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a>  <span class="st">`</span><span class="at">Adjusted R-square</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(r2_habitat<span class="sc">$</span>adj.r.squared, r2_vegetation<span class="sc">$</span>adj.r.squared,</span>
+<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a>                    r2_full<span class="sc">$</span>adj.r.squared),</span>
+<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a>  <span class="st">`</span><span class="at">Permutation p</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(test_habitat<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;F)</span><span class="st">`</span>[<span class="dv">1</span>], test_vegetation<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;F)</span><span class="st">`</span>[<span class="dv">1</span>],</span>
+<span id="cb7-35"><a href="#cb7-35" tabindex="-1"></a>                      test_full<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;F)</span><span class="st">`</span>[<span class="dv">1</span>]))</span>
+<span id="cb7-36"><a href="#cb7-36" tabindex="-1"></a></span>
+<span id="cb7-37"><a href="#cb7-37" tabindex="-1"></a><span class="fu">kable</span>(model_summary, <span class="at">digits =</span> <span class="dv">4</span>, <span class="at">caption =</span> <span class="st">&quot;Fit and overall permutation test for each model&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Fit and overall permutation test for each model</caption>
+<thead>
+<tr class="header">
+<th align="left">Model</th>
+<th align="right">R-square</th>
+<th align="right">Adjusted R-square</th>
+<th align="right">Permutation p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Habitat</td>
+<td align="right">0.2611</td>
+<td align="right">0.1226</td>
+<td align="right">0.0001</td>
+</tr>
+<tr class="even">
+<td align="left">Vegetation</td>
+<td align="right">0.4805</td>
+<td align="right">0.1028</td>
+<td align="right">0.0963</td>
+</tr>
+<tr class="odd">
+<td align="left">Habitat + vegetation</td>
+<td align="right">0.6497</td>
+<td align="right">0.1680</td>
+<td align="right">0.0401</td>
+</tr>
+</tbody>
+</table>
+<p>The tests we are running are permutation tests, that we access
+through the <code>anova()</code> function (<strong>AN</strong>alysis
+<em>O</em>f <em>VA</em>riance). Permutation tests rely on comparing
+whether the percentage of variance explained by a set of predictors
+(habitat, vegetation), is significantly higher than a null model. The
+null model is prepared by changing (permuting) the labels of your
+samples, in our case, the site_id because we have averaged samples
+within sites, and re-fitting the model with the same predictors. This is
+done many times, so that we can know how often our model outperforms the
+null model.</p>
+<p>Our example is very illustrative, because in principle the Vegetation
+only model explained more variance, 48% than the Habitat only model,
+26%, and the combination of the two explained 65% of the variance.
+However, the Vegetation only model is only marginally significant (i.e.,
+~9% of the time, our model explaines this level of variance on a
+randomised dataset), the adjusted R-square is only 10%, lower than the
+Haibtat model, which is 12%, and the two together only have 16%
+adj.R-square. With these results, one could choose the most parsimonious
+model (fewer degrees of freedom used) with Habitat only, which already
+explains most of the variance that is available, and does so
+signficantly more than the null model.</p>
+<p>With our chosen model, we can tease apart some of the effects, and
+see which individual levels of habitat are most informative.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">anova</span>(rda_habitat, <span class="at">permutations =</span> perms, <span class="at">by =</span> <span class="st">&quot;onedf&quot;</span>)</span></code></pre></div>
+<pre><code>## Permutation test for dbrda under reduced model
+## Sequential test for contrasts
+## Permutation: free
+## Number of permutations: 9999
+## 
+## Model: dbrda(formula = bray ~ treatment, data = cov_rda)
+##                   Df SumOfSqs      F Pr(&gt;F)   
+## treatmentregen     1  0.24017 1.2530 0.1768   
+## treatmentcom_wood  1  0.46526 2.4274 0.0013 **
+## treatmentmat_wood  1  0.37849 1.9747 0.0095 **
+## Residual          16  3.06669                 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Like in linear regression, these are contrasts against a
+reference-level, a null model with all habitats pooled into one
+category. Each row compared the addition of a habitat category to the
+previous, and whether this improves the explanatory power of the model.
+Commercial and mature woodland, and by absence heath, provide the most
+explanatory power.</p>
+</div>
+<div id="model-validation" class="section level3">
+<h3>Model validation?</h3>
+<p>Dissimilarity-based indices such as db-RDA are very flexible, but
+require some checks for underlying assumptions too. Specifically, we
+need to check that the spread of our data points within each group
+(habitat type) is similar (see the plot below for clarification).</p>
+<p>Differences of dispersion can be caused if a particular habitat had a
+very homogeneous fungal community, our data points would be tightly
+clustered, while a more heterogeneous habitat will have them spread over
+a larger area. If this is the case, we cannot know whether the
+significance of our habitat covariate is due to genuine differences in
+community composition, or differences in dispersion. Though the latter,
+is also informative about community arrangements in the system.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># Compare within-habitat dispersion using the same sites and distances</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>dispersion <span class="ot">&lt;-</span> <span class="fu">betadisper</span>(bray, <span class="at">group =</span> cov_rda<span class="sc">$</span>treatment, <span class="at">bias.adjust =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  </span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="fu">permutest</span>(dispersion, <span class="at">permutations =</span> perms)</span></code></pre></div>
+<pre><code>## 
+## Permutation test for homogeneity of multivariate dispersions
+## Permutation: free
+## Number of permutations: 9999
+## 
+## Response: Distances
+##           Df   Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)
+## Groups     3 0.060786 0.020262 1.8158   9999 0.1796
+## Residuals 16 0.178540 0.011159</code></pre>
+<p>No significant differences in dispersion, therefore the differences
+we find can be ascribed to shifts in community composition.</p>
+</div>
+<div id="ordination-plot" class="section level3">
+<h3>Ordination Plot</h3>
+<p>We are ready to visualise our results, in an ordination plot.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># Extract the first two habitat-constrained axes</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>eig <span class="ot">&lt;-</span> <span class="fu">eigenvals</span>(rda_habitat, <span class="at">model =</span> <span class="st">&quot;constrained&quot;</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>eig <span class="ot">&lt;-</span> eig[eig <span class="sc">&gt;</span> <span class="dv">0</span>]</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>axes <span class="ot">&lt;-</span> <span class="fu">seq_len</span>(<span class="fu">min</span>(<span class="dv">2</span>, <span class="fu">length</span>(eig)))</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>axis_labels <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">&quot;db-RDA%d (%.1f%%)&quot;</span>, axes, <span class="dv">100</span> <span class="sc">*</span> eig[axes] <span class="sc">/</span> <span class="fu">sum</span>(eig))</span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="co"># Match the plotted site scores to their habitats</span></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>site_scores <span class="ot">&lt;-</span> <span class="fu">scores</span>(rda_habitat, <span class="at">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="at">choices =</span> axes, <span class="at">scaling =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">&quot;site_id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">select</span>(cov_rda, site_id, treatment), <span class="at">by =</span> <span class="st">&quot;site_id&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Format the habitat model statistics for the plot ----</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>rda_label <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">&quot;R² = %.2f</span><span class="sc">\n</span><span class="st">Permutation p = %s&quot;</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>                     r2_habitat<span class="sc">$</span>r.squared,</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>                     <span class="fu">format.pval</span>(test_habitat<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;F)</span><span class="st">`</span>[<span class="dv">1</span>], <span class="at">digits =</span> <span class="dv">3</span>))</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co"># Plot site scores and within-habitat ellipses ----</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>plot_rda <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(site_scores, <span class="fu">aes</span>(dbRDA1, dbRDA2, <span class="at">fill =</span> treatment)) <span class="sc">+</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linewidth =</span> <span class="fl">0.3</span>, <span class="at">colour =</span> <span class="st">&quot;grey85&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linewidth =</span> <span class="fl">0.3</span>, <span class="at">colour =</span> <span class="st">&quot;grey85&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a>  <span class="fu">stat_ellipse</span>(<span class="fu">aes</span>(<span class="at">colour =</span> treatment, <span class="at">group =</span> treatment),</span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>               <span class="at">geom =</span> <span class="st">&quot;polygon&quot;</span>, <span class="at">type =</span> <span class="st">&quot;t&quot;</span>, <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>               <span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">linewidth =</span> <span class="fl">0.9</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">21</span>, <span class="at">size =</span> <span class="fl">3.4</span>, <span class="at">stroke =</span> <span class="dv">1</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="cn">Inf</span>, <span class="at">y =</span> <span class="cn">Inf</span>, <span class="at">label =</span> rda_label,</span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="fl">1.08</span>, <span class="at">vjust =</span> <span class="fl">1.2</span>, <span class="at">size =</span> <span class="fl">3.6</span>) <span class="sc">+</span></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> habitat_colours, <span class="at">labels =</span> habitat_labels, <span class="at">drop =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> habitat_colours, <span class="at">drop =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fl">0.08</span>)) <span class="sc">+</span></span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fl">0.08</span>)) <span class="sc">+</span></span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Fungi&quot;</span>, <span class="at">subtitle =</span> <span class="st">&quot;Site-level&quot;</span>,</span>
+<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a>       <span class="at">x =</span> axis_labels[<span class="dv">1</span>], <span class="at">y =</span> axis_labels[<span class="dv">2</span>], <span class="at">fill =</span> <span class="st">&quot;Treatment&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">linewidth =</span> <span class="dv">1</span>),</span>
+<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a>        <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">&quot;grey65&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>),</span>
+<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a></span>
+<span id="cb13-29"><a href="#cb13-29" tabindex="-1"></a>plot_rda</span></code></pre></div>
+<p><img src="session2_files/figure-html/plot-rda-1.png" alt="" width="768" style="display: block; margin: auto;" />
+Here, each axis is a dimension that attempts to capture as much
+variation of the original fungal community as possible. The percentages
+in brackets the proportion explained by each axis out of the total
+model’s variance explained. This uses unadjusted R-square, hence 24%.
+Each point represents a site (5 per habitat type) along these new
+dimensions. Points close together have more similar fungal communities
+than points far apart.</p>
+<p>The spread of say regen, compared against commercial woodland seems
+quite different, and it likely is, though with five sites per habitat,
+we may lack the power to detect this. Overall, we find a distinct and
+clustered heath fungal community, a regen community that seems to
+transition from heath towards a mature woodland community, and a
+commercial woodland fungal community that overlaps, but is also quite
+distinct from a mature woodland fungal community.</p>
+<p>This concludes are multivariate ordination analysis of fungal
+communities.</p>
+<p>We will now briefly go over a method to identify taxa that may act as
+indicators of different habitat types.</p>
+</div>
+</div>
+<div id="indicator-species-analysis" class="section level2">
+<h2>3. Indicator Species Analysis</h2>
+<p>Another way of handling multivariate data, is identifying those taxa
+that are most informative about the process of interest, here, the
+ecological succession of the fungal community. Essentially a different
+way of reducing the dimensionality of the data.</p>
+<p>We can do this through an Indicator Species Analysis (ISA). We use
+the <code>multipatt()</code> function from the <code>indicspecies</code>
+package to access the <code>IndVal.g</code> metric first developed by
+Dufrêne and Legendre (<a
+href="https://doi.org/10.2307/2963459">1997</a>).</p>
+<p>It is a straight forward but clever piece of maths. It has two
+components:</p>
+<table>
+<colgroup>
+<col width="40%" />
+<col width="59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Component</th>
+<th align="left">How to read it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Specificity, <span
+class="math inline">\(A\)</span></td>
+<td align="left">The habitat’s share of the taxon’s mean relative read
+frequency summed across habitat means. It is high when the taxon’s reads
+are concentrated in that habitat.</td>
+</tr>
+<tr class="even">
+<td align="left">Fidelity, <span class="math inline">\(B\)</span></td>
+<td align="left">The proportion of sites in that habitat with a
+detection. It is high when the taxon is detected at most of the
+habitat’s sites.</td>
+</tr>
+</tbody>
+</table>
+<p>The statistic returned is <span class="math inline">\(\sqrt{A \times
+B}\)</span>, which tells us whether a particular taxa is associated to a
+habitat category. This is wrapped with a permutation test to give us a
+probability that the association is more likely than it would be
+expected by chance.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Implement ISA with multipatt</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>habitat_group <span class="ot">&lt;-</span> <span class="fu">droplevels</span>(cov_site<span class="sc">$</span>treatment)</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>isa <span class="ot">&lt;-</span> <span class="fu">multipatt</span>(comm_site, <span class="at">cluster =</span> <span class="fu">as.integer</span>(habitat_group),</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>                               <span class="at">func =</span> <span class="st">&quot;IndVal.g&quot;</span>, <span class="at">duleg =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>                               <span class="at">control =</span> <span class="fu">how</span>(<span class="at">nperm =</span> n_perm))</span></code></pre></div>
+<p>This returns an indicator value, and p-value for each individual taxa
+in our dataset (441). We are going to visualise a subset with values
+higher than 0.5, and that are statistically significant (p &lt;
+0.05).</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Extract information from the isa object</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>selected_index <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(isa<span class="sc">$</span>sign)), isa<span class="sc">$</span>sign<span class="sc">$</span>index)</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co"># Gather the data in a readable format</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>isa_table <span class="ot">&lt;-</span> isa<span class="sc">$</span>sign <span class="sc">%&gt;%</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">&quot;taxon&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">taxon =</span> taxon,</span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>         <span class="at">treatment =</span> <span class="fu">factor</span>(<span class="fu">levels</span>(habitat_group)[index], <span class="at">levels =</span> habitat_levels),</span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a>         <span class="at">specificity =</span> isa<span class="sc">$</span>A[selected_index], <span class="at">fidelity =</span> isa<span class="sc">$</span>B[selected_index],</span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a>         <span class="at">indval =</span> stat, <span class="at">p_value =</span> p.value, <span class="at">p_adj =</span> <span class="fu">p.adjust</span>(p.value, <span class="at">method =</span> <span class="st">&quot;BH&quot;</span>),</span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a>         <span class="at">.keep =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="co"># Filter by indicator value and significance</span></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a>isa_selected <span class="ot">&lt;-</span> isa_table <span class="sc">%&gt;%</span></span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a>  <span class="fu">filter</span>(indval <span class="sc">&gt;</span> <span class="fl">0.50</span>, p_value <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co"># Print</span></span>
+<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a>isa_selected <span class="sc">%&gt;%</span></span>
+<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a>  <span class="fu">arrange</span>(treatment, <span class="fu">desc</span>(indval)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-20"><a href="#cb15-20" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">treatment =</span> <span class="fu">unname</span>(habitat_labels[<span class="fu">as.character</span>(treatment)])) <span class="sc">%&gt;%</span></span>
+<span id="cb15-21"><a href="#cb15-21" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">Habitat =</span> treatment, <span class="at">Taxon =</span> taxon, <span class="at">Specificity =</span> specificity,</span>
+<span id="cb15-22"><a href="#cb15-22" tabindex="-1"></a>         <span class="at">Fidelity =</span> fidelity, <span class="st">`</span><span class="at">IndVal score</span><span class="st">`</span> <span class="ot">=</span> indval, <span class="st">`</span><span class="at">Permutation p</span><span class="st">`</span> <span class="ot">=</span> p_value) <span class="sc">%&gt;%</span></span>
+<span id="cb15-23"><a href="#cb15-23" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">4</span>, <span class="at">caption =</span> <span class="st">&quot;Fungal indicator candidates by habitat&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Fungal indicator candidates by habitat</caption>
+<colgroup>
+<col width="20%" />
+<col width="29%" />
+<col width="12%" />
+<col width="9%" />
+<col width="13%" />
+<col width="14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Habitat</th>
+<th align="left">Taxon</th>
+<th align="right">Specificity</th>
+<th align="right">Fidelity</th>
+<th align="right">IndVal score</th>
+<th align="right">Permutation p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Heath</td>
+<td align="left">Helotiaceae</td>
+<td align="right">0.9264</td>
+<td align="right">0.8</td>
+<td align="right">0.8609</td>
+<td align="right">0.0044</td>
+</tr>
+<tr class="even">
+<td align="left">Heath</td>
+<td align="left">Aspergillus</td>
+<td align="right">0.8154</td>
+<td align="right">0.8</td>
+<td align="right">0.8077</td>
+<td align="right">0.0305</td>
+</tr>
+<tr class="odd">
+<td align="left">Heath</td>
+<td align="left">Dactylella_microaquatica</td>
+<td align="right">0.7564</td>
+<td align="right">0.8</td>
+<td align="right">0.7779</td>
+<td align="right">0.0259</td>
+</tr>
+<tr class="even">
+<td align="left">Heath</td>
+<td align="left">GS34</td>
+<td align="right">0.9697</td>
+<td align="right">0.6</td>
+<td align="right">0.7628</td>
+<td align="right">0.0358</td>
+</tr>
+<tr class="odd">
+<td align="left">Heath</td>
+<td align="left">Mortierella_pseudozygospora</td>
+<td align="right">0.7619</td>
+<td align="right">0.6</td>
+<td align="right">0.6761</td>
+<td align="right">0.0476</td>
+</tr>
+<tr class="even">
+<td align="left">Regen</td>
+<td align="left">Suillus_tomentosus</td>
+<td align="right">0.8981</td>
+<td align="right">1.0</td>
+<td align="right">0.9477</td>
+<td align="right">0.0024</td>
+</tr>
+<tr class="odd">
+<td align="left">Regen</td>
+<td align="left">Chloridium</td>
+<td align="right">0.8277</td>
+<td align="right">0.8</td>
+<td align="right">0.8137</td>
+<td align="right">0.0170</td>
+</tr>
+<tr class="even">
+<td align="left">Regen</td>
+<td align="left">Mortierella_globulifera</td>
+<td align="right">0.7836</td>
+<td align="right">0.8</td>
+<td align="right">0.7917</td>
+<td align="right">0.0368</td>
+</tr>
+<tr class="odd">
+<td align="left">Regen</td>
+<td align="left">Oidiodendron_maius</td>
+<td align="right">0.5712</td>
+<td align="right">1.0</td>
+<td align="right">0.7558</td>
+<td align="right">0.0161</td>
+</tr>
+<tr class="even">
+<td align="left">Regen</td>
+<td align="left">Penicillium</td>
+<td align="right">0.6218</td>
+<td align="right">0.8</td>
+<td align="right">0.7053</td>
+<td align="right">0.0259</td>
+</tr>
+<tr class="odd">
+<td align="left">Commercial woodland</td>
+<td align="left">Mortierella_humilis</td>
+<td align="right">0.6973</td>
+<td align="right">1.0</td>
+<td align="right">0.8350</td>
+<td align="right">0.0189</td>
+</tr>
+<tr class="even">
+<td align="left">Commercial woodland</td>
+<td align="left">Cryptosporiopsis</td>
+<td align="right">1.0000</td>
+<td align="right">0.6</td>
+<td align="right">0.7746</td>
+<td align="right">0.0340</td>
+</tr>
+<tr class="odd">
+<td align="left">Commercial woodland</td>
+<td align="left">Venturia</td>
+<td align="right">0.9033</td>
+<td align="right">0.6</td>
+<td align="right">0.7362</td>
+<td align="right">0.0406</td>
+</tr>
+<tr class="even">
+<td align="left">Mature woodland</td>
+<td align="left">Dictyolus</td>
+<td align="right">0.7751</td>
+<td align="right">1.0</td>
+<td align="right">0.8804</td>
+<td align="right">0.0038</td>
+</tr>
+<tr class="odd">
+<td align="left">Mature woodland</td>
+<td align="left">Archaeorhizomyces_borealis</td>
+<td align="right">0.5060</td>
+<td align="right">1.0</td>
+<td align="right">0.7113</td>
+<td align="right">0.0431</td>
+</tr>
+</tbody>
+</table>
+<p>We will not go into these species here, though the association of a
+<em>Suillus</em> species with the regen sites is of great ecological
+relevance.</p>
+<p>We will take a moment to consider a potential issue arising from a
+test like this, multiple testing. We have done a statistical indicator
+test for each taxa in our dataset &gt;400. Doing so many tests, inflates
+the probability of a Type I error. Type I error is finding a statistical
+association when there is none, i.e., if we run enough tests, a given
+species may appear associated to a habitat purely by chance, and the
+more tests you do, the higher this probability it is. It is also called
+false positive, and its counterpart is the Type II error, or false
+negative, i.e., not finding a statistical association when there is
+one.</p>
+<p>To avoid these we should, first of all, only run relevant statistical
+tests. For instance, we might want to restrict our taxa to symbiotrophic
+fungi that are more likely to respond to changes in above ground
+vegetation. When we have our minimal set, if it is still a large number
+of tests, we may want to adjust p-values for multiple testing.</p>
+<p>These corrections adjust the threshold of statistical significance
+based on how many tests are being run. There are many, Bonferroni is
+widely known. Here we use Benjamini–Hochberg (BH). We have kept
+<code>p_adj = p.adjust(p.value, method = "BH")</code> in the code above
+to demonstrate its use, but otherwise it is unused, as with only 20
+sites, and over 400 taxa, no statistical test maintains its significance
+after the correction. Thus, we should be careful with our interpretation
+of the ISA, and use it for exploratory purposes, and not to draw strong
+biological inference.</p>
+<p>Thus concludes our second session, where we have used multivariate
+ordination methods to analyse changes in community composition. In the
+next, and final, session, we will explore another form of multivariate
+analysis that does not rely on ordination: joint Species Distribution
+Models (jSDMs)</p>
+<details>
+<summary>
+Software versions
+</summary>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode r fold-none"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.6.2 (2026-10-29 ucrt)
+## Platform: x86_64-w64-mingw32/x64
+## Running under: Windows 11 x64 (build 26300)
+## 
+## Matrix products: default
+##   LAPACK version 3.12.1
+## 
+## locale:
+## [1] LC_COLLATE=English_United Kingdom.utf8 
+## [2] LC_CTYPE=English_United Kingdom.utf8   
+## [3] LC_MONETARY=English_United Kingdom.utf8
+## [4] LC_NUMERIC=C                           
+## [5] LC_TIME=English_United Kingdom.utf8    
+## 
+## time zone: Europe/London
+## tzcode source: internal
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] indicspecies_1.8.0 knitr_1.51         vegan_2.7-3        permute_0.9-10    
+##  [5] lubridate_1.9.5    forcats_1.0.1      stringr_1.6.0      dplyr_1.2.1       
+##  [9] purrr_1.2.2        readr_2.2.0        tidyr_1.3.2        tibble_3.3.1      
+## [13] ggplot2_4.0.3      tidyverse_2.0.0    here_1.0.2        
+## 
+## loaded via a namespace (and not attached):
+##  [1] sass_0.4.10        generics_0.1.4     stringi_1.8.7      lattice_0.23-1    
+##  [5] hms_1.1.4          digest_0.6.39      magrittr_2.0.5     evaluate_1.0.5    
+##  [9] grid_4.6.2         timechange_0.4.0   RColorBrewer_1.1-3 fastmap_1.2.0     
+## [13] Matrix_1.7-6       rprojroot_2.1.1    jsonlite_2.0.0     mgcv_1.9-4        
+## [17] scales_1.4.0       jquerylib_0.1.4    cli_3.6.6          crayon_1.5.3      
+## [21] rlang_1.2.0        bit64_4.8.0        splines_4.6.2      withr_3.0.3       
+## [25] cachem_1.1.0       yaml_2.3.12        otel_0.2.0         tools_4.6.2       
+## [29] parallel_4.6.2     tzdb_0.5.0         vctrs_0.7.3        R6_2.6.1          
+## [33] lifecycle_1.0.5    bit_4.6.0          vroom_1.7.1        MASS_7.3-66       
+## [37] cluster_2.1.8.3    pkgconfig_2.0.3    pillar_1.11.1      bslib_0.10.0      
+## [41] gtable_0.3.6       glue_1.8.1         xfun_0.57          tidyselect_1.2.1  
+## [45] rstudioapi_0.18.0  farver_2.1.2       nlme_3.1-171       htmltools_0.5.9   
+## [49] labeling_0.4.3     rmarkdown_2.31     compiler_4.6.2     S7_0.2.2</code></pre>
+</details>
+<hr />
 <p><a href="session1.html">Previous: Session 1</a> | <a
 href="index.html">Home</a> | <a href="session3.html">Next: Session
 3</a></p>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlNlc3Npb24gMjogUkRBIGFuZCBpbmRpY2F0b3Igc3BlY2llcyBhbmFseXNpcyINCi0tLQ0KDQojIyBUdXRvcmlhbCBzdGF0dXMNCg0KVGhpcyB0dXRvcmlhbCBpcyB1bmRlciBkZXZlbG9wbWVudC4NCg0KW1ByZXZpb3VzOiBTZXNzaW9uIDFdKHNlc3Npb24xLmh0bWwpIHwNCltIb21lXShpbmRleC5odG1sKSB8DQpbTmV4dDogU2Vzc2lvbiAzXShzZXNzaW9uMy5odG1sKQ==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlNlc3Npb24gMjogTXVsdGl2YXJpYXRlIGFuZCBJbmRpY2F0b3IgU3BlY2llcyBBbmFseXNpcyINCi0tLQ0KDQpgYGB7ciBjaHVuay1vcHRpb25zLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFLCBtZXNzYWdlID0gRkFMU0UsIHdhcm5pbmcgPSBUUlVFLA0KICAgICAgICAgICAgICAgICAgICAgZXJyb3IgPSBGQUxTRSwgY2FjaGUgPSBGQUxTRSwgZmlnLndpZHRoID0gOCwNCiAgICAgICAgICAgICAgICAgICAgIGZpZy5oZWlnaHQgPSA1LCBmaWcuYWxpZ24gPSAiY2VudGVyIikNCmBgYA0KDQojIyBXaGF0IHdlIHdpbGwgY292ZXIgaW4gdGhpcyBzZXNzaW9uDQoNCkluIFtTZXNzaW9uIDFdKHNlc3Npb24xLmh0bWwpLCB3ZSBzYXcgaG93IHRvIGFkZHJlc3MgbXVsdGl2YXJpYXRlIGJpb2RpdmVyc2l0eSBkYXRhIGJ5IHN1bW1hcmlzaW5nIGludG8gdW5pdmFyaWF0ZSBtZXRyaWNzIHN1Y2ggYXMgcmljaG5lc3Mgb3IgZGl2ZXJzaXR5IGluZGljZXMuIEhvd2V2ZXIsIHR3byBzYW1wbGVzIG9jdWxkIGhhdmUgdGhlIHNhbWUgcmljaG5lc3Mgb2YgY29tcGxldGVseSBkaWZmZXJlbnQgdGF4YS4gDQoNCkhlcmUsIHdlIHdpbGwgdXNlIGZ1bmdhbCBkYXRhIHRvIGFzayBob3cgdGhlIHdob2xlIGNvbW11bml0eSB2YXJpZXMgYWNyb3NzIHRoZSBmb3VyIGhhYml0YXQgdHlwZXMsIHVzaW5nIGEgdHlwZSBvZiBtdWx0aS12YXJpYXRlIGFuYWx5c2lzLCBkaXN0YW5jZS1iYXNlZCBSZWR1bmRhbmN5IEFuYWx5c2lzIChkYi1SREEpLg0KDQpXZSB3aWxsIGFsc28gc2VlIGhvdyB0byBkbyBhbiBJbmRpY2F0b3IgU3BlY2llcyBBbmFseXNpcyAoSVNBKSB0byBmaW5kIGFzc29jaWF0aW9ucyBiZXR3ZWVuIHRheGEgYW5kIGhhYml0YXQgdHlwZXMuIA0KDQpXZSB3aWxsOg0KDQoxLiBQcmVwYXJlIHRoZSB3b3JraW5nIGVudmlyb25tZW50IChhZ2FpbiBhZ2FpbikuDQoyLiBNdWx0aXZhcmlhdGUgb3JkaW5hdGlvbiBhbmFseXNpcyB3aXRoIGRiLVJEQQ0KMy4gSW5kaWNhdG9yIFNwZWNpZXMgQW5hbHlzaXMNCg0KQXMgaW4gU2Vzc2lvbnMgMCBhbmQgMSwgd2UgdXNlICp0YXhvbiogYW5kICp0YXhhKiBpbnN0ZWFkIG9mIHNwZWNpZXMgYXMgd2UgdXNlIGEgbWl4ZWQgdGF4b25vbXkgYXBwcm9hY2guIA0KDQoNCiMjIDEuIFByZXBhcmUgdGhlIHdvcmtpbmcgZW52aXJvbm1lbnQNCg0KIyMjIExvYWQgdGhlIHBhY2thZ2VzDQoNCldlIHdpbGwgcmVseSBsYXJnZWx5IG9uIGB2ZWdhbmAgZm9yIHRoaXMgc2Vzc2lvbi4gV2UgaGF2ZSBhbHJlYWR5IHVzZWQgaXQgaW4gc2Vzc2lvbiB6ZXJvLCBpdCBoYXMgbWFueSB1c2VmdWwgdG9vbHMgZm9yIGVjb2xvZ2ljYWwgc3VtbWFyeSwgYW5hbHlzaXMsIGFuZCB2aXN1YWxpc2F0aW9uLiBUaGVyZSBhcmUgYWxzbyBtYW55IHJlc291cmNlcyBhdmFpbGFibGUgbGlrZSB0aGlzIFt0dXRvcmlhbF0oaHR0cHM6Ly9wZWF0LWNsYXJrLmdpdGh1Yi5pby9CSU8zODEvdmVnYW5UdXRvcmlhbC5odG1sKSBieSBQZWF0IENsYXJrLiBNb3JlIGNhbiBiZSBmb3VuZCBpbiB0aGUgVmlnbmV0dGVzIHNlY3Rpb24gb2YgdGhlIHBhY2thZ2UncyBvZmZpY2lhbCByZWxlYXNlIFtoZXJlXShodHRwczovL2NyYW4uci1wcm9qZWN0Lm9yZy93ZWIvcGFja2FnZXMvdmVnYW4vaW5kZXguaHRtbCkuIA0KDQpXZSB3aWxsIHVzZSBvdGhlciBwYWNrYWdlcyB0byBzdXBwb3J0IHRoaXMgc2Vzc2lvbiwgaW5jbHVkaW5nIGBwZXJtdXRlYCB0byBzdXBwb3J0IG91ciBzdGF0aXN0aWNhbCB0ZXN0cywgYW5kIGBpbmRpY3NwZWNpZXNgIGZvciB0aGUgaW5kaWNhdG9yIGFuYWx5c2lzLiBSdW4gdGhlIGZpcnN0IGNodW5rIG9uY2UgaWYgeW91IG5lZWQgdG8gaW5zdGFsbCBwYWNrYWdlcy4NCg0KYGBge3IgaW5zdGFsbC1wYWNrYWdlcywgZXZhbD1GQUxTRX0NCmluc3RhbGwucGFja2FnZXMoYygiaGVyZSIsICJ0aWR5dmVyc2UiLCAidmVnYW4iLCAicGVybXV0ZSIsICJpbmRpY3NwZWNpZXMiLCAia25pdHIiLCAiaW5kaWNzcGVjaWVzIikpDQpgYGANCg0KYGBge3IgcGFja2FnZXN9DQpsaWJyYXJ5KGhlcmUpDQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkodmVnYW4pDQpsaWJyYXJ5KHBlcm11dGUpDQpsaWJyYXJ5KGtuaXRyKQ0KbGlicmFyeShpbmRpY3NwZWNpZXMpDQpgYGANCg0KIyMjIFJlYWQgdGhlIHByZXBhcmVkIGRhdGENCg0KVGhlIGZ1bmdhbCBjb21tdW5pdHkgbWF0cml4IGhhcyBvbmUgcm93IHBlciBzYW1wbGUsIGFuZCBvbmUgY29sdW1uIHBlciB0YXhhLCB3aXRoIHJlYWQgY291bnRzIGFzIGNlbGwgdmFsdWVzLCBpbmNsdWRpbmcgemVyby4gV2Uga2VlcCBhIHNlcGFyYXRlIHRhYmxlIGZvciBtZXRhZGF0YSBhbmQgZm9yIHRoZSBmdWxsIHRheG9ub21pYyBsaW5lYWdlIG9mIGVhY2ggdGF4YS4gDQoNCnwgRmlsZSB8IFdoYXQgaXMgaXQgIHwgV2hhdCB3ZSB1c2UgaXQgZm9yIHwNCnw6LS0tLS0tLS0tLS0tLS0tLS0tLXw6LS0tLS0tLS0tLS0tLS0tLS0tLXw6LS0tLS0tLS0tLS0tLS0tLS0tLXwNCnwgYHNlc3Npb24yX2Z1bmdpX2NvdW50cy5jc3ZgIHwgRnVuZ2FsIGNvbW11bml0eSBtYXRyaXggd2l0aCByZWFkIGNvdW50cy4gfCBNdWx0aXZhcmlhdGUgY29tcG9zaXRpb25hbCBhbmFseXNpcyBhbmQgSVNBLiB8DQp8IGBzZXNzaW9uMl9mdW5naV9tZXRhZGF0YS5jc3ZgIHwgRW52aXJvbm1lbnRhbCBtZXRhZGF0YSB8IENvdmFyaWF0ZXMgaW4gdGhlIGFib3ZlLiB8DQoNCg0KYGBge3IgcmVhZC1wcmVwYXJlZC1kYXRhfQ0KIyBTZXQgdGhlIHRoZSBkYXRhIGRpcmVjdG9yeQ0KZGF0YV9kaXIgPC0gaGVyZSgiZGF0YSIsICJzZXNzaW9uMiIpDQoNCiMgRXN0YWJsaXNoIGhhYml0YXQgbGFiZWxzLCBsZXZlbHMsIGFuZCBjb2xvdXJzDQpoYWJpdGF0X2xhYmVscyA8LSBjKGhlYXRoID0gIkhlYXRoIiwgcmVnZW4gPSAiUmVnZW4iLA0KICAgICAgICAgICAgICAgICAgICBjb21fd29vZCA9ICJDb21tZXJjaWFsIHdvb2RsYW5kIiwgbWF0X3dvb2QgPSAiTWF0dXJlIHdvb2RsYW5kIikNCg0KaGFiaXRhdF9sZXZlbHMgPC0gbmFtZXMoaGFiaXRhdF9sYWJlbHMpDQoNCmhhYml0YXRfY29sb3VycyA8LSBjKGhlYXRoID0gIiM4QjVBMkIiLCByZWdlbiA9ICIjNjZDQzMzIiwNCiAgICAgICAgICAgICAgICAgICAgIGNvbV93b29kID0gIiMyQzdGQjgiLCBtYXRfd29vZCA9ICIjMDA1QTMyIikNCg0KIyBEZWNsYXJlIHZlZ2V0YXRpb24gY292YXJpYXRlcw0KdmVnX3ZhcnMgPC0gYygibW9zcyIsICJsaWNoZW4iLCAiaGVyYnMiLCAic2hydWJzIiwgInRyZWVzIiwgImJhcmVfbGl0dGVyIiwgInJvY2t5IiwgImZlcm4iKQ0KDQojIERlY2xhcmUgbnVtYmVyIG9mIHBlcm11dGF0aW9ucyB0byBiZSB1c2VkIGluIGxhdGVyIGFuYWx5c2VzDQpuX3Blcm0gPC0gOTk5OQ0KDQojIExvYWQgY29tbXVuaXR5IG1hdHJpeCBhbmQgbWV0YWRhdGEgDQpjb21tIDwtIHJlYWRfY3N2KGZpbGUucGF0aChkYXRhX2RpciwgInNlc3Npb24yX2Z1bmdpX2NvdW50cy5jc3YiKSwNCiAgICAgICAgICAgICAgICAgY29sX3R5cGVzID0gY29scyhzYW1wbGVfaWQgPSBjb2xfY2hhcmFjdGVyKCksIC5kZWZhdWx0ID0gY29sX2RvdWJsZSgpKSwNCiAgICAgICAgICAgICAgICAgbmFtZV9yZXBhaXIgPSAiY2hlY2tfdW5pcXVlIikgJT4lDQogIGNvbHVtbl90b19yb3duYW1lcygic2FtcGxlX2lkIikgJT4lDQogIGFzLm1hdHJpeCgpDQoNCm1ldGFkYXRhIDwtIHJlYWRfY3N2KGZpbGUucGF0aChkYXRhX2RpciwgInNlc3Npb24yX2Z1bmdpX21ldGFkYXRhLmNzdiIpLA0KICAgICAgICAgICAgICAgICAgICAgY29sX3R5cGVzID0gY29scyhzYW1wbGVfaWQgPSBjb2xfY2hhcmFjdGVyKCksIHNpdGVfaWQgPSBjb2xfY2hhcmFjdGVyKCksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRyZWF0bWVudCA9IGNvbF9jaGFyYWN0ZXIoKSkpDQpgYGANCg0KV2UgbWF0Y2ggdGhlIHJvd3MgYmV0d2VlbiB0aGUgdHdvIENTVnMgYnkgYHNhbXBsZV9pZGAuIFdlIGRvIHRoaXMgYmVjYXVzZSBpbiBhbmFseXNlcyBsaWtlIGRiLVJEQSwgY29tbXVuaXR5IGRhdGEgYW5kIGNvdmFyaWF0ZXMgYXJlIGZlZCBzZXBhcmF0ZWx5LCBhbmQgd2UgbXVzdCBlbnN1cmUgdGhlIHR3byBhcmUgaW4gdGhlIHNhbWUgb3JkZXIuIA0KDQpgYGB7ciBtYXRjaC1zYW1wbGVzfQ0KDQojIEFsaWduIHRoZSBtZXRhZGF0YSB0byB0aGUgY29tbXVuaXR5IG1hdHJpeCANCm1ldGFkYXRhIDwtIG1ldGFkYXRhICU+JQ0KICBzbGljZShtYXRjaChyb3duYW1lcyhjb21tKSwgc2FtcGxlX2lkKSkgJT4lDQogIG11dGF0ZSh0cmVhdG1lbnQgPSBmYWN0b3IodHJlYXRtZW50LCBsZXZlbHMgPSBoYWJpdGF0X2xldmVscykpDQoNCg0KY29tbSA8LSBjb21tWywgY29sU3Vtcyhjb21tKSA+IDAsIGRyb3AgPSBGQUxTRV0NCg0KYGBgDQoNCkZlZWwgZnJlZSB0byB1c2UgdGhlIG1hdGVyaWFscyBmcm9tIHRoZSBwcmV2aW91cyBzZXNzaW9ucyB0byBleHBsb3JlIHRoaXMgZGF0YS4gDQoNCiMjIyBTdW1tYXJpc2UgY29tbXVuaXR5IG1hdHJpeCB0byBzaXRlLWxldmVsDQoNCkluIFNlc3Npb24gMSwgd2Ugc3BlbmQgc29tZSB0aW1lIGRlYWxpbmcgd2l0aCB0aGUgbmVzdGVkIHN0cnVjdHVyZSBvZiB0aGUgZGF0YSwgd2l0aCBtdWx0aXBsZSBzYW1wbGVzIHBlciBzaXRlLCBhbmQgdGhlIGltcGxpY2F0aW9ucyBvbiB0aGUgbGluZWFyIHJlZ3Jlc3Npb24ncyBlc3RpbWF0ZXMgYW5kIGNvbmZpZGVuY2UuIFdlIGFsc28gbmVlZCB0byBnaXZlIGl0IHNvbWUgYXR0ZW50aW9uIGhlcmUuIA0KDQpVbmRlciBpZGVhbCBjb25kaXRpb25zLCB3ZSB3b3VsZCBiZSBhYmxlIHRvIHBhc3MgdGhlIG5lc3RlZCBzdHJ1Y3R1cmUgb2YgdGhlIGRhdGEgdG8gdGhlIGRiLVJEQSwgYXMgd2Ugd291bGQgZG8gYSByYW5kb20gZWZmZWN0IGluIGEgaGllcmFyY2hpY2FsIG1vZGVsLiBIb3dldmVyLCBiZWNhdXNlIHdlIGxvc3Qgc2FtcGxlcyB0byByYXJlZmFjdGlvbiBmaWx0ZXJpbmcsIGNyZWF0aW5nIGFuIGltYmFsYW5jZWQgZGVzaWduLCB3ZSBjYW5ub3QgdXNlIHRoaXMuIEEgc3RyYWlnaHRmb3J3YXJkIGFsdGVybmF0aXZlIGlzIHRvIGF2ZXJhZ2Ugc2FtcGxlcyB3aXRoaW4gc2l0ZXMgdG8gYSBzaW5nbGUgc2l0ZS1sZXZlbCBjb21tdW5pdHkuIFRoYXQgaXMgd2hhdCB3ZSBkbyBiZWxvdy4gDQoNCmBgYHtyIHNpdGUtY29tbXVuaXR5fQ0KDQojIENvbnZlcnQgY291bnRzIHRvIHJlbGF0aXZlIHJlYWQgZnJlcXVlbmNpZXMgYW5kIGF2ZXJhZ2UgdGhlbSB3aXRoaW4gc2l0ZXMNCmNvbW1fc2l0ZSA8LSBkZWNvc3RhbmQoY29tbSwgbWV0aG9kID0gInRvdGFsIikgJT4lDQogIGFzX3RpYmJsZShyb3duYW1lcyA9ICJzYW1wbGVfaWQiKSAlPiUNCiAgbGVmdF9qb2luKHNlbGVjdChtZXRhZGF0YSwgc2FtcGxlX2lkLCBzaXRlX2lkKSwgYnkgPSAic2FtcGxlX2lkIikgJT4lDQogIGdyb3VwX2J5KHNpdGVfaWQpICU+JQ0KICBzdW1tYXJpc2UoYWNyb3NzKC1zYW1wbGVfaWQsIG1lYW4pLCAuZ3JvdXBzID0gImRyb3AiKSAlPiUNCiAgY29sdW1uX3RvX3Jvd25hbWVzKCJzaXRlX2lkIikgJT4lDQogIGFzLm1hdHJpeCgpDQoNCiMgU3VtbWFyaXNlIHRoZSBhdmFpbGFibGUgdmVnZXRhdGlvbiBtZWFzdXJlbWVudHMgDQpjb3Zfc2l0ZSA8LSBtZXRhZGF0YSAlPiUNCiAgZGlzdGluY3Qoc2l0ZV9pZCwgdHJlYXRtZW50LCAua2VlcF9hbGwgPSBUKSAlPiUNCiAgc2VsZWN0KHNpdGVfaWQsIHRyZWF0bWVudCwgYWxsX29mKHZlZ192YXJzKSkNCg0KDQpgYGANCg0KDQojIyAyLiBNdWx0aXZhcmlhdGUgb3JkaW5hdGlvbiBhbmFseXNpcyB3aXRoIHdpdGggZGItUkRBDQoNCiMjIyBBIHRhc3RlciBvZiBNdWx0aXZhcmlhdGUgbWV0aG9kcw0KDQpNdWx0aXZhcmlhdGUgYW5hbHlzaXMgaXMgYW4gdW1icmVsbGEgdGVybSBmb3IgYSBkaXZlcnNlIHN1aXRlIG9mIG1ldGhvZHMgdGhhdCBhbGxvdyB1cyBkZWFsIHdpdGggZGF0YSB3aXRoIG11bHRpcGxlIHJlc3BvbnNlIHZhcmlhYmxlcy4gQmlvZGl2ZXJzaXR5IGRhdGEgaXMgb25lIHN1Y2ggdHlwZSBvZiBkYXRhLCB3aGVyZSB5b3UgYXJlIGludGVyZXN0ZWQgaW4gc3R1ZHlpbmcgY2hhbmdlcyBhY3Jvc3Mgc2V0cyBvZiB0YXhhLCByYXRoZXIgdGhhbiBvbmUgdGF4YSBhdCBhIHRpbWUuIE9uZSBmYW1pbHkgb2YgbXVsdGl2YXJpYXRlIGFuYWx5c2lzIGlzIG9yZGluYXRpb24uIA0KDQpUaGVyZSBhcmUgbWFueSBleGFtcGxlcyBvZiBvcmRpbmF0aW9uIG1ldGhvZHMsIHBvcHVsYXIgb25lcyBpbmNsdWRlIFByaW5jaXBhbCBDb21wb25lbnQgQW5hbHlzaXMgKHdoaWNoIHdlIHVzZWQgaW4gU2Vzc2lvbiAxIHRvIHByZXBhcmUgYSBzZXQgb2YgdmVnZXRhdGlvbiBzY29yZXMgZm9yIG91ciByZWdyZXNzaW9ucyksIFJlZHVuZGFuY3kgQW5hbHlzaXMgKFJEQSksIENhbm9uaWNhbCBDb3JyZXNwb25kZW5jZSBBbmFseXNpcyAoQ0NBKSwgTm9uLW1ldHJpYyBNdWx0aWRpbWVuc2lvbmFsIFNjYWxpbmcgKE5NRFMpLiBUaGV5IGFsbCBkaWZmZXIgaW4gaG93IHRoZSB0cmVhdCB0aGUgZGF0YSwgYW5kIHdoYXQgdGhleSBhcmUgdHJ5aW5nIHRvIHByZXNlcnZlLCBidXQgdGhleSBhbGwgYXR0ZW1wdCB0byByZWR1Y2UgdGhlIG51bWJlciBvZiBkaW1lbnNpb25zIChvcmlnaW5hbGx5IHdlIGhhdmUgb25lIHBlciB0YXhhKSB0byBhIHRyYWN0YWJsZSBudW1iZXIsIHR5cGljYWxseSAyIHRvIDMsIHdoaWxlICpwcmVzZXJ2aW5nKiBpbmZvcm1hdGlvbiBmb3JtIHRoZSBvcmlnaW5hbCBoaWdobHkgZGltZW5zaW9uYWwgb2JqZWN0IHRoYXQgaXMgb3VyIGNvbW11bml0eSBjb21wb3NpdGlvbi4gDQoNCkluIGEgbnV0c2hlbGwsIGlmIHlvdSBoYXZlIFRheGEgQSwgYXMgdGhlIFktYXhpcyBvZiBhIHNjYXR0ZXIgcGxvdCwgYW5kIFRheGEgQiBhcyB0aGUgWC1heGlzLCB5b3UgY2FuIHBsYWNlIGEgZGF0YSBwb2ludCBpbiB0aGlzIGdyYXBoIGFjY29yZGluZyB0byB0aGUgYWJ1bmRhbmNlIG9mIHRoZXNlIHR3byB0YXhhIGFuZCBjcmVhdGUgYSAyRCAoZmxhdCkgY2xvdWQgb2YgcG9pbnRzLiBJZiB5b3UgYWRkZWQgYSB0aGlyZCBUYXhhLCBDLCBhbmQgYSB0aGlyZCBheGlzLCBaLCB5b3Ugd291bGQgY3JlYXRlIGEgM0QgcG9pbnQgY2xvdWQuIE5vdyBpZiB5b3UgYWRkZWQgYSBmb3VydGgsIGZpZ2h0LCAxMDB0aCB0YXhhLCB5b3UgaGF2ZSBhbiBvYmplY3QgdGhhdCBodW1hbiBicmFpbnMgY2Fubm90IHByb2Nlc3MsIGJ1dCBtYXRoZW1hdGljYWxseSB3ZSBjYW4sIGFuZCBjb21wdXRlcnMgY2FuIGRvIGl0IGZvciB1cy4NCg0KRm9yIG1vcmUgZGV0YWlsIG9uIHRoZXNlIG1ldGhvZHMsIHNlZSBjaGFwdGVycyAxMS0xMyBvZiBbQW5hbHl6aW5nIEVjb2xvZ2ljYWwgRGF0YV0oaHR0cHM6Ly9kb2kub3JnLzEwLjEwMDcvOTc4LTAtMzg3LTQ1OTcyLTEpIGJ5IFp1dXIgZXQgYWwsIGFuZCBmb3IgYW4gZXhhbXBsZSBvZiBpdHMgYXBwbGljYXRpb24sIFtSYW1ldHRlJ3NdKGh0dHBzOi8vZG9pLm9yZy8xMC4xMTExL2ouMTU3NC02OTQxLjIwMDcuMDAzNzUueCkgcHVibGljYXRpb24uDQoNCg0KIyMjIERpc3NpbWlsYXJpdHkgaW5kaWNlcw0KDQpBIHJvdWdoIHNwbGl0IGNhbiBiZSBkcmF3biBpbiB0aGVzZSBtZXRob2RzIGJhc2VkIG9uIHdoZXRoZXIgdGhlIGluZm9ybWF0aW9uIHRoZXkgdXNlIGlzIGV4dHJhY3RlZCBkaXJlY3RseSBmcm9tIHRoZSBnZW9tZXRyeSBvZiB0aGUgZGF0YSwgUENBIGFuZCBSREEgdXNlIEV1Y2xpZGVhbiBkaXN0YW5jZXMgKGkuZS4sIHN0cmFpZ2h0IGxpbmVzKSBiZXR3ZWVuIHBvaW50cyBvciBmcm9tIGRpc3NpbWlsYXJpdHkgbWF0cmljZXMgKGUuZy4sIE5NRFMsIGRiLVJEQSkuIA0KDQpUaGVyZSBhcmUgYWxzbyBhIHJhbmdlIG9mIGRpc3NpbWlsYXJpdHkgaW5kaWNlcyB0aGF0IGNhbiBiZSB1c2VkLiBCcmF5LUN1cnRpcyBpcyBhIGNvbW1vbmx5IHVzZWQgd2hlbiB5b3UgaGF2ZSBzb21lIG1lYXN1cmUgb2YgYWJ1bmRhbmNlLCB3aXRoIHByZXNlbmNlLWFic2VuY2UgZGF0YSBpdCBiZWNvbWVzIGEgU8O4cmVuc2VuIGRpc3NpbWlsYXJpdHkgaW5kZXgsIHNpbWlsYXIgdG8gSmFjY2FyZCdzIEluZGV4LiBGb3IgbW9yZSBpbmZvcm1hdGlvbiwgc2VlIGNoYXB0ZXIgMTIgb2YgW0Vjb2xvZ2ljYWwgTWV0aG9kb2xvZ3ldKGh0dHBzOi8vd3d3Lnpvb2xvZ3kudWJjLmNhL35rcmVicy9ib29rcy5odG1sKS4NCg0KUmVnYXJkbGVzcyBvZiB0aGUgaW5kZXgsIHRoZSB3YXkgdGhlIHdvcmsgaXMgdGhhdCB0d28gc2FtcGxlcyB3aXRoIGlkZW50aWNhbCBjb21wb3NpdGlvbiBvZiB0YXhhIHdpbGwgaGF2ZSBhIGRpc3NpbWlsYXJpdHkgb2YgemVybywgYW5kIHR3byBzYW1wbGVzIHdpdGggbm8gb3ZlcmxhcCB3aWxsIGhhdmUgYSBkaXNzaW1pbGFyaXR5IG9mIDEsIGFuZCBldmVyeXRoaW5nIGluIGJldHdlZW4gZXhwcmVzc2VzIHRoZSByYW5nZSBvZiAoZGlzKXNpbWlsYXJpdHkgYmV0d2VlbiBwYWlycyBvZiBzYW1wbGVzLiBUaGlzIGlzIHBsYWNlZCBpbnRvIGEgbWF0cml4IHdpdGggc2FtcGxlcyBhcyBib3RoIHJvd3MgYW5kIGNvbHVtbiwgd2l0aCBlYWNoIGNlbGwgY29udGFpbmluZyB0aGUgZGlzc2ltaWxhcml0eSBiZXR3ZWVuIGVhY2ggcGFpci4gVGhpcyBpcyB0aGVuIGZlZCB0byB5b3VyIG1ldGhvZCBvZiBjaG9pY2UsIGFsb25nc2lkZSB5b3VyIGVudmlyb25tZW50YWwgY292YXJpYXRlcyBhcyBtZXRhZGF0YSwgaWYgYXBwbGljYWJsZS4gDQoNCiMjIyBEaXN0YW5jZS1iYXNlZCBSZWR1bmRhbmN5IEFuYWx5c2lzDQoNCkZyb20gdGhlIG9wdGlvbnMgYXZhaWxhYmxlLCBoZXJlIHdlIHdpbGwgYXBwbHkgZGlzdGFuY2UtYmFzZWQgUmVkdW5kYW5jeSBBbmFseXNpcyAoZGItUkRBKSwgd2hpY2ggdGFrZXMgaW4gYSBkaXNzaW1pbGFyaXR5IG1hdHJpeCwgQnJheS1DdXJ0aXMgaW4gb3VyIGNhc2UsIGVzdGltYXRlZCBmcm9tIHJlbGF0aXZlIHJlYWQgYWJ1bmRhbmNlcy4gVGhpcyBpcyBhIHVzZWZ1bCBzZXQgdXAsIHdoZW4gd2Ugd2FudCB0byBsZWFybiBhYm91dCB0aGUgcG93ZXIgb2YgY292YXJpYXRlcywgZS5nLiwgdmVnZXRhdGlvbiwgaGFiaXRhdCB0eXBlLCB0byBleHBsYWluIGNoYW5nZXMgaW4gY29tbXVuaXR5IGNvbXBvc2l0aW9uLiANCg0KYGBge3IgcmRhLWRhdGF9DQojIFJldGFpbiB0aGUgc2FtZSBzaXRlcyBmb3IgYWxsIG1vZGVscyBhbmQgY2FsY3VsYXRlIHRoZWlyIGRpc3NpbWlsYXJpdGllcw0KY292X3JkYSA8LSBjb3Zfc2l0ZSAlPiUNCiAgZHJvcF9uYShhbGxfb2YodmVnX3ZhcnMpKSAlPiUNCiAgbXV0YXRlKHRyZWF0bWVudCA9IGRyb3BsZXZlbHModHJlYXRtZW50KSkNCg0KIyBFc3RpbWF0ZSBCcmF5LUN1cnRpcyBEaXNzaW1pbGFyaXR5IGZyb20gY29tbXVuaXR5IGRhdGEgYXQgc2l0ZS1sZXZlbA0KYnJheSA8LSB2ZWdkaXN0KGNvbW1fc2l0ZVtjb3ZfcmRhJHNpdGVfaWQsICwgZHJvcCA9IEZBTFNFXSwgbWV0aG9kID0gImJyYXkiKQ0KDQpgYGANCg0KDQojIyMgTW9kZWwgc2VsZWN0aW9uPw0KDQpVbmxpa2UgaW4gbGluZWFyIHJlZ3Jlc3Npb24sIHdlIGRvbid0IGhhdmUgYSBzdHJhaWdodCBmb3J3YXJkIGNyaXRlcmlvbiB0byBjaG9vc2UgYmV0d2VlbiBtb2RlbHMgbGlrZSBBSUMgd2hlbiB1c2luZyBwZXJtdXRhdGlvbi1iYXNlZCBzdGF0aXN0aWNhbCB0ZXN0cy4gV2hhdCB3ZSBjYW4gdXNlLCBpcyB0aGUgcGVyY2VudGFnZSBvZiB2YXJpYW5jZSBleHBsYWluZWQgUi1zcXVhcmUgYW5kIGFkanVzdGVkIFItc3F1YXJlLCB0byBhc3Nlc3MgdGhlIHBlcmZvcm1hbmNlIG9mIGRpZmZlcmVudCBtb2RlbHMuIEhlcmUgd2UgdGVzdCB0aHJlZSBtb2RlbHM6IHdpdGggdHJlYXRtZW50IG9ubHksIHdpdGggdmVnZXRhdGlvbiBvbmx5LCBhbmQgd2l0aCBib3RoLiANCg0KYGBge3IgZml0IGFuZCB0ZXN0IHJkYS1tb2RlbHN9DQoNCiMgRml0IGhhYml0YXQsIHZlZ2V0YXRpb24gYW5kIGNvbWJpbmVkIG1vZGVscyB0byB0aGUgc2FtZSBkaXN0YW5jZXMNCnJkYV9oYWJpdGF0IDwtIGRicmRhKGJyYXkgfiB0cmVhdG1lbnQsIGRhdGEgPSBjb3ZfcmRhKQ0KDQpyZGFfdmVnZXRhdGlvbiA8LSBkYnJkYShicmF5IH4gbW9zcyArIGxpY2hlbiArIGhlcmJzICsgc2hydWJzICsgdHJlZXMgKyBiYXJlX2xpdHRlciArIA0KICAgIHJvY2t5ICsgZmVybiwgZGF0YSA9IGNvdl9yZGEpDQoNCnJkYV9mdWxsIDwtIGRicmRhKGJyYXkgfiB0cmVhdG1lbnQgKyBtb3NzICsgbGljaGVuICsgaGVyYnMgKyBzaHJ1YnMgKyB0cmVlcyArIGJhcmVfbGl0dGVyICsgDQogICAgcm9ja3kgKyBmZXJuLCBkYXRhID0gY292X3JkYSkNCg0KDQojIFRlc3QgdGhlIG1vZGVscycgZXhwbGFuYXRvcnkgcG93ZXINCnNldC5zZWVkKDEyMykNCg0KcGVybXMgPC0gc2h1ZmZsZVNldChucm93KGNvdl9yZGEpLCBuc2V0ID0gbl9wZXJtKQ0KDQoNCiMgRXh0cmFjdCBSLXNxdWFyZSBhbmQgcnVuIHRoZSBvdmVyYWxsIHBlcm11dGF0aW9uIHRlc3QgZm9yIGVhY2ggbW9kZWwNCnIyX2hhYml0YXQgPC0gUnNxdWFyZUFkaihyZGFfaGFiaXRhdCkNCnRlc3RfaGFiaXRhdCA8LSBhbm92YShyZGFfaGFiaXRhdCwgcGVybXV0YXRpb25zID0gcGVybXMpDQoNCnIyX3ZlZ2V0YXRpb24gPC0gUnNxdWFyZUFkaihyZGFfdmVnZXRhdGlvbikNCnRlc3RfdmVnZXRhdGlvbiA8LSBhbm92YShyZGFfdmVnZXRhdGlvbiwgcGVybXV0YXRpb25zID0gcGVybXMpDQoNCnIyX2Z1bGwgPC0gUnNxdWFyZUFkaihyZGFfZnVsbCkNCnRlc3RfZnVsbCA8LSBhbm92YShyZGFfZnVsbCwgcGVybXV0YXRpb25zID0gcGVybXMpDQoNCg0KIyBQdXQgdGhlIHRocmVlIG1vZGVsIHJlc3VsdHMgc2lkZSBieSBzaWRlIGluIG9uZSB0YWJsZSAtLS0tDQptb2RlbF9zdW1tYXJ5IDwtIHRpYmJsZSgNCiAgTW9kZWwgPSBjKCJIYWJpdGF0IiwgIlZlZ2V0YXRpb24iLCAiSGFiaXRhdCArIHZlZ2V0YXRpb24iKSwNCiAgYFItc3F1YXJlYCA9IGMocjJfaGFiaXRhdCRyLnNxdWFyZWQsIHIyX3ZlZ2V0YXRpb24kci5zcXVhcmVkLCByMl9mdWxsJHIuc3F1YXJlZCksDQogIGBBZGp1c3RlZCBSLXNxdWFyZWAgPSBjKHIyX2hhYml0YXQkYWRqLnIuc3F1YXJlZCwgcjJfdmVnZXRhdGlvbiRhZGouci5zcXVhcmVkLA0KICAgICAgICAgICAgICAgICAgICByMl9mdWxsJGFkai5yLnNxdWFyZWQpLA0KICBgUGVybXV0YXRpb24gcGAgPSBjKHRlc3RfaGFiaXRhdCRgUHIoPkYpYFsxXSwgdGVzdF92ZWdldGF0aW9uJGBQcig+RilgWzFdLA0KICAgICAgICAgICAgICAgICAgICAgIHRlc3RfZnVsbCRgUHIoPkYpYFsxXSkpDQoNCmthYmxlKG1vZGVsX3N1bW1hcnksIGRpZ2l0cyA9IDQsIGNhcHRpb24gPSAiRml0IGFuZCBvdmVyYWxsIHBlcm11dGF0aW9uIHRlc3QgZm9yIGVhY2ggbW9kZWwiKQ0KDQpgYGANCg0KVGhlIHRlc3RzIHdlIGFyZSBydW5uaW5nIGFyZSBwZXJtdXRhdGlvbiB0ZXN0cywgdGhhdCB3ZSBhY2Nlc3MgdGhyb3VnaCB0aGUgYGFub3ZhKClgIGZ1bmN0aW9uICgqKkFOKiphbHlzaXMgKk8qZiAqVkEqcmlhbmNlKS4gUGVybXV0YXRpb24gdGVzdHMgcmVseSBvbiBjb21wYXJpbmcgd2hldGhlciB0aGUgcGVyY2VudGFnZSBvZiB2YXJpYW5jZSBleHBsYWluZWQgYnkgYSBzZXQgb2YgcHJlZGljdG9ycyAoaGFiaXRhdCwgdmVnZXRhdGlvbiksIGlzIHNpZ25pZmljYW50bHkgaGlnaGVyIHRoYW4gYSBudWxsIG1vZGVsLiBUaGUgbnVsbCBtb2RlbCBpcyBwcmVwYXJlZCBieSBjaGFuZ2luZyAocGVybXV0aW5nKSB0aGUgbGFiZWxzIG9mIHlvdXIgc2FtcGxlcywgaW4gb3VyIGNhc2UsIHRoZSBzaXRlX2lkIGJlY2F1c2Ugd2UgaGF2ZSBhdmVyYWdlZCBzYW1wbGVzIHdpdGhpbiBzaXRlcywgYW5kIHJlLWZpdHRpbmcgdGhlIG1vZGVsIHdpdGggdGhlIHNhbWUgcHJlZGljdG9ycy4gVGhpcyBpcyBkb25lIG1hbnkgdGltZXMsIHNvIHRoYXQgd2UgY2FuIGtub3cgaG93IG9mdGVuIG91ciBtb2RlbCBvdXRwZXJmb3JtcyB0aGUgbnVsbCBtb2RlbC4gDQoNCk91ciBleGFtcGxlIGlzIHZlcnkgaWxsdXN0cmF0aXZlLCBiZWNhdXNlIGluIHByaW5jaXBsZSB0aGUgVmVnZXRhdGlvbiBvbmx5IG1vZGVsIGV4cGxhaW5lZCBtb3JlIHZhcmlhbmNlLCA0OCUgdGhhbiB0aGUgSGFiaXRhdCBvbmx5IG1vZGVsLCAyNiUsIGFuZCB0aGUgY29tYmluYXRpb24gb2YgdGhlIHR3byBleHBsYWluZWQgNjUlIG9mIHRoZSB2YXJpYW5jZS4gSG93ZXZlciwgdGhlIFZlZ2V0YXRpb24gb25seSBtb2RlbCBpcyBvbmx5IG1hcmdpbmFsbHkgc2lnbmlmaWNhbnQgKGkuZS4sIH45JSBvZiB0aGUgdGltZSwgb3VyIG1vZGVsIGV4cGxhaW5lcyB0aGlzIGxldmVsIG9mIHZhcmlhbmNlIG9uIGEgcmFuZG9taXNlZCBkYXRhc2V0KSwgdGhlIGFkanVzdGVkIFItc3F1YXJlIGlzIG9ubHkgMTAlLCBsb3dlciB0aGFuIHRoZSBIYWlidGF0IG1vZGVsLCB3aGljaCBpcyAxMiUsIGFuZCB0aGUgdHdvIHRvZ2V0aGVyIG9ubHkgaGF2ZSAxNiUgYWRqLlItc3F1YXJlLiBXaXRoIHRoZXNlIHJlc3VsdHMsIG9uZSBjb3VsZCBjaG9vc2UgdGhlIG1vc3QgcGFyc2ltb25pb3VzIG1vZGVsIChmZXdlciBkZWdyZWVzIG9mIGZyZWVkb20gdXNlZCkgd2l0aCBIYWJpdGF0IG9ubHksIHdoaWNoIGFscmVhZHkgZXhwbGFpbnMgbW9zdCBvZiB0aGUgdmFyaWFuY2UgdGhhdCBpcyBhdmFpbGFibGUsIGFuZCBkb2VzIHNvIHNpZ25maWNhbnRseSBtb3JlIHRoYW4gdGhlIG51bGwgbW9kZWwuIA0KDQpXaXRoIG91ciBjaG9zZW4gbW9kZWwsIHdlIGNhbiB0ZWFzZSBhcGFydCBzb21lIG9mIHRoZSBlZmZlY3RzLCBhbmQgc2VlIHdoaWNoIGluZGl2aWR1YWwgbGV2ZWxzIG9mIGhhYml0YXQgYXJlIG1vc3QgaW5mb3JtYXRpdmUuDQoNCmBgYHtyIHJkYS10ZXJtc30NCg0KYW5vdmEocmRhX2hhYml0YXQsIHBlcm11dGF0aW9ucyA9IHBlcm1zLCBieSA9ICJvbmVkZiIpDQoNCmBgYA0KTGlrZSBpbiBsaW5lYXIgcmVncmVzc2lvbiwgdGhlc2UgYXJlIGNvbnRyYXN0cyBhZ2FpbnN0IGEgcmVmZXJlbmNlLWxldmVsLCBhIG51bGwgbW9kZWwgd2l0aCBhbGwgaGFiaXRhdHMgcG9vbGVkIGludG8gb25lIGNhdGVnb3J5LiBFYWNoIHJvdyBjb21wYXJlZCB0aGUgYWRkaXRpb24gb2YgYSBoYWJpdGF0IGNhdGVnb3J5IHRvIHRoZSBwcmV2aW91cywgYW5kIHdoZXRoZXIgdGhpcyBpbXByb3ZlcyB0aGUgZXhwbGFuYXRvcnkgcG93ZXIgb2YgdGhlIG1vZGVsLiBDb21tZXJjaWFsIGFuZCBtYXR1cmUgd29vZGxhbmQsIGFuZCBieSBhYnNlbmNlIGhlYXRoLCBwcm92aWRlIHRoZSBtb3N0IGV4cGxhbmF0b3J5IHBvd2VyLiANCg0KDQojIyMgTW9kZWwgdmFsaWRhdGlvbj8gDQoNCkRpc3NpbWlsYXJpdHktYmFzZWQgaW5kaWNlcyBzdWNoIGFzIGRiLVJEQSBhcmUgdmVyeSBmbGV4aWJsZSwgYnV0IHJlcXVpcmUgc29tZSBjaGVja3MgZm9yIHVuZGVybHlpbmcgYXNzdW1wdGlvbnMgdG9vLiBTcGVjaWZpY2FsbHksIHdlIG5lZWQgdG8gY2hlY2sgdGhhdCB0aGUgc3ByZWFkIG9mIG91ciBkYXRhIHBvaW50cyB3aXRoaW4gZWFjaCBncm91cCAoaGFiaXRhdCB0eXBlKSBpcyBzaW1pbGFyIChzZWUgdGhlIHBsb3QgYmVsb3cgZm9yIGNsYXJpZmljYXRpb24pLiANCg0KRGlmZmVyZW5jZXMgb2YgZGlzcGVyc2lvbiBjYW4gYmUgY2F1c2VkIGlmIGEgcGFydGljdWxhciBoYWJpdGF0IGhhZCBhIHZlcnkgaG9tb2dlbmVvdXMgZnVuZ2FsIGNvbW11bml0eSwgb3VyIGRhdGEgcG9pbnRzIHdvdWxkIGJlIHRpZ2h0bHkgY2x1c3RlcmVkLCB3aGlsZSBhIG1vcmUgaGV0ZXJvZ2VuZW91cyBoYWJpdGF0IHdpbGwgaGF2ZSB0aGVtIHNwcmVhZCBvdmVyIGEgbGFyZ2VyIGFyZWEuIElmIHRoaXMgaXMgdGhlIGNhc2UsIHdlIGNhbm5vdCBrbm93IHdoZXRoZXIgdGhlIHNpZ25pZmljYW5jZSBvZiBvdXIgaGFiaXRhdCBjb3ZhcmlhdGUgaXMgZHVlIHRvIGdlbnVpbmUgZGlmZmVyZW5jZXMgaW4gY29tbXVuaXR5IGNvbXBvc2l0aW9uLCBvciBkaWZmZXJlbmNlcyBpbiBkaXNwZXJzaW9uLiBUaG91Z2ggdGhlIGxhdHRlciwgaXMgYWxzbyBpbmZvcm1hdGl2ZSBhYm91dCBjb21tdW5pdHkgYXJyYW5nZW1lbnRzIGluIHRoZSBzeXN0ZW0uIA0KDQoNCmBgYHtyIGhhYml0YXQtZGlzcGVyc2lvbn0NCg0KIyBDb21wYXJlIHdpdGhpbi1oYWJpdGF0IGRpc3BlcnNpb24gdXNpbmcgdGhlIHNhbWUgc2l0ZXMgYW5kIGRpc3RhbmNlcw0KZGlzcGVyc2lvbiA8LSBiZXRhZGlzcGVyKGJyYXksIGdyb3VwID0gY292X3JkYSR0cmVhdG1lbnQsIGJpYXMuYWRqdXN0ID0gVFJVRSkNCiAgDQpwZXJtdXRlc3QoZGlzcGVyc2lvbiwgcGVybXV0YXRpb25zID0gcGVybXMpDQoNCmBgYA0KTm8gc2lnbmlmaWNhbnQgZGlmZmVyZW5jZXMgaW4gZGlzcGVyc2lvbiwgdGhlcmVmb3JlIHRoZSBkaWZmZXJlbmNlcyB3ZSBmaW5kIGNhbiBiZSBhc2NyaWJlZCB0byBzaGlmdHMgaW4gY29tbXVuaXR5IGNvbXBvc2l0aW9uLiAgDQoNCg0KIyMjIE9yZGluYXRpb24gUGxvdCANCg0KV2UgYXJlIHJlYWR5IHRvIHZpc3VhbGlzZSBvdXIgcmVzdWx0cywgaW4gYW4gb3JkaW5hdGlvbiBwbG90LiANCg0KDQpgYGB7ciBvcmRpbmF0aW9uLXNjb3Jlc30NCg0KIyBFeHRyYWN0IHRoZSBmaXJzdCB0d28gaGFiaXRhdC1jb25zdHJhaW5lZCBheGVzDQplaWcgPC0gZWlnZW52YWxzKHJkYV9oYWJpdGF0LCBtb2RlbCA9ICJjb25zdHJhaW5lZCIpDQplaWcgPC0gZWlnW2VpZyA+IDBdDQpheGVzIDwtIHNlcV9sZW4obWluKDIsIGxlbmd0aChlaWcpKSkNCmF4aXNfbGFiZWxzIDwtIHNwcmludGYoImRiLVJEQSVkICglLjFmJSUpIiwgYXhlcywgMTAwICogZWlnW2F4ZXNdIC8gc3VtKGVpZykpDQoNCiMgTWF0Y2ggdGhlIHBsb3R0ZWQgc2l0ZSBzY29yZXMgdG8gdGhlaXIgaGFiaXRhdHMNCg0Kc2l0ZV9zY29yZXMgPC0gc2NvcmVzKHJkYV9oYWJpdGF0LCBkaXNwbGF5ID0gInNpdGVzIiwgY2hvaWNlcyA9IGF4ZXMsIHNjYWxpbmcgPSAxKSAlPiUNCiAgYXNfdGliYmxlKHJvd25hbWVzID0gInNpdGVfaWQiKSAlPiUNCiAgbGVmdF9qb2luKHNlbGVjdChjb3ZfcmRhLCBzaXRlX2lkLCB0cmVhdG1lbnQpLCBieSA9ICJzaXRlX2lkIikNCg0KYGBgDQoNCmBgYHtyIHBsb3QtcmRhfQ0KIyBGb3JtYXQgdGhlIGhhYml0YXQgbW9kZWwgc3RhdGlzdGljcyBmb3IgdGhlIHBsb3QgLS0tLQ0KcmRhX2xhYmVsIDwtIHNwcmludGYoIlLCsiA9ICUuMmZcblBlcm11dGF0aW9uIHAgPSAlcyIsDQogICAgICAgICAgICAgICAgICAgICByMl9oYWJpdGF0JHIuc3F1YXJlZCwNCiAgICAgICAgICAgICAgICAgICAgIGZvcm1hdC5wdmFsKHRlc3RfaGFiaXRhdCRgUHIoPkYpYFsxXSwgZGlnaXRzID0gMykpDQoNCiMgUGxvdCBzaXRlIHNjb3JlcyBhbmQgd2l0aGluLWhhYml0YXQgZWxsaXBzZXMgLS0tLQ0KcGxvdF9yZGEgPC0gZ2dwbG90KHNpdGVfc2NvcmVzLCBhZXMoZGJSREExLCBkYlJEQTIsIGZpbGwgPSB0cmVhdG1lbnQpKSArDQogIGdlb21faGxpbmUoeWludGVyY2VwdCA9IDAsIGxpbmV3aWR0aCA9IDAuMywgY29sb3VyID0gImdyZXk4NSIpICsNCiAgZ2VvbV92bGluZSh4aW50ZXJjZXB0ID0gMCwgbGluZXdpZHRoID0gMC4zLCBjb2xvdXIgPSAiZ3JleTg1IikgKw0KICBzdGF0X2VsbGlwc2UoYWVzKGNvbG91ciA9IHRyZWF0bWVudCwgZ3JvdXAgPSB0cmVhdG1lbnQpLA0KICAgICAgICAgICAgICAgZ2VvbSA9ICJwb2x5Z29uIiwgdHlwZSA9ICJ0IiwgbGV2ZWwgPSAwLjk1LA0KICAgICAgICAgICAgICAgYWxwaGEgPSAwLjE1LCBsaW5ld2lkdGggPSAwLjksIHNob3cubGVnZW5kID0gRkFMU0UpICsNCiAgZ2VvbV9wb2ludChzaGFwZSA9IDIxLCBzaXplID0gMy40LCBzdHJva2UgPSAxLCBjb2xvdXIgPSAiYmxhY2siKSArDQogIGFubm90YXRlKCJ0ZXh0IiwgeCA9IEluZiwgeSA9IEluZiwgbGFiZWwgPSByZGFfbGFiZWwsDQogICAgICAgICAgIGhqdXN0ID0gMS4wOCwgdmp1c3QgPSAxLjIsIHNpemUgPSAzLjYpICsNCiAgc2NhbGVfZmlsbF9tYW51YWwodmFsdWVzID0gaGFiaXRhdF9jb2xvdXJzLCBsYWJlbHMgPSBoYWJpdGF0X2xhYmVscywgZHJvcCA9IEZBTFNFKSArDQogIHNjYWxlX2NvbG91cl9tYW51YWwodmFsdWVzID0gaGFiaXRhdF9jb2xvdXJzLCBkcm9wID0gRkFMU0UpICsNCiAgc2NhbGVfeF9jb250aW51b3VzKGV4cGFuZCA9IGV4cGFuc2lvbihtdWx0ID0gMC4wOCkpICsNCiAgc2NhbGVfeV9jb250aW51b3VzKGV4cGFuZCA9IGV4cGFuc2lvbihtdWx0ID0gMC4wOCkpICsNCiAgbGFicyh0aXRsZSA9ICJGdW5naSIsIHN1YnRpdGxlID0gIlNpdGUtbGV2ZWwiLA0KICAgICAgIHggPSBheGlzX2xhYmVsc1sxXSwgeSA9IGF4aXNfbGFiZWxzWzJdLCBmaWxsID0gIlRyZWF0bWVudCIpICsNCiAgdGhlbWVfYncoYmFzZV9zaXplID0gMTMpICsNCiAgdGhlbWUocGFuZWwuZ3JpZCA9IGVsZW1lbnRfYmxhbmsoKSwNCiAgICAgICAgcGFuZWwuYm9yZGVyID0gZWxlbWVudF9yZWN0KGxpbmV3aWR0aCA9IDEpLA0KICAgICAgICBheGlzLmxpbmUgPSBlbGVtZW50X2xpbmUoY29sb3VyID0gImdyZXk2NSIsIGxpbmV3aWR0aCA9IDAuNCksDQogICAgICAgIHBsb3QudGl0bGUgPSBlbGVtZW50X3RleHQoZmFjZSA9ICJib2xkIiksDQogICAgICAgIGxlZ2VuZC5wb3NpdGlvbiA9ICJib3R0b20iKQ0KDQpwbG90X3JkYQ0KYGBgDQpIZXJlLCBlYWNoIGF4aXMgaXMgYSBkaW1lbnNpb24gdGhhdCBhdHRlbXB0cyB0byBjYXB0dXJlIGFzIG11Y2ggdmFyaWF0aW9uIG9mIHRoZSBvcmlnaW5hbCBmdW5nYWwgY29tbXVuaXR5IGFzIHBvc3NpYmxlLiBUaGUgcGVyY2VudGFnZXMgaW4gYnJhY2tldHMgdGhlIHByb3BvcnRpb24gZXhwbGFpbmVkIGJ5IGVhY2ggYXhpcyBvdXQgb2YgdGhlIHRvdGFsIG1vZGVsJ3MgdmFyaWFuY2UgZXhwbGFpbmVkLiBUaGlzIHVzZXMgdW5hZGp1c3RlZCBSLXNxdWFyZSwgaGVuY2UgMjQlLiBFYWNoIHBvaW50IHJlcHJlc2VudHMgYSBzaXRlICg1IHBlciBoYWJpdGF0IHR5cGUpIGFsb25nIHRoZXNlIG5ldyBkaW1lbnNpb25zLiBQb2ludHMgY2xvc2UgdG9nZXRoZXIgaGF2ZSBtb3JlIHNpbWlsYXIgZnVuZ2FsIGNvbW11bml0aWVzIHRoYW4gcG9pbnRzIGZhciBhcGFydC4gDQoNClRoZSBzcHJlYWQgb2Ygc2F5IHJlZ2VuLCBjb21wYXJlZCBhZ2FpbnN0IGNvbW1lcmNpYWwgd29vZGxhbmQgc2VlbXMgcXVpdGUgZGlmZmVyZW50LCBhbmQgaXQgbGlrZWx5IGlzLCB0aG91Z2ggd2l0aCBmaXZlIHNpdGVzIHBlciBoYWJpdGF0LCB3ZSBtYXkgbGFjayB0aGUgcG93ZXIgdG8gZGV0ZWN0IHRoaXMuIE92ZXJhbGwsIHdlIGZpbmQgYSBkaXN0aW5jdCBhbmQgY2x1c3RlcmVkIGhlYXRoIGZ1bmdhbCBjb21tdW5pdHksIGEgcmVnZW4gY29tbXVuaXR5IHRoYXQgc2VlbXMgdG8gdHJhbnNpdGlvbiBmcm9tIGhlYXRoIHRvd2FyZHMgYSBtYXR1cmUgd29vZGxhbmQgY29tbXVuaXR5LCBhbmQgYSBjb21tZXJjaWFsIHdvb2RsYW5kIGZ1bmdhbCBjb21tdW5pdHkgdGhhdCBvdmVybGFwcywgYnV0IGlzIGFsc28gcXVpdGUgZGlzdGluY3QgZnJvbSBhIG1hdHVyZSB3b29kbGFuZCBmdW5nYWwgY29tbXVuaXR5LiANCg0KVGhpcyBjb25jbHVkZXMgYXJlIG11bHRpdmFyaWF0ZSBvcmRpbmF0aW9uIGFuYWx5c2lzIG9mIGZ1bmdhbCBjb21tdW5pdGllcy4gDQoNCldlIHdpbGwgbm93IGJyaWVmbHkgZ28gb3ZlciBhIG1ldGhvZCB0byBpZGVudGlmeSB0YXhhIHRoYXQgbWF5IGFjdCBhcyBpbmRpY2F0b3JzIG9mIGRpZmZlcmVudCBoYWJpdGF0IHR5cGVzLiANCg0KDQojIyAzLiBJbmRpY2F0b3IgU3BlY2llcyBBbmFseXNpcw0KDQpBbm90aGVyIHdheSBvZiBoYW5kbGluZyBtdWx0aXZhcmlhdGUgZGF0YSwgaXMgaWRlbnRpZnlpbmcgdGhvc2UgdGF4YSB0aGF0IGFyZSBtb3N0IGluZm9ybWF0aXZlIGFib3V0IHRoZSBwcm9jZXNzIG9mIGludGVyZXN0LCBoZXJlLCB0aGUgZWNvbG9naWNhbCBzdWNjZXNzaW9uIG9mIHRoZSBmdW5nYWwgY29tbXVuaXR5LiBFc3NlbnRpYWxseSBhIGRpZmZlcmVudCB3YXkgb2YgcmVkdWNpbmcgdGhlIGRpbWVuc2lvbmFsaXR5IG9mIHRoZSBkYXRhLiANCg0KV2UgY2FuIGRvIHRoaXMgdGhyb3VnaCBhbiBJbmRpY2F0b3IgU3BlY2llcyBBbmFseXNpcyAoSVNBKS4gV2UgdXNlIHRoZSBgbXVsdGlwYXR0KClgIGZ1bmN0aW9uIGZyb20gdGhlIGBpbmRpY3NwZWNpZXNgIHBhY2thZ2UgdG8gYWNjZXNzIHRoZSBgSW5kVmFsLmdgIG1ldHJpYyBmaXJzdCBkZXZlbG9wZWQgYnkgRHVmcsOqbmUgYW5kIExlZ2VuZHJlIChbMTk5N10oaHR0cHM6Ly9kb2kub3JnLzEwLjIzMDcvMjk2MzQ1OSkpLg0KDQpJdCBpcyBhIHN0cmFpZ2h0IGZvcndhcmQgYnV0IGNsZXZlciBwaWVjZSBvZiBtYXRocy4gSXQgaGFzIHR3byBjb21wb25lbnRzOiANCg0KfCBDb21wb25lbnQgfCBIb3cgdG8gcmVhZCBpdCB8DQp8Oi0tLS0tLS0tLS18Oi0tLS0tLS0tLS0tLS0tLXwNCnwgU3BlY2lmaWNpdHksIFwoQVwpIHwgVGhlIGhhYml0YXQncyBzaGFyZSBvZiB0aGUgdGF4b24ncyBtZWFuIHJlbGF0aXZlIHJlYWQgZnJlcXVlbmN5IHN1bW1lZCBhY3Jvc3MgaGFiaXRhdCBtZWFucy4gSXQgaXMgaGlnaCB3aGVuIHRoZSB0YXhvbidzIHJlYWRzIGFyZSBjb25jZW50cmF0ZWQgaW4gdGhhdCBoYWJpdGF0LiB8DQp8IEZpZGVsaXR5LCBcKEJcKSB8IFRoZSBwcm9wb3J0aW9uIG9mIHNpdGVzIGluIHRoYXQgaGFiaXRhdCB3aXRoIGEgZGV0ZWN0aW9uLiBJdCBpcyBoaWdoIHdoZW4gdGhlIHRheG9uIGlzIGRldGVjdGVkIGF0IG1vc3Qgb2YgdGhlIGhhYml0YXQncyBzaXRlcy4gfA0KDQpUaGUgc3RhdGlzdGljIHJldHVybmVkIGlzIFwoXHNxcnR7QSBcdGltZXMgQn1cKSwgd2hpY2ggdGVsbHMgdXMgd2hldGhlciBhIHBhcnRpY3VsYXIgdGF4YSBpcyBhc3NvY2lhdGVkIHRvIGEgaGFiaXRhdCBjYXRlZ29yeS4gVGhpcyBpcyB3cmFwcGVkIHdpdGggYSBwZXJtdXRhdGlvbiB0ZXN0IHRvIGdpdmUgdXMgYSBwcm9iYWJpbGl0eSB0aGF0IHRoZSBhc3NvY2lhdGlvbiBpcyBtb3JlIGxpa2VseSB0aGFuIGl0IHdvdWxkIGJlIGV4cGVjdGVkIGJ5IGNoYW5jZS4gDQoNCg0KYGBge3IgaW5kaWNhdG9yLWFuYWx5c2lzfQ0KDQojIEltcGxlbWVudCBJU0Egd2l0aCBtdWx0aXBhdHQNCmhhYml0YXRfZ3JvdXAgPC0gZHJvcGxldmVscyhjb3Zfc2l0ZSR0cmVhdG1lbnQpDQpzZXQuc2VlZCgxMjMpDQppc2EgPC0gbXVsdGlwYXR0KGNvbW1fc2l0ZSwgY2x1c3RlciA9IGFzLmludGVnZXIoaGFiaXRhdF9ncm91cCksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZnVuYyA9ICJJbmRWYWwuZyIsIGR1bGVnID0gVFJVRSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb250cm9sID0gaG93KG5wZXJtID0gbl9wZXJtKSkNCg0KYGBgDQoNClRoaXMgcmV0dXJucyBhbiBpbmRpY2F0b3IgdmFsdWUsIGFuZCBwLXZhbHVlIGZvciBlYWNoIGluZGl2aWR1YWwgdGF4YSBpbiBvdXIgZGF0YXNldCAoNDQxKS4gV2UgYXJlIGdvaW5nIHRvIHZpc3VhbGlzZSBhIHN1YnNldCB3aXRoIHZhbHVlcyBoaWdoZXIgdGhhbiAwLjUsIGFuZCB0aGF0IGFyZSBzdGF0aXN0aWNhbGx5IHNpZ25pZmljYW50IChwIDwgMC4wNSkuIA0KDQpgYGB7ciBpbmRpY2F0b3ItcmVzdWx0c30NCg0KIyBFeHRyYWN0IGluZm9ybWF0aW9uIGZyb20gdGhlIGlzYSBvYmplY3QNCnNlbGVjdGVkX2luZGV4IDwtIGNiaW5kKHNlcV9sZW4obnJvdyhpc2Ekc2lnbikpLCBpc2Ekc2lnbiRpbmRleCkNCg0KIyBHYXRoZXIgdGhlIGRhdGEgaW4gYSByZWFkYWJsZSBmb3JtYXQNCmlzYV90YWJsZSA8LSBpc2Ekc2lnbiAlPiUNCiAgYXNfdGliYmxlKHJvd25hbWVzID0gInRheG9uIikgJT4lDQogIG11dGF0ZSh0YXhvbiA9IHRheG9uLA0KICAgICAgICAgdHJlYXRtZW50ID0gZmFjdG9yKGxldmVscyhoYWJpdGF0X2dyb3VwKVtpbmRleF0sIGxldmVscyA9IGhhYml0YXRfbGV2ZWxzKSwNCiAgICAgICAgIHNwZWNpZmljaXR5ID0gaXNhJEFbc2VsZWN0ZWRfaW5kZXhdLCBmaWRlbGl0eSA9IGlzYSRCW3NlbGVjdGVkX2luZGV4XSwNCiAgICAgICAgIGluZHZhbCA9IHN0YXQsIHBfdmFsdWUgPSBwLnZhbHVlLCBwX2FkaiA9IHAuYWRqdXN0KHAudmFsdWUsIG1ldGhvZCA9ICJCSCIpLA0KICAgICAgICAgLmtlZXAgPSAibm9uZSIpDQoNCiMgRmlsdGVyIGJ5IGluZGljYXRvciB2YWx1ZSBhbmQgc2lnbmlmaWNhbmNlDQppc2Ffc2VsZWN0ZWQgPC0gaXNhX3RhYmxlICU+JQ0KICBmaWx0ZXIoaW5kdmFsID4gMC41MCwgcF92YWx1ZSA8IDAuMDUpDQoNCiMgUHJpbnQNCmlzYV9zZWxlY3RlZCAlPiUNCiAgYXJyYW5nZSh0cmVhdG1lbnQsIGRlc2MoaW5kdmFsKSkgJT4lDQogIG11dGF0ZSh0cmVhdG1lbnQgPSB1bm5hbWUoaGFiaXRhdF9sYWJlbHNbYXMuY2hhcmFjdGVyKHRyZWF0bWVudCldKSkgJT4lDQogIHNlbGVjdChIYWJpdGF0ID0gdHJlYXRtZW50LCBUYXhvbiA9IHRheG9uLCBTcGVjaWZpY2l0eSA9IHNwZWNpZmljaXR5LA0KICAgICAgICAgRmlkZWxpdHkgPSBmaWRlbGl0eSwgYEluZFZhbCBzY29yZWAgPSBpbmR2YWwsIGBQZXJtdXRhdGlvbiBwYCA9IHBfdmFsdWUpICU+JQ0KICBrYWJsZShkaWdpdHMgPSA0LCBjYXB0aW9uID0gIkZ1bmdhbCBpbmRpY2F0b3IgY2FuZGlkYXRlcyBieSBoYWJpdGF0IikNCg0KYGBgDQoNCldlIHdpbGwgbm90IGdvIGludG8gdGhlc2Ugc3BlY2llcyBoZXJlLCB0aG91Z2ggdGhlIGFzc29jaWF0aW9uIG9mIGEgKlN1aWxsdXMqIHNwZWNpZXMgd2l0aCB0aGUgcmVnZW4gc2l0ZXMgaXMgb2YgZ3JlYXQgZWNvbG9naWNhbCByZWxldmFuY2UuIA0KDQpXZSB3aWxsIHRha2UgYSBtb21lbnQgdG8gY29uc2lkZXIgYSBwb3RlbnRpYWwgaXNzdWUgYXJpc2luZyBmcm9tIGEgdGVzdCBsaWtlIHRoaXMsIG11bHRpcGxlIHRlc3RpbmcuIFdlIGhhdmUgZG9uZSBhIHN0YXRpc3RpY2FsIGluZGljYXRvciB0ZXN0IGZvciBlYWNoIHRheGEgaW4gb3VyIGRhdGFzZXQgPjQwMC4gRG9pbmcgc28gbWFueSB0ZXN0cywgaW5mbGF0ZXMgdGhlIHByb2JhYmlsaXR5IG9mIGEgVHlwZSBJIGVycm9yLiBUeXBlIEkgZXJyb3IgaXMgZmluZGluZyBhIHN0YXRpc3RpY2FsIGFzc29jaWF0aW9uIHdoZW4gdGhlcmUgaXMgbm9uZSwgaS5lLiwgaWYgd2UgcnVuIGVub3VnaCB0ZXN0cywgYSBnaXZlbiBzcGVjaWVzIG1heSBhcHBlYXIgYXNzb2NpYXRlZCB0byBhIGhhYml0YXQgcHVyZWx5IGJ5IGNoYW5jZSwgYW5kIHRoZSBtb3JlIHRlc3RzIHlvdSBkbywgdGhlIGhpZ2hlciB0aGlzIHByb2JhYmlsaXR5IGl0IGlzLiBJdCBpcyBhbHNvIGNhbGxlZCBmYWxzZSBwb3NpdGl2ZSwgYW5kIGl0cyBjb3VudGVycGFydCBpcyB0aGUgVHlwZSBJSSBlcnJvciwgb3IgZmFsc2UgbmVnYXRpdmUsIGkuZS4sIG5vdCBmaW5kaW5nIGEgc3RhdGlzdGljYWwgYXNzb2NpYXRpb24gd2hlbiB0aGVyZSBpcyBvbmUuDQoNClRvIGF2b2lkIHRoZXNlIHdlIHNob3VsZCwgZmlyc3Qgb2YgYWxsLCBvbmx5IHJ1biByZWxldmFudCBzdGF0aXN0aWNhbCB0ZXN0cy4gRm9yIGluc3RhbmNlLCB3ZSBtaWdodCB3YW50IHRvIHJlc3RyaWN0IG91ciB0YXhhIHRvIHN5bWJpb3Ryb3BoaWMgZnVuZ2kgdGhhdCBhcmUgbW9yZSBsaWtlbHkgdG8gcmVzcG9uZCB0byBjaGFuZ2VzIGluIGFib3ZlIGdyb3VuZCB2ZWdldGF0aW9uLiBXaGVuIHdlIGhhdmUgb3VyIG1pbmltYWwgc2V0LCBpZiBpdCBpcyBzdGlsbCBhIGxhcmdlIG51bWJlciBvZiB0ZXN0cywgd2UgbWF5IHdhbnQgdG8gYWRqdXN0IHAtdmFsdWVzIGZvciBtdWx0aXBsZSB0ZXN0aW5nLiANCg0KVGhlc2UgY29ycmVjdGlvbnMgYWRqdXN0IHRoZSB0aHJlc2hvbGQgb2Ygc3RhdGlzdGljYWwgc2lnbmlmaWNhbmNlIGJhc2VkIG9uIGhvdyBtYW55IHRlc3RzIGFyZSBiZWluZyBydW4uIFRoZXJlIGFyZSBtYW55LCBCb25mZXJyb25pIGlzIHdpZGVseSBrbm93bi4gSGVyZSB3ZSB1c2UgQmVuamFtaW5p4oCTSG9jaGJlcmcgKEJIKS4gV2UgaGF2ZSBrZXB0IGBwX2FkaiA9IHAuYWRqdXN0KHAudmFsdWUsIG1ldGhvZCA9ICJCSCIpYCBpbiB0aGUgY29kZSBhYm92ZSB0byBkZW1vbnN0cmF0ZSBpdHMgdXNlLCBidXQgb3RoZXJ3aXNlIGl0IGlzIHVudXNlZCwgYXMgd2l0aCBvbmx5IDIwIHNpdGVzLCBhbmQgb3ZlciA0MDAgdGF4YSwgbm8gc3RhdGlzdGljYWwgdGVzdCBtYWludGFpbnMgaXRzIHNpZ25pZmljYW5jZSBhZnRlciB0aGUgY29ycmVjdGlvbi4gVGh1cywgd2Ugc2hvdWxkIGJlIGNhcmVmdWwgd2l0aCBvdXIgaW50ZXJwcmV0YXRpb24gb2YgdGhlIElTQSwgYW5kIHVzZSBpdCBmb3IgZXhwbG9yYXRvcnkgcHVycG9zZXMsIGFuZCBub3QgdG8gZHJhdyBzdHJvbmcgYmlvbG9naWNhbCBpbmZlcmVuY2UuIA0KDQpUaHVzIGNvbmNsdWRlcyBvdXIgc2Vjb25kIHNlc3Npb24sIHdoZXJlIHdlIGhhdmUgdXNlZCBtdWx0aXZhcmlhdGUgb3JkaW5hdGlvbiBtZXRob2RzIHRvIGFuYWx5c2UgY2hhbmdlcyBpbiBjb21tdW5pdHkgY29tcG9zaXRpb24uIEluIHRoZSBuZXh0LCBhbmQgZmluYWwsIHNlc3Npb24sIHdlIHdpbGwgZXhwbG9yZSBhbm90aGVyIGZvcm0gb2YgbXVsdGl2YXJpYXRlIGFuYWx5c2lzIHRoYXQgZG9lcyBub3QgcmVseSBvbiBvcmRpbmF0aW9uOiBqb2ludCBTcGVjaWVzIERpc3RyaWJ1dGlvbiBNb2RlbHMgKGpTRE1zKQ0KDQo8ZGV0YWlscz4NCjxzdW1tYXJ5PlNvZnR3YXJlIHZlcnNpb25zPC9zdW1tYXJ5Pg0KDQpgYGB7ciBzb2Z0d2FyZS1pbmZvcm1hdGlvbiwgY2xhc3Muc291cmNlPSJmb2xkLW5vbmUifQ0Kc2Vzc2lvbkluZm8oKQ0KYGBgDQoNCjwvZGV0YWlscz4NCg0KLS0tDQoNCltQcmV2aW91czogU2Vzc2lvbiAxXShzZXNzaW9uMS5odG1sKSB8IFtIb21lXShpbmRleC5odG1sKSB8IFtOZXh0OiBTZXNzaW9uIDNdKHNlc3Npb24zLmh0bWwpDQo=</div>
 
 
 </div>

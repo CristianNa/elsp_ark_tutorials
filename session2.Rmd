@@ -1,11 +1,386 @@
 ---
-title: "Session 2: RDA and indicator species analysis"
+title: "Session 2: Multivariate and Indicator Species Analysis"
 ---
 
-## Tutorial status
+```{r chunk-options, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = TRUE,
+                     error = FALSE, cache = FALSE, fig.width = 8,
+                     fig.height = 5, fig.align = "center")
+```
 
-This tutorial is under development.
+## What we will cover in this session
 
-[Previous: Session 1](session1.html) |
-[Home](index.html) |
-[Next: Session 3](session3.html)
+In [Session 1](session1.html), we saw how to address multivariate biodiversity data by summarising into univariate metrics such as richness or diversity indices. However, two samples oculd have the same richness of completely different taxa. 
+
+Here, we will use fungal data to ask how the whole community varies across the four habitat types, using a type of multi-variate analysis, distance-based Redundancy Analysis (db-RDA).
+
+We will also see how to do an Indicator Species Analysis (ISA) to find associations between taxa and habitat types. 
+
+We will:
+
+1. Prepare the working environment (again again).
+2. Multivariate ordination analysis with db-RDA
+3. Indicator Species Analysis
+
+As in Sessions 0 and 1, we use *taxon* and *taxa* instead of species as we use a mixed taxonomy approach. 
+
+
+## 1. Prepare the working environment
+
+### Load the packages
+
+We will rely largely on `vegan` for this session. We have already used it in session zero, it has many useful tools for ecological summary, analysis, and visualisation. There are also many resources available like this [tutorial](https://peat-clark.github.io/BIO381/veganTutorial.html) by Peat Clark. More can be found in the Vignettes section of the package's official release [here](https://cran.r-project.org/web/packages/vegan/index.html). 
+
+We will use other packages to support this session, including `permute` to support our statistical tests, and `indicspecies` for the indicator analysis. Run the first chunk once if you need to install packages.
+
+```{r install-packages, eval=FALSE}
+install.packages(c("here", "tidyverse", "vegan", "permute", "indicspecies", "knitr", "indicspecies"))
+```
+
+```{r packages}
+library(here)
+library(tidyverse)
+library(vegan)
+library(permute)
+library(knitr)
+library(indicspecies)
+```
+
+### Read the prepared data
+
+The fungal community matrix has one row per sample, and one column per taxa, with read counts as cell values, including zero. We keep a separate table for metadata and for the full taxonomic lineage of each taxa. 
+
+| File | What is it  | What we use it for |
+|:-------------------|:-------------------|:-------------------|
+| `session2_fungi_counts.csv` | Fungal community matrix with read counts. | Multivariate compositional analysis and ISA. |
+| `session2_fungi_metadata.csv` | Environmental metadata | Covariates in the above. |
+
+
+```{r read-prepared-data}
+# Set the the data directory
+data_dir <- here("data", "session2")
+
+# Establish habitat labels, levels, and colours
+habitat_labels <- c(heath = "Heath", regen = "Regen",
+                    com_wood = "Commercial woodland", mat_wood = "Mature woodland")
+
+habitat_levels <- names(habitat_labels)
+
+habitat_colours <- c(heath = "#8B5A2B", regen = "#66CC33",
+                     com_wood = "#2C7FB8", mat_wood = "#005A32")
+
+# Declare vegetation covariates
+veg_vars <- c("moss", "lichen", "herbs", "shrubs", "trees", "bare_litter", "rocky", "fern")
+
+# Declare number of permutations to be used in later analyses
+n_perm <- 9999
+
+# Load community matrix and metadata 
+comm <- read_csv(file.path(data_dir, "session2_fungi_counts.csv"),
+                 col_types = cols(sample_id = col_character(), .default = col_double()),
+                 name_repair = "check_unique") %>%
+  column_to_rownames("sample_id") %>%
+  as.matrix()
+
+metadata <- read_csv(file.path(data_dir, "session2_fungi_metadata.csv"),
+                     col_types = cols(sample_id = col_character(), site_id = col_character(),
+                                      treatment = col_character()))
+```
+
+We match the rows between the two CSVs by `sample_id`. We do this because in analyses like db-RDA, community data and covariates are fed separately, and we must ensure the two are in the same order. 
+
+```{r match-samples}
+
+# Align the metadata to the community matrix 
+metadata <- metadata %>%
+  slice(match(rownames(comm), sample_id)) %>%
+  mutate(treatment = factor(treatment, levels = habitat_levels))
+
+
+comm <- comm[, colSums(comm) > 0, drop = FALSE]
+
+```
+
+Feel free to use the materials from the previous sessions to explore this data. 
+
+### Summarise community matrix to site-level
+
+In Session 1, we spend some time dealing with the nested structure of the data, with multiple samples per site, and the implications on the linear regression's estimates and confidence. We also need to give it some attention here. 
+
+Under ideal conditions, we would be able to pass the nested structure of the data to the db-RDA, as we would do a random effect in a hierarchical model. However, because we lost samples to rarefaction filtering, creating an imbalanced design, we cannot use this. A straightforward alternative is to average samples within sites to a single site-level community. That is what we do below. 
+
+```{r site-community}
+
+# Convert counts to relative read frequencies and average them within sites
+comm_site <- decostand(comm, method = "total") %>%
+  as_tibble(rownames = "sample_id") %>%
+  left_join(select(metadata, sample_id, site_id), by = "sample_id") %>%
+  group_by(site_id) %>%
+  summarise(across(-sample_id, mean), .groups = "drop") %>%
+  column_to_rownames("site_id") %>%
+  as.matrix()
+
+# Summarise the available vegetation measurements 
+cov_site <- metadata %>%
+  distinct(site_id, treatment, .keep_all = T) %>%
+  select(site_id, treatment, all_of(veg_vars))
+
+
+```
+
+
+## 2. Multivariate ordination analysis with with db-RDA
+
+### A taster of Multivariate methods
+
+Multivariate analysis is an umbrella term for a diverse suite of methods that allow us deal with data with multiple response variables. Biodiversity data is one such type of data, where you are interested in studying changes across sets of taxa, rather than one taxa at a time. One family of multivariate analysis is ordination. 
+
+There are many examples of ordination methods, popular ones include Principal Component Analysis (which we used in Session 1 to prepare a set of vegetation scores for our regressions), Redundancy Analysis (RDA), Canonical Correspondence Analysis (CCA), Non-metric Multidimensional Scaling (NMDS). They all differ in how the treat the data, and what they are trying to preserve, but they all attempt to reduce the number of dimensions (originally we have one per taxa) to a tractable number, typically 2 to 3, while *preserving* information form the original highly dimensional object that is our community composition. 
+
+In a nutshell, if you have Taxa A, as the Y-axis of a scatter plot, and Taxa B as the X-axis, you can place a data point in this graph according to the abundance of these two taxa and create a 2D (flat) cloud of points. If you added a third Taxa, C, and a third axis, Z, you would create a 3D point cloud. Now if you added a fourth, fight, 100th taxa, you have an object that human brains cannot process, but mathematically we can, and computers can do it for us.
+
+For more detail on these methods, see chapters 11-13 of [Analyzing Ecological Data](https://doi.org/10.1007/978-0-387-45972-1) by Zuur et al, and for an example of its application, [Ramette's](https://doi.org/10.1111/j.1574-6941.2007.00375.x) publication.
+
+
+### Dissimilarity indices
+
+A rough split can be drawn in these methods based on whether the information they use is extracted directly from the geometry of the data, PCA and RDA use Euclidean distances (i.e., straight lines) between points or from dissimilarity matrices (e.g., NMDS, db-RDA). 
+
+There are also a range of dissimilarity indices that can be used. Bray-Curtis is a commonly used when you have some measure of abundance, with presence-absence data it becomes a Sørensen dissimilarity index, similar to Jaccard's Index. For more information, see chapter 12 of [Ecological Methodology](https://www.zoology.ubc.ca/~krebs/books.html).
+
+Regardless of the index, the way the work is that two samples with identical composition of taxa will have a dissimilarity of zero, and two samples with no overlap will have a dissimilarity of 1, and everything in between expresses the range of (dis)similarity between pairs of samples. This is placed into a matrix with samples as both rows and column, with each cell containing the dissimilarity between each pair. This is then fed to your method of choice, alongside your environmental covariates as metadata, if applicable. 
+
+### Distance-based Redundancy Analysis
+
+From the options available, here we will apply distance-based Redundancy Analysis (db-RDA), which takes in a dissimilarity matrix, Bray-Curtis in our case, estimated from relative read abundances. This is a useful set up, when we want to learn about the power of covariates, e.g., vegetation, habitat type, to explain changes in community composition. 
+
+```{r rda-data}
+# Retain the same sites for all models and calculate their dissimilarities
+cov_rda <- cov_site %>%
+  drop_na(all_of(veg_vars)) %>%
+  mutate(treatment = droplevels(treatment))
+
+# Estimate Bray-Curtis Dissimilarity from community data at site-level
+bray <- vegdist(comm_site[cov_rda$site_id, , drop = FALSE], method = "bray")
+
+```
+
+
+### Model selection?
+
+Unlike in linear regression, we don't have a straight forward criterion to choose between models like AIC when using permutation-based statistical tests. What we can use, is the percentage of variance explained R-square and adjusted R-square, to assess the performance of different models. Here we test three models: with treatment only, with vegetation only, and with both. 
+
+```{r fit and test rda-models}
+
+# Fit habitat, vegetation and combined models to the same distances
+rda_habitat <- dbrda(bray ~ treatment, data = cov_rda)
+
+rda_vegetation <- dbrda(bray ~ moss + lichen + herbs + shrubs + trees + bare_litter + 
+    rocky + fern, data = cov_rda)
+
+rda_full <- dbrda(bray ~ treatment + moss + lichen + herbs + shrubs + trees + bare_litter + 
+    rocky + fern, data = cov_rda)
+
+
+# Test the models' explanatory power
+set.seed(123)
+
+perms <- shuffleSet(nrow(cov_rda), nset = n_perm)
+
+
+# Extract R-square and run the overall permutation test for each model
+r2_habitat <- RsquareAdj(rda_habitat)
+test_habitat <- anova(rda_habitat, permutations = perms)
+
+r2_vegetation <- RsquareAdj(rda_vegetation)
+test_vegetation <- anova(rda_vegetation, permutations = perms)
+
+r2_full <- RsquareAdj(rda_full)
+test_full <- anova(rda_full, permutations = perms)
+
+
+# Put the three model results side by side in one table ----
+model_summary <- tibble(
+  Model = c("Habitat", "Vegetation", "Habitat + vegetation"),
+  `R-square` = c(r2_habitat$r.squared, r2_vegetation$r.squared, r2_full$r.squared),
+  `Adjusted R-square` = c(r2_habitat$adj.r.squared, r2_vegetation$adj.r.squared,
+                    r2_full$adj.r.squared),
+  `Permutation p` = c(test_habitat$`Pr(>F)`[1], test_vegetation$`Pr(>F)`[1],
+                      test_full$`Pr(>F)`[1]))
+
+kable(model_summary, digits = 4, caption = "Fit and overall permutation test for each model")
+
+```
+
+The tests we are running are permutation tests, that we access through the `anova()` function (**AN**alysis *O*f *VA*riance). Permutation tests rely on comparing whether the percentage of variance explained by a set of predictors (habitat, vegetation), is significantly higher than a null model. The null model is prepared by changing (permuting) the labels of your samples, in our case, the site_id because we have averaged samples within sites, and re-fitting the model with the same predictors. This is done many times, so that we can know how often our model outperforms the null model. 
+
+Our example is very illustrative, because in principle the Vegetation only model explained more variance, 48% than the Habitat only model, 26%, and the combination of the two explained 65% of the variance. However, the Vegetation only model is only marginally significant (i.e., ~9% of the time, our model explaines this level of variance on a randomised dataset), the adjusted R-square is only 10%, lower than the Haibtat model, which is 12%, and the two together only have 16% adj.R-square. With these results, one could choose the most parsimonious model (fewer degrees of freedom used) with Habitat only, which already explains most of the variance that is available, and does so signficantly more than the null model. 
+
+With our chosen model, we can tease apart some of the effects, and see which individual levels of habitat are most informative.
+
+```{r rda-terms}
+
+anova(rda_habitat, permutations = perms, by = "onedf")
+
+```
+Like in linear regression, these are contrasts against a reference-level, a null model with all habitats pooled into one category. Each row compared the addition of a habitat category to the previous, and whether this improves the explanatory power of the model. Commercial and mature woodland, and by absence heath, provide the most explanatory power. 
+
+
+### Model validation? 
+
+Dissimilarity-based indices such as db-RDA are very flexible, but require some checks for underlying assumptions too. Specifically, we need to check that the spread of our data points within each group (habitat type) is similar (see the plot below for clarification). 
+
+Differences of dispersion can be caused if a particular habitat had a very homogeneous fungal community, our data points would be tightly clustered, while a more heterogeneous habitat will have them spread over a larger area. If this is the case, we cannot know whether the significance of our habitat covariate is due to genuine differences in community composition, or differences in dispersion. Though the latter, is also informative about community arrangements in the system. 
+
+
+```{r habitat-dispersion}
+
+# Compare within-habitat dispersion using the same sites and distances
+dispersion <- betadisper(bray, group = cov_rda$treatment, bias.adjust = TRUE)
+  
+permutest(dispersion, permutations = perms)
+
+```
+No significant differences in dispersion, therefore the differences we find can be ascribed to shifts in community composition.  
+
+
+### Ordination Plot 
+
+We are ready to visualise our results, in an ordination plot. 
+
+
+```{r ordination-scores}
+
+# Extract the first two habitat-constrained axes
+eig <- eigenvals(rda_habitat, model = "constrained")
+eig <- eig[eig > 0]
+axes <- seq_len(min(2, length(eig)))
+axis_labels <- sprintf("db-RDA%d (%.1f%%)", axes, 100 * eig[axes] / sum(eig))
+
+# Match the plotted site scores to their habitats
+
+site_scores <- scores(rda_habitat, display = "sites", choices = axes, scaling = 1) %>%
+  as_tibble(rownames = "site_id") %>%
+  left_join(select(cov_rda, site_id, treatment), by = "site_id")
+
+```
+
+```{r plot-rda}
+# Format the habitat model statistics for the plot ----
+rda_label <- sprintf("R² = %.2f\nPermutation p = %s",
+                     r2_habitat$r.squared,
+                     format.pval(test_habitat$`Pr(>F)`[1], digits = 3))
+
+# Plot site scores and within-habitat ellipses ----
+plot_rda <- ggplot(site_scores, aes(dbRDA1, dbRDA2, fill = treatment)) +
+  geom_hline(yintercept = 0, linewidth = 0.3, colour = "grey85") +
+  geom_vline(xintercept = 0, linewidth = 0.3, colour = "grey85") +
+  stat_ellipse(aes(colour = treatment, group = treatment),
+               geom = "polygon", type = "t", level = 0.95,
+               alpha = 0.15, linewidth = 0.9, show.legend = FALSE) +
+  geom_point(shape = 21, size = 3.4, stroke = 1, colour = "black") +
+  annotate("text", x = Inf, y = Inf, label = rda_label,
+           hjust = 1.08, vjust = 1.2, size = 3.6) +
+  scale_fill_manual(values = habitat_colours, labels = habitat_labels, drop = FALSE) +
+  scale_colour_manual(values = habitat_colours, drop = FALSE) +
+  scale_x_continuous(expand = expansion(mult = 0.08)) +
+  scale_y_continuous(expand = expansion(mult = 0.08)) +
+  labs(title = "Fungi", subtitle = "Site-level",
+       x = axis_labels[1], y = axis_labels[2], fill = "Treatment") +
+  theme_bw(base_size = 13) +
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(linewidth = 1),
+        axis.line = element_line(colour = "grey65", linewidth = 0.4),
+        plot.title = element_text(face = "bold"),
+        legend.position = "bottom")
+
+plot_rda
+```
+Here, each axis is a dimension that attempts to capture as much variation of the original fungal community as possible. The percentages in brackets the proportion explained by each axis out of the total model's variance explained. This uses unadjusted R-square, hence 24%. Each point represents a site (5 per habitat type) along these new dimensions. Points close together have more similar fungal communities than points far apart. 
+
+The spread of say regen, compared against commercial woodland seems quite different, and it likely is, though with five sites per habitat, we may lack the power to detect this. Overall, we find a distinct and clustered heath fungal community, a regen community that seems to transition from heath towards a mature woodland community, and a commercial woodland fungal community that overlaps, but is also quite distinct from a mature woodland fungal community. 
+
+This concludes are multivariate ordination analysis of fungal communities. 
+
+We will now briefly go over a method to identify taxa that may act as indicators of different habitat types. 
+
+
+## 3. Indicator Species Analysis
+
+Another way of handling multivariate data, is identifying those taxa that are most informative about the process of interest, here, the ecological succession of the fungal community. Essentially a different way of reducing the dimensionality of the data. 
+
+We can do this through an Indicator Species Analysis (ISA). We use the `multipatt()` function from the `indicspecies` package to access the `IndVal.g` metric first developed by Dufrêne and Legendre ([1997](https://doi.org/10.2307/2963459)).
+
+It is a straight forward but clever piece of maths. It has two components: 
+
+| Component | How to read it |
+|:----------|:---------------|
+| Specificity, \(A\) | The habitat's share of the taxon's mean relative read frequency summed across habitat means. It is high when the taxon's reads are concentrated in that habitat. |
+| Fidelity, \(B\) | The proportion of sites in that habitat with a detection. It is high when the taxon is detected at most of the habitat's sites. |
+
+The statistic returned is \(\sqrt{A \times B}\), which tells us whether a particular taxa is associated to a habitat category. This is wrapped with a permutation test to give us a probability that the association is more likely than it would be expected by chance. 
+
+
+```{r indicator-analysis}
+
+# Implement ISA with multipatt
+habitat_group <- droplevels(cov_site$treatment)
+set.seed(123)
+isa <- multipatt(comm_site, cluster = as.integer(habitat_group),
+                               func = "IndVal.g", duleg = TRUE,
+                               control = how(nperm = n_perm))
+
+```
+
+This returns an indicator value, and p-value for each individual taxa in our dataset (441). We are going to visualise a subset with values higher than 0.5, and that are statistically significant (p < 0.05). 
+
+```{r indicator-results}
+
+# Extract information from the isa object
+selected_index <- cbind(seq_len(nrow(isa$sign)), isa$sign$index)
+
+# Gather the data in a readable format
+isa_table <- isa$sign %>%
+  as_tibble(rownames = "taxon") %>%
+  mutate(taxon = taxon,
+         treatment = factor(levels(habitat_group)[index], levels = habitat_levels),
+         specificity = isa$A[selected_index], fidelity = isa$B[selected_index],
+         indval = stat, p_value = p.value, p_adj = p.adjust(p.value, method = "BH"),
+         .keep = "none")
+
+# Filter by indicator value and significance
+isa_selected <- isa_table %>%
+  filter(indval > 0.50, p_value < 0.05)
+
+# Print
+isa_selected %>%
+  arrange(treatment, desc(indval)) %>%
+  mutate(treatment = unname(habitat_labels[as.character(treatment)])) %>%
+  select(Habitat = treatment, Taxon = taxon, Specificity = specificity,
+         Fidelity = fidelity, `IndVal score` = indval, `Permutation p` = p_value) %>%
+  kable(digits = 4, caption = "Fungal indicator candidates by habitat")
+
+```
+
+We will not go into these species here, though the association of a *Suillus* species with the regen sites is of great ecological relevance. 
+
+We will take a moment to consider a potential issue arising from a test like this, multiple testing. We have done a statistical indicator test for each taxa in our dataset >400. Doing so many tests, inflates the probability of a Type I error. Type I error is finding a statistical association when there is none, i.e., if we run enough tests, a given species may appear associated to a habitat purely by chance, and the more tests you do, the higher this probability it is. It is also called false positive, and its counterpart is the Type II error, or false negative, i.e., not finding a statistical association when there is one.
+
+To avoid these we should, first of all, only run relevant statistical tests. For instance, we might want to restrict our taxa to symbiotrophic fungi that are more likely to respond to changes in above ground vegetation. When we have our minimal set, if it is still a large number of tests, we may want to adjust p-values for multiple testing. 
+
+These corrections adjust the threshold of statistical significance based on how many tests are being run. There are many, Bonferroni is widely known. Here we use Benjamini–Hochberg (BH). We have kept `p_adj = p.adjust(p.value, method = "BH")` in the code above to demonstrate its use, but otherwise it is unused, as with only 20 sites, and over 400 taxa, no statistical test maintains its significance after the correction. Thus, we should be careful with our interpretation of the ISA, and use it for exploratory purposes, and not to draw strong biological inference. 
+
+Thus concludes our second session, where we have used multivariate ordination methods to analyse changes in community composition. In the next, and final, session, we will explore another form of multivariate analysis that does not rely on ordination: joint Species Distribution Models (jSDMs)
+
+<details>
+<summary>Software versions</summary>
+
+```{r software-information, class.source="fold-none"}
+sessionInfo()
+```
+
+</details>
+
+---
+
+[Previous: Session 1](session1.html) | [Home](index.html) | [Next: Session 3](session3.html)
