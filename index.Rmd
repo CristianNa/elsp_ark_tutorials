@@ -20,17 +20,17 @@ While it is possible to follow through with little to no experience in R, adapti
 
 We have prepared four sessions:
 
-1. [Session 0: Where do you start?](session0.html) will walk you through the data preparation typically needed after bioinformatic analysis. 
-2. [Session 1: Diversity indices and linear regression](session1.html) will show you how to estimate various diversity indices, and analyse them through a linear regression. 
-3. [Session 2: RDA and indicator species analysis](session2.html) walks through an example of multivariate analysis with distance-based Redundancy Analysis and Indicator Species Analysis. 
-4. [Session 3: Joint species distribution models](session3.html) provides another example of multivariate analysis with joint species distribution models, specifically, HMSC. 
+1. [Session 0: Getting started?](session0.html) will walk you through the data preparation typically needed after bioinformatic analysis. 
+2. [Session 1: Diversity indices and regression](session1.html) will show you how to estimate various diversity indices, and analyse them through a linear regression. 
+3. [Session 2: Multivariate and indicator species analysis](session2.html) walks through an example of multivariate ordination analysis with distance-based Redundancy Analysis and Indicator Species Analysis. 
+4. [Session 3: Joint species distribution models](session3.html) provides an example of non-ordination multivariate analysis with joint species distribution models, specifically, HMSC. 
 
 
 ## How to use the tutorials
 
-Each tutorials has explanatory text, blocks of code, data examples and plots. Download the data *(here)[insert link]*, read through the text, and copy the code over to your own script, check that there are no errors, and that the outputs match. 
+Each tutorials has explanatory text, blocks of code, data examples and plots. Download the data [here](data/data.zip), read through the text, and copy the code over to your own script, check that there are no errors, and that the outputs match. 
 
-If you dare, adapt and apply the code to your own data.
+When you are ready, adapt and apply the code to your own data.
 
 You can also download the raw RMarkDown file, which contain both explanations and code, by clicking the grey square *Code* at the top right of each page, next to the title. 
 
@@ -38,4 +38,11 @@ You can also download the raw RMarkDown file, which contain both explanations an
 ## If you have any questions
 
 If you have issues with the materials or questions, please don't hesitate to contact [us](mailto:Cristian.Waggershauser.ic@uhi.ac.uk), we will try to help as best we can. 
+
+
+## Data access and reuse
+
+The data in this tutorial is freely accessible under a [CC BY-NC-SA 4.0 license](https://creativecommons.org/licenses/by-nc-sa/4.0/). 
+If you would like to work on the data for your own research purposes, please contact [Cristian Navarro Waggershauser](mailto:Cristian.Waggershauser.ic@uhi.ac.uk).
+
 

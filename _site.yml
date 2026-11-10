@@ -23,9 +23,9 @@ navbar:
       menu:
         - text: "Session 0: Getting started"
           href: session0.html
-        - text: "Session 1: Diversity and regression"
+        - text: "Session 1: Diversity indices and regression"
           href: session1.html
-        - text: "Session 2: RDA and indicator species analysis"
+        - text: "Session 2: Multivariate and indicator species analysis"
           href: session2.html
         - text: "Session 3: Joint species distribution models"
           href: session3.html
