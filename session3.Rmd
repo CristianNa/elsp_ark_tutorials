@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = TRUE,
 In [Session 2](session2.html), we used multivariate analysis methods that rely on ordination to explain changes at the community level.  Ordination-based methods are straight forward to use, and provide valuable visual summaries. However, they are restricted to the layers of data that they can handle, typically community data, and environmental metadata, and explanatory power is usually small, in our case never exceeds 30%.  
 
 There are other multivariate methods that do not rely on ordination. Joint Species Distribution Models (jSDMs) are one of such methods. We will not go into the theory behind such models, it is worth noting that they are essentially extensions of (generalised) linear regression, where the occurrence/abundance of multiple species is modeled in parallel regressions. 
-A particularly powerful and useful method of jSDMs, are Hierarchical Models for Species Communities (HMSC) developed in Finland by Otso Ovaskainen and his team. HMSC can take not only community data and environmental data, but also phylogenetic relationships, or taxonomic-traits (e.g., type of movement, body size). Moreover, they can take advantage of hierarchical models to fit spatially and temporally nested sampling structures. Lastly, it is also possible to extract the remaining residual correlations among species, which, if one had accounted for all sources of variation in the community (big assumption), the residual correlations would express interactions among taxa. 
+A particularly powerful and useful method of jSDMs, are Hierarchical Models for Species Communities (HMSC) developed in Finland by [Otso Ovaskainen](https://researchportal.helsinki.fi/en/persons/otso-ovaskainen/) and his team. HMSC can take not only community data and environmental data, but also phylogenetic relationships, or taxonomic-traits (e.g., type of movement, body size). Moreover, they can take advantage of hierarchical models to fit spatially and temporally nested sampling structures. Lastly, it is also possible to extract the remaining residual correlations among species, which, if one had accounted for all sources of variation in the community (big assumption), the residual correlations would express interactions among taxa. 
 
 Here we will walk through a small example of how to fit such a model, using or fungal community data, habitat type as our main effect, a spatial random effect to account for our nested samples within a site, and how to extract the main outputs. 
 
@@ -88,7 +88,7 @@ habitat_labels <- c(heath = "Heath", regen = "Regen",
 
 ```
 
-## 2. Match soil samples to metadata
+## 2. Load and prepare data
 
 In Session 2, we averaged soil samples within each site so we could compare sites. Here we keep **one row per soil sample** and tell the model which samples share a site. We use the same filtered fungal counts and match them to their metadata by `sample_id`. The model uses samples with a habitat, site and field identifier, and coordinates.
 
@@ -186,7 +186,7 @@ tax_tree <- ape::collapse.singles(tax_tree)
 We now have all the items, and we can start preparing the objects the model will take. 
 
 
-### Prepare and fit the model
+### Prepare inputs to the model
 
 HMSC, like many R packages and methods, has a particular way in which it is fit. Some of of these "quirks" are optional, but it makes things easier to follow if we keep things consistent with the developers. For the most part, they are just generalisations from what we have already used.
 
@@ -324,7 +324,7 @@ Here we have plotted a few examples of paramteres. B, or $\beta$, refers to the 
 We need to separate the issues of having run a small model, which may lead to poor chains, from more structural issues of the model. Here, for instance the habitat effects are close to being good, but they would benefit from a larger run. The intercept is showing a deeper problem, with big jumps in in the red and black chains at the beginning and end of the run. To troubleshoot, we would need to run a model with larger chains. If the problems persist, a simpler model with fewer parameters may benefit, or another random effect structure, may help. More data always helps too. We could also consider more strict or relaxed priors, but this is outside of the scope of this tutorial. 
 
 
-## Chain Summaries
+### Chain Summaries
 
 We can also evaluate the chains with a series of parameters. \(\hat{R}\) and Effective Sample Size (ESS) are two such metrics. We want large ESS, and \(\hat{R}\) close to 1.
 
@@ -554,7 +554,7 @@ Other community-level metrics like diversity indices or turnover can be extracte
 This concludes are demonstration of the use of joint Species Distribution Models with environmental DNA data, and this series of tutorials. 
 
 
-### Bonus content
+## Bonus method
 
 For those wanting to go even further, consider exploring models like [eDNA Plus](https://doi.org/10.1080/01621459.2024.2412362) and [occJSDM](https://doi.org/10.1111/ele.70302) which take into account the field and laboratory observation methods too.
 

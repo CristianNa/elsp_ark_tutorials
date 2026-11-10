@@ -120,7 +120,7 @@ div_cc %>%
         caption = "Mean diversity within soil samples by habitat")
 ```
 
-See the [short](link) and [long](link) reports for a more in-depth interpretation of results. Briefly, we find that regen and commercial woodland, have the highest richness and \(H_1\), with mature woodland close behind, while heath has the lowest richness and diversity. Interestingly, the effective number of species is substantially lower than richness, indicating that few taxa typically dominate a sample. 
+We find that regen and commercial woodland, have the highest richness and \(H_1\), with mature woodland close behind, while heath has the lowest richness and diversity. Interestingly, the effective number of species is substantially lower than richness, indicating that few taxa typically dominate a sample. 
 
 We can also visualise these with `ggplot`. This package is highly versatile and a staple in data explorations. [Here](https://ggplot2.tidyverse.org/articles/ggplot2.html) is the official introduction to learn how it works. 
 
