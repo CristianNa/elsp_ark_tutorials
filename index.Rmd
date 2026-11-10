@@ -28,7 +28,7 @@ We have prepared four sessions:
 
 ## How to use the tutorials
 
-Each tutorials has explanatory text, blocks of code, data examples and plots. Download the data [here](data/data.zip), read through the text, and copy the code over to your own script, check that there are no errors, and that the outputs match. 
+Each tutorials has explanatory text, blocks of code, data examples and plots. Download the data [here](https://raw.githubusercontent.com/CristianNa/elsp_ark_tutorials/main/data/data.zip), read through the text, and copy the code over to your own script, check that there are no errors, and that the outputs match. 
 
 When you are ready, adapt and apply the code to your own data.
 
